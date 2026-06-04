@@ -525,7 +525,7 @@
         <a href="#">Devenir Client</a>
         <a href="#">Contact</a>
         <a href="#">À Propos</a>
-        <a href="#">Accès Admin</a>
+        <a href="#" onclick="openAdmin(); return false;" id="admin-nav-link">Accès Admin</a>
     </nav>
 
     <!-- HERO -->
@@ -900,6 +900,749 @@
     sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
     inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(inputEl.value); });
     function sendSuggestion(btn) { sendMessage(btn.textContent.replace(/^[^\w]+/, '')); }
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ADMIN PANEL
+    ════════════════════════════════════════════════════════════ -->
+    <style>
+    /* OVERLAY */
+    #admin-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(5,20,12,0.82);
+        z-index: 99990;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+    }
+    #admin-overlay.show { display: flex; }
+
+    /* LOGIN BOX */
+    #admin-login {
+        background: #fff;
+        border-radius: 14px;
+        padding: 40px 36px;
+        width: 360px;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+        text-align: center;
+    }
+    #admin-login .al-logo {
+        width: 52px; height: 52px; border-radius: 50%;
+        background: var(--vert-fonce);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 22px; margin: 0 auto 16px;
+    }
+    #admin-login h2 { font-family: 'Playfair Display',serif; font-size: 22px; color: var(--vert-fonce); margin-bottom: 4px; }
+    #admin-login p { font-size: 13px; color: var(--texte-leger); margin-bottom: 24px; }
+    #admin-login input[type=password] {
+        width: 100%; padding: 11px 14px; border: 1.5px solid #d0ddd5;
+        border-radius: 8px; font-size: 14px; font-family: 'DM Sans',sans-serif;
+        outline: none; transition: border-color 0.2s; margin-bottom: 12px;
+    }
+    #admin-login input[type=password]:focus { border-color: var(--vert-vif); }
+    #admin-login .al-btn {
+        width: 100%; padding: 12px; background: var(--vert-vif); color: #fff;
+        border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+        cursor: pointer; transition: background 0.2s;
+    }
+    #admin-login .al-btn:hover { background: var(--vert-medium); }
+    #admin-login .al-err { color: #c0392b; font-size: 12px; margin-top: 8px; display: none; }
+    #admin-login .al-cancel {
+        margin-top: 14px; font-size: 12px; color: var(--texte-leger);
+        cursor: pointer; background: none; border: none; text-decoration: underline;
+    }
+
+    /* ADMIN PANEL */
+    #admin-panel {
+        display: none;
+        background: #f4f7f5;
+        border-radius: 16px;
+        width: 92vw; max-width: 900px;
+        max-height: 88vh;
+        overflow: hidden;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+        flex-direction: column;
+    }
+    #admin-panel.show { display: flex; }
+
+    .ap-header {
+        background: var(--vert-fonce);
+        padding: 18px 24px;
+        display: flex; align-items: center; justify-content: space-between;
+        flex-shrink: 0;
+    }
+    .ap-header h2 { font-family: 'Playfair Display',serif; font-size: 20px; color: #fff; }
+    .ap-header-right { display: flex; align-items: center; gap: 10px; }
+    .ap-logout {
+        background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+        color: #fff; font-size: 12px; font-weight: 600; padding: 6px 14px;
+        border-radius: 6px; cursor: pointer; transition: background 0.2s;
+        font-family: 'DM Sans',sans-serif;
+    }
+    .ap-logout:hover { background: rgba(255,255,255,0.22); }
+    .ap-close {
+        background: none; border: none; color: rgba(255,255,255,0.6);
+        font-size: 22px; cursor: pointer; line-height: 1; padding: 0 4px;
+    }
+    .ap-close:hover { color: #fff; }
+
+    /* TABS */
+    .ap-tabs {
+        display: flex; gap: 0;
+        background: var(--vert-medium);
+        flex-shrink: 0;
+    }
+    .ap-tab {
+        padding: 11px 20px; font-size: 13px; font-weight: 600;
+        color: rgba(255,255,255,0.65); cursor: pointer; border: none;
+        background: none; font-family: 'DM Sans',sans-serif;
+        letter-spacing: 0.04em; transition: all 0.2s; white-space: nowrap;
+    }
+    .ap-tab:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .ap-tab.active { color: #fff; background: rgba(255,255,255,0.15); border-bottom: 2px solid var(--vert-clair); }
+
+    /* BODY */
+    .ap-body { flex: 1; overflow-y: auto; padding: 24px; }
+    .ap-section { display: none; }
+    .ap-section.active { display: block; }
+
+    /* FORM elements */
+    .ap-label { font-size: 12px; font-weight: 600; color: var(--texte-leger); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; display: block; }
+    .ap-input, .ap-textarea, .ap-select {
+        width: 100%; padding: 10px 13px; border: 1.5px solid #d0ddd5;
+        border-radius: 7px; font-size: 13.5px; font-family: 'DM Sans',sans-serif;
+        color: var(--texte); background: #fff; outline: none; transition: border-color 0.2s;
+    }
+    .ap-textarea { resize: vertical; min-height: 80px; }
+    .ap-input:focus, .ap-textarea:focus, .ap-select:focus { border-color: var(--vert-vif); }
+
+    .ap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .ap-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .ap-field { margin-bottom: 14px; }
+
+    .ap-btn {
+        padding: 10px 22px; border-radius: 7px; font-size: 13px; font-weight: 600;
+        cursor: pointer; border: none; font-family: 'DM Sans',sans-serif;
+        transition: all 0.18s;
+    }
+    .ap-btn-primary { background: var(--vert-vif); color: #fff; }
+    .ap-btn-primary:hover { background: var(--vert-medium); }
+    .ap-btn-danger { background: #fdecea; color: #c0392b; border: 1px solid #f5c6c2; }
+    .ap-btn-danger:hover { background: #f5c6c2; }
+    .ap-btn-sm { padding: 6px 13px; font-size: 12px; }
+
+    .ap-card {
+        background: #fff; border-radius: 10px; padding: 18px 20px;
+        margin-bottom: 14px; border: 1px solid #e0ece5;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .ap-card-header {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 12px;
+    }
+    .ap-card-title { font-size: 14px; font-weight: 600; color: var(--vert-fonce); }
+
+    .ap-section-title {
+        font-family: 'Playfair Display',serif; font-size: 20px; color: var(--vert-fonce);
+        margin-bottom: 18px; padding-bottom: 10px;
+        border-bottom: 1px solid #d0ddd5;
+    }
+
+    .ap-tag-preview {
+        display: inline-block; background: var(--vert-fonce); color: #fff;
+        font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+        text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
+    }
+
+    .ap-save-bar {
+        background: #e9f5ee; border: 1px solid #b8dfc8; border-radius: 8px;
+        padding: 10px 16px; margin-bottom: 20px;
+        display: none; align-items: center; justify-content: space-between;
+        font-size: 13px; color: var(--vert-medium);
+    }
+    .ap-save-bar.show { display: flex; }
+
+    .ap-badge-saved {
+        display: inline-flex; align-items: center; gap: 5px;
+        background: #d4edda; color: #1a6b35; font-size: 11px; font-weight: 600;
+        padding: 3px 10px; border-radius: 100px;
+    }
+
+    /* Strip items editor */
+    .strip-item-row {
+        display: flex; gap: 8px; align-items: center; margin-bottom: 8px;
+    }
+    .strip-item-row input { flex: 1; }
+
+    /* Reviews */
+    .review-card {
+        background: #fff; border-radius: 8px; padding: 14px 16px;
+        margin-bottom: 10px; border: 1px solid #e0ece5;
+        display: flex; align-items: flex-start; gap: 12px;
+    }
+    .review-stars { color: #f0a500; font-size: 14px; letter-spacing: 1px; }
+
+    /* Dashboard stats */
+    .ap-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
+    .ap-stat {
+        background: #fff; border-radius: 10px; padding: 16px 18px;
+        border: 1px solid #e0ece5; text-align: center;
+    }
+    .ap-stat-num { font-family: 'Playfair Display',serif; font-size: 28px; font-weight: 700; color: var(--vert-vif); }
+    .ap-stat-label { font-size: 12px; color: var(--texte-leger); margin-top: 2px; }
+
+    @media (max-width: 640px) {
+        #admin-panel { width: 98vw; max-height: 95vh; }
+        .ap-row, .ap-row-3 { grid-template-columns: 1fr; }
+        .ap-stats { grid-template-columns: 1fr 1fr; }
+        .ap-tab { padding: 9px 12px; font-size: 11px; }
+    }
+    </style>
+
+    <!-- OVERLAY -->
+    <div id="admin-overlay">
+
+        <!-- LOGIN -->
+        <div id="admin-login">
+            <div class="al-logo">🔐</div>
+            <h2>Espace Admin</h2>
+            <p>Fred Rénovation — accès restreint</p>
+            <input type="password" id="admin-pwd" placeholder="Mot de passe" autocomplete="current-password" />
+            <button class="al-btn" onclick="doLogin()">Connexion</button>
+            <div class="al-err" id="admin-err">Mot de passe incorrect.</div>
+            <button class="al-cancel" onclick="closeAdmin()">Annuler</button>
+        </div>
+
+        <!-- PANEL -->
+        <div id="admin-panel">
+            <div class="ap-header">
+                <h2>🏠 Admin — Fred Rénovation</h2>
+                <div class="ap-header-right">
+                    <button class="ap-logout" onclick="doLogout()">Déconnexion</button>
+                    <button class="ap-close" onclick="closeAdmin()">✕</button>
+                </div>
+            </div>
+
+            <div class="ap-tabs">
+                <button class="ap-tab active" onclick="showTab('dashboard')">📊 Tableau de bord</button>
+                <button class="ap-tab" onclick="showTab('services')">🔧 Services</button>
+                <button class="ap-tab" onclick="showTab('strip')">📢 Annonces</button>
+                <button class="ap-tab" onclick="showTab('reviews')">⭐ Avis</button>
+                <button class="ap-tab" onclick="showTab('contact')">📞 Contact</button>
+                <button class="ap-tab" onclick="showTab('pwd')">🔑 Mot de passe</button>
+            </div>
+
+            <div class="ap-body">
+
+                <!-- DASHBOARD -->
+                <div class="ap-section active" id="tab-dashboard">
+                    <div class="ap-section-title">Tableau de bord</div>
+                    <div class="ap-stats" id="dash-stats"></div>
+                    <div class="ap-card">
+                        <div class="ap-card-header"><span class="ap-card-title">Dernières modifications</span></div>
+                        <div id="dash-log" style="font-size:13px;color:var(--texte-leger);line-height:1.8;"></div>
+                    </div>
+                </div>
+
+                <!-- SERVICES -->
+                <div class="ap-section" id="tab-services">
+                    <div class="ap-section-title">Gérer les services</div>
+                    <div id="services-list"></div>
+                    <button class="ap-btn ap-btn-primary" onclick="addService()">+ Ajouter un service</button>
+                </div>
+
+                <!-- STRIP -->
+                <div class="ap-section" id="tab-strip">
+                    <div class="ap-section-title">Bandeau d'annonces</div>
+                    <p style="font-size:13px;color:var(--texte-leger);margin-bottom:16px;">Ces textes apparaissent dans le bandeau vert sous le héro.</p>
+                    <div id="strip-list"></div>
+                    <div style="display:flex;gap:10px;margin-top:8px;">
+                        <button class="ap-btn ap-btn-primary" onclick="addStripItem()">+ Ajouter</button>
+                        <button class="ap-btn ap-btn-primary" onclick="saveStrip()">💾 Enregistrer</button>
+                    </div>
+                </div>
+
+                <!-- REVIEWS -->
+                <div class="ap-section" id="tab-reviews">
+                    <div class="ap-section-title">Avis clients</div>
+                    <div id="reviews-list"></div>
+                    <div class="ap-card">
+                        <div class="ap-card-header"><span class="ap-card-title">Ajouter un avis</span></div>
+                        <div class="ap-row">
+                            <div class="ap-field">
+                                <label class="ap-label">Prénom & Nom</label>
+                                <input class="ap-input" id="rev-name" placeholder="Marie D." />
+                            </div>
+                            <div class="ap-field">
+                                <label class="ap-label">Note (1–5 étoiles)</label>
+                                <select class="ap-select" id="rev-stars">
+                                    <option value="5">⭐⭐⭐⭐⭐ — Excellent</option>
+                                    <option value="4">⭐⭐⭐⭐ — Très bien</option>
+                                    <option value="3">⭐⭐⭐ — Bien</option>
+                                    <option value="2">⭐⭐ — Moyen</option>
+                                    <option value="1">⭐ — Décevant</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="ap-field">
+                            <label class="ap-label">Commentaire</label>
+                            <textarea class="ap-textarea" id="rev-text" placeholder="Travail soigné, équipe professionnelle..."></textarea>
+                        </div>
+                        <div class="ap-field">
+                            <label class="ap-label">Service concerné</label>
+                            <input class="ap-input" id="rev-service" placeholder="Toiture, Isolation, Carrelage..." />
+                        </div>
+                        <button class="ap-btn ap-btn-primary" onclick="addReview()">Ajouter l'avis</button>
+                    </div>
+                </div>
+
+                <!-- CONTACT -->
+                <div class="ap-section" id="tab-contact">
+                    <div class="ap-section-title">Informations de contact</div>
+                    <div class="ap-card">
+                        <div class="ap-row">
+                            <div class="ap-field">
+                                <label class="ap-label">Téléphone</label>
+                                <input class="ap-input" id="ct-phone" placeholder="+32 4XX XXX XXX" />
+                            </div>
+                            <div class="ap-field">
+                                <label class="ap-label">Email</label>
+                                <input class="ap-input" id="ct-email" value="contact.fredrenovation@gmail.com" />
+                            </div>
+                        </div>
+                        <div class="ap-row">
+                            <div class="ap-field">
+                                <label class="ap-label">Ville / Région</label>
+                                <input class="ap-input" id="ct-city" placeholder="Belgique" />
+                            </div>
+                            <div class="ap-field">
+                                <label class="ap-label">Numéro TVA / BCE</label>
+                                <input class="ap-input" id="ct-tva" placeholder="BE 08332520" />
+                            </div>
+                        </div>
+                        <div class="ap-field">
+                            <label class="ap-label">Slogan (affiché dans le héro)</label>
+                            <input class="ap-input" id="ct-slogan" placeholder="Votre maison, notre passion." />
+                        </div>
+                        <div class="ap-field">
+                            <label class="ap-label">Années d'expérience (statistique)</label>
+                            <input class="ap-input" id="ct-years" placeholder="15+" />
+                        </div>
+                        <button class="ap-btn ap-btn-primary" onclick="saveContact()">💾 Enregistrer</button>
+                    </div>
+                </div>
+
+                <!-- MOT DE PASSE -->
+                <div class="ap-section" id="tab-pwd">
+                    <div class="ap-section-title">Changer le mot de passe</div>
+                    <div class="ap-card" style="max-width:380px;">
+                        <div class="ap-field">
+                            <label class="ap-label">Mot de passe actuel</label>
+                            <input class="ap-input" type="password" id="pwd-current" />
+                        </div>
+                        <div class="ap-field">
+                            <label class="ap-label">Nouveau mot de passe</label>
+                            <input class="ap-input" type="password" id="pwd-new" />
+                        </div>
+                        <div class="ap-field">
+                            <label class="ap-label">Confirmer le nouveau</label>
+                            <input class="ap-input" type="password" id="pwd-confirm" />
+                        </div>
+                        <button class="ap-btn ap-btn-primary" onclick="changePwd()">🔑 Changer</button>
+                        <div id="pwd-msg" style="font-size:13px;margin-top:10px;"></div>
+                    </div>
+                </div>
+
+            </div><!-- /ap-body -->
+        </div><!-- /admin-panel -->
+    </div><!-- /admin-overlay -->
+
+    <script>
+    // ═══════════════════════════════════════════
+    // ADMIN — Storage helpers
+    // ═══════════════════════════════════════════
+    const ADMIN_PWD_KEY  = 'fred_admin_pwd';
+    const ADMIN_DATA_KEY = 'fred_admin_data';
+    const DEFAULT_PWD    = 'fred2026';
+
+    function getAdminPwd() { return localStorage.getItem(ADMIN_PWD_KEY) || DEFAULT_PWD; }
+    function getData() {
+        try { return JSON.parse(localStorage.getItem(ADMIN_DATA_KEY)) || defaultData(); }
+        catch(e) { return defaultData(); }
+    }
+    function saveData(d) {
+        d.lastSaved = new Date().toLocaleString('fr-FR');
+        localStorage.setItem(ADMIN_DATA_KEY, JSON.stringify(d));
+    }
+    function defaultData() {
+        return {
+            services: [
+                { id:1, tag:'Toiture',    title:'Couverture traditionnelle', text:'Tuile, zinc, bac acier. Des matériaux haut de gamme pour allier durabilité et esthétique.', img:'https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop' },
+                { id:2, tag:'Étanchéité', title:'Toiture plate EPDM',        text:'Résistante et hautement durable, notre solution EPDM garantit une protection optimale.',    img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop' },
+                { id:3, tag:'Velux',      title:'Fenêtres de toit',          text:'Plus de lumière, plus de confort. Pose parfaite de Velux pour apporter de la clarté.',      img:'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop' },
+                { id:4, tag:'Menuiserie', title:'Châssis PVC & ALU',         text:'Remplacement de fenêtres et portes. Optimisation des performances thermiques et phoniques.',img:'https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop' },
+                { id:5, tag:'Domotique',  title:'Volets Roulants',           text:'Installation de systèmes manuels ou motorisés pour votre confort quotidien.',              img:'https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop' },
+                { id:6, tag:'Isolation',  title:'Isolation Thermique',       text:'Isolation performante des combles, murs ou sols pour réduire vos déperditions d\'énergie.', img:'https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop' },
+                { id:7, tag:'Aménagement',title:'Placo & Cloisonnement',     text:'Doublage des murs, séparations de pièces et faux plafonds avec finitions soignées.',       img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop' },
+                { id:8, tag:'Revêtements',title:'Carrelage Sol & Mur',       text:'Pose de carrelages, faïences et crédences pour pièces d\'eau, cuisines ou séjours.',       img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop' },
+                { id:9, tag:'Façade',     title:'Bardage Extérieur',         text:'Revêtement esthétique bois ou composite pour moderniser la façade tout en isolant.',       img:'https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop' }
+            ],
+            strip: ['Toiture & Charpente','Toiture Plate EPDM','Velux & Lucarnes','Interventions Urgentes'],
+            reviews: [],
+            contact: { phone:'', email:'contact.fredrenovation@gmail.com', city:'Belgique', tva:'BE 08332520', slogan:'Votre maison, notre passion.', years:'15+' },
+            lastSaved: null,
+            log: []
+        };
+    }
+
+    function logAction(msg) {
+        const d = getData();
+        if (!d.log) d.log = [];
+        d.log.unshift(new Date().toLocaleString('fr-FR') + ' — ' + msg);
+        if (d.log.length > 20) d.log = d.log.slice(0,20);
+        saveData(d);
+    }
+
+    // ═══════════════════════════════════════════
+    // ADMIN — open / close / login
+    // ═══════════════════════════════════════════
+    function openAdmin() {
+        document.getElementById('admin-overlay').classList.add('show');
+        document.getElementById('admin-login').style.display = 'block';
+        document.getElementById('admin-panel').classList.remove('show');
+        document.getElementById('admin-pwd').value = '';
+        document.getElementById('admin-err').style.display = 'none';
+        setTimeout(() => document.getElementById('admin-pwd').focus(), 200);
+    }
+    function closeAdmin() {
+        document.getElementById('admin-overlay').classList.remove('show');
+    }
+    function doLogin() {
+        const val = document.getElementById('admin-pwd').value;
+        if (val === getAdminPwd()) {
+            document.getElementById('admin-login').style.display = 'none';
+            document.getElementById('admin-panel').classList.add('show');
+            refreshAll();
+        } else {
+            document.getElementById('admin-err').style.display = 'block';
+            document.getElementById('admin-pwd').value = '';
+            document.getElementById('admin-pwd').focus();
+        }
+    }
+    document.getElementById('admin-pwd').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+    function doLogout() {
+        document.getElementById('admin-panel').classList.remove('show');
+        document.getElementById('admin-login').style.display = 'block';
+        document.getElementById('admin-pwd').value = '';
+    }
+
+    // ═══════════════════════════════════════════
+    // TABS
+    // ═══════════════════════════════════════════
+    function showTab(name) {
+        document.querySelectorAll('.ap-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.ap-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-'+name).classList.add('active');
+        event.currentTarget.classList.add('active');
+        if (name==='dashboard') refreshDashboard();
+        if (name==='services')  renderServices();
+        if (name==='strip')     renderStrip();
+        if (name==='reviews')   renderReviews();
+        if (name==='contact')   loadContact();
+    }
+
+    function refreshAll() {
+        refreshDashboard();
+        renderServices();
+        renderStrip();
+        renderReviews();
+        loadContact();
+        applyDataToPage();
+    }
+
+    // ═══════════════════════════════════════════
+    // DASHBOARD
+    // ═══════════════════════════════════════════
+    function refreshDashboard() {
+        const d = getData();
+        document.getElementById('dash-stats').innerHTML = `
+            <div class="ap-stat"><div class="ap-stat-num">${d.services.length}</div><div class="ap-stat-label">Services</div></div>
+            <div class="ap-stat"><div class="ap-stat-num">${d.strip.length}</div><div class="ap-stat-label">Annonces</div></div>
+            <div class="ap-stat"><div class="ap-stat-num">${d.reviews.length}</div><div class="ap-stat-label">Avis clients</div></div>
+            <div class="ap-stat"><div class="ap-stat-num">${d.lastSaved ? '✓' : '—'}</div><div class="ap-stat-label">Dernière sauvegarde</div></div>
+        `;
+        const log = d.log && d.log.length ? d.log.map(l => `<div>• ${l}</div>`).join('') : '<div style="color:#aaa">Aucune modification enregistrée.</div>';
+        document.getElementById('dash-log').innerHTML = log;
+    }
+
+    // ═══════════════════════════════════════════
+    // SERVICES
+    // ═══════════════════════════════════════════
+    function renderServices() {
+        const d = getData();
+        const el = document.getElementById('services-list');
+        el.innerHTML = '';
+        d.services.forEach((s, i) => {
+            el.innerHTML += `
+            <div class="ap-card" id="svc-card-${s.id}">
+                <div class="ap-card-header">
+                    <span class="ap-card-title"><span class="ap-tag-preview">${escA(s.tag)}</span> &nbsp;${escA(s.title)}</span>
+                    <div style="display:flex;gap:6px;">
+                        <button class="ap-btn ap-btn-sm ap-btn-primary" onclick="toggleSvcEdit(${s.id})">✏️ Modifier</button>
+                        <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteService(${s.id})">🗑 Supprimer</button>
+                    </div>
+                </div>
+                <div id="svc-edit-${s.id}" style="display:none;">
+                    <div class="ap-row">
+                        <div class="ap-field"><label class="ap-label">Tag / Catégorie</label>
+                            <input class="ap-input" id="svc-tag-${s.id}" value="${escA(s.tag)}" /></div>
+                        <div class="ap-field"><label class="ap-label">Titre du service</label>
+                            <input class="ap-input" id="svc-title-${s.id}" value="${escA(s.title)}" /></div>
+                    </div>
+                    <div class="ap-field"><label class="ap-label">Description</label>
+                        <textarea class="ap-textarea" id="svc-text-${s.id}">${escA(s.text)}</textarea></div>
+                    <div class="ap-field"><label class="ap-label">URL de l'image (Unsplash ou autre)</label>
+                        <input class="ap-input" id="svc-img-${s.id}" value="${escA(s.img)}" /></div>
+                    <button class="ap-btn ap-btn-primary" onclick="saveService(${s.id})">💾 Enregistrer</button>
+                </div>
+            </div>`;
+        });
+    }
+
+    function toggleSvcEdit(id) {
+        const el = document.getElementById('svc-edit-'+id);
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function saveService(id) {
+        const d = getData();
+        const s = d.services.find(x => x.id===id);
+        if (!s) return;
+        s.tag   = document.getElementById('svc-tag-'+id).value.trim();
+        s.title = document.getElementById('svc-title-'+id).value.trim();
+        s.text  = document.getElementById('svc-text-'+id).value.trim();
+        s.img   = document.getElementById('svc-img-'+id).value.trim();
+        saveData(d);
+        logAction('Service modifié : ' + s.title);
+        applyDataToPage();
+        alert('✅ Service "' + s.title + '" enregistré !');
+        toggleSvcEdit(id);
+    }
+
+    function deleteService(id) {
+        if (!confirm('Supprimer ce service ?')) return;
+        const d = getData();
+        const s = d.services.find(x => x.id===id);
+        d.services = d.services.filter(x => x.id!==id);
+        saveData(d);
+        logAction('Service supprimé : ' + (s ? s.title : id));
+        renderServices();
+        applyDataToPage();
+    }
+
+    function addService() {
+        const d = getData();
+        const newId = Date.now();
+        d.services.push({ id: newId, tag:'Nouveau', title:'Nouveau service', text:'Description du service.', img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop' });
+        saveData(d);
+        logAction('Nouveau service ajouté');
+        renderServices();
+        applyDataToPage();
+        setTimeout(() => {
+            document.getElementById('svc-edit-'+newId).style.display = 'block';
+            document.getElementById('svc-edit-'+newId).scrollIntoView({behavior:'smooth'});
+        }, 100);
+    }
+
+    // ═══════════════════════════════════════════
+    // STRIP
+    // ═══════════════════════════════════════════
+    function renderStrip() {
+        const d = getData();
+        const el = document.getElementById('strip-list');
+        el.innerHTML = '';
+        d.strip.forEach((item, i) => {
+            el.innerHTML += `<div class="strip-item-row">
+                <input class="ap-input" value="${escA(item)}" id="strip-item-${i}" />
+                <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="removeStripItem(${i})">✕</button>
+            </div>`;
+        });
+    }
+
+    function addStripItem() {
+        const d = getData();
+        d.strip.push('Nouvelle annonce');
+        saveData(d);
+        renderStrip();
+    }
+
+    function removeStripItem(i) {
+        const d = getData();
+        d.strip.splice(i, 1);
+        saveData(d);
+        renderStrip();
+    }
+
+    function saveStrip() {
+        const d = getData();
+        const inputs = document.querySelectorAll('[id^="strip-item-"]');
+        d.strip = Array.from(inputs).map(inp => inp.value.trim()).filter(Boolean);
+        saveData(d);
+        logAction('Bandeau annonces mis à jour');
+        applyDataToPage();
+        alert('✅ Bandeau enregistré !');
+    }
+
+    // ═══════════════════════════════════════════
+    // REVIEWS
+    // ═══════════════════════════════════════════
+    function renderReviews() {
+        const d = getData();
+        const el = document.getElementById('reviews-list');
+        if (!d.reviews.length) { el.innerHTML = '<p style="color:var(--texte-leger);font-size:13px;margin-bottom:16px;">Aucun avis pour le moment.</p>'; return; }
+        el.innerHTML = d.reviews.map((r,i) => `
+            <div class="review-card">
+                <div style="flex:1;">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                        <strong style="font-size:14px;">${escA(r.name)}</strong>
+                        <span class="review-stars">${'⭐'.repeat(parseInt(r.stars))}</span>
+                        ${r.service ? `<span style="font-size:11px;background:#e9f5ee;color:var(--vert-medium);padding:2px 8px;border-radius:4px;">${escA(r.service)}</span>` : ''}
+                    </div>
+                    <p style="font-size:13px;color:var(--texte-leger);">${escA(r.text)}</p>
+                </div>
+                <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteReview(${i})">🗑</button>
+            </div>`).join('');
+    }
+
+    function addReview() {
+        const name = document.getElementById('rev-name').value.trim();
+        const text = document.getElementById('rev-text').value.trim();
+        if (!name || !text) { alert('Nom et commentaire requis.'); return; }
+        const d = getData();
+        if (!d.reviews) d.reviews = [];
+        d.reviews.push({
+            name, stars: document.getElementById('rev-stars').value,
+            text, service: document.getElementById('rev-service').value.trim(),
+            date: new Date().toLocaleDateString('fr-FR')
+        });
+        saveData(d);
+        logAction('Avis ajouté : ' + name);
+        document.getElementById('rev-name').value = '';
+        document.getElementById('rev-text').value = '';
+        document.getElementById('rev-service').value = '';
+        renderReviews();
+        alert('✅ Avis ajouté !');
+    }
+
+    function deleteReview(i) {
+        if (!confirm('Supprimer cet avis ?')) return;
+        const d = getData();
+        d.reviews.splice(i, 1);
+        saveData(d);
+        logAction('Avis supprimé');
+        renderReviews();
+    }
+
+    // ═══════════════════════════════════════════
+    // CONTACT
+    // ═══════════════════════════════════════════
+    function loadContact() {
+        const d = getData();
+        const c = d.contact || {};
+        document.getElementById('ct-phone').value  = c.phone  || '';
+        document.getElementById('ct-email').value  = c.email  || 'contact.fredrenovation@gmail.com';
+        document.getElementById('ct-city').value   = c.city   || '';
+        document.getElementById('ct-tva').value    = c.tva    || 'BE 08332520';
+        document.getElementById('ct-slogan').value = c.slogan || '';
+        document.getElementById('ct-years').value  = c.years  || '15+';
+    }
+
+    function saveContact() {
+        const d = getData();
+        d.contact = {
+            phone:  document.getElementById('ct-phone').value.trim(),
+            email:  document.getElementById('ct-email').value.trim(),
+            city:   document.getElementById('ct-city').value.trim(),
+            tva:    document.getElementById('ct-tva').value.trim(),
+            slogan: document.getElementById('ct-slogan').value.trim(),
+            years:  document.getElementById('ct-years').value.trim()
+        };
+        saveData(d);
+        logAction('Informations contact mises à jour');
+        applyDataToPage();
+        alert('✅ Contact enregistré !');
+    }
+
+    // ═══════════════════════════════════════════
+    // MOT DE PASSE
+    // ═══════════════════════════════════════════
+    function changePwd() {
+        const cur = document.getElementById('pwd-current').value;
+        const nw  = document.getElementById('pwd-new').value;
+        const cf  = document.getElementById('pwd-confirm').value;
+        const msg = document.getElementById('pwd-msg');
+        if (cur !== getAdminPwd()) { msg.style.color='#c0392b'; msg.textContent='Mot de passe actuel incorrect.'; return; }
+        if (nw.length < 4)         { msg.style.color='#c0392b'; msg.textContent='Le nouveau mot de passe doit faire au moins 4 caractères.'; return; }
+        if (nw !== cf)             { msg.style.color='#c0392b'; msg.textContent='Les mots de passe ne correspondent pas.'; return; }
+        localStorage.setItem(ADMIN_PWD_KEY, nw);
+        msg.style.color='#1a6b35'; msg.textContent='✅ Mot de passe changé avec succès !';
+        document.getElementById('pwd-current').value = '';
+        document.getElementById('pwd-new').value = '';
+        document.getElementById('pwd-confirm').value = '';
+    }
+
+    // ═══════════════════════════════════════════
+    // APPLY DATA TO PAGE (live update)
+    // ═══════════════════════════════════════════
+    function applyDataToPage() {
+        const d = getData();
+
+        // Services grid
+        const grid = document.querySelector('.prestation-grid');
+        if (grid) {
+            grid.innerHTML = '';
+            d.services.forEach((s, i) => {
+                const num = String(i+1).padStart(2,'0');
+                grid.innerHTML += `
+                <div class="prest-card">
+                    <div class="prest-img-box">
+                        <span class="prest-num">${num}</span>
+                        <img src="${escA(s.img)}" alt="${escA(s.title)}" loading="lazy">
+                    </div>
+                    <div class="prest-body">
+                        <span class="prest-tag">${escA(s.tag)}</span>
+                        <h3 class="prest-title">${escA(s.title)}</h3>
+                        <p class="prest-text">${escA(s.text)}</p>
+                    </div>
+                    <div class="prest-footer"><a href="mailto:contact.fredrenovation@gmail.com?subject=Devis%20${encodeURIComponent(s.title)}" class="prest-link">En savoir plus →</a></div>
+                </div>`;
+            });
+            // update count
+            const cnt = document.querySelector('.section-count');
+            if (cnt) cnt.textContent = d.services.length + ' services';
+        }
+
+        // Strip
+        const stripEl = document.querySelector('.strip');
+        if (stripEl && d.strip.length) {
+            stripEl.innerHTML = d.strip.map(t => `<span class="strip-item">${escA(t)}</span>`).join('');
+        }
+
+        // Footer TVA
+        const footerReg = document.querySelector('.footer-reg');
+        if (footerReg && d.contact && d.contact.tva) footerReg.textContent = d.contact.tva;
+
+        // Why years
+        const whyNums = document.querySelectorAll('.why-num');
+        if (whyNums.length && d.contact && d.contact.years) whyNums[0].textContent = d.contact.years;
+    }
+
+    function escA(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    // Auto-apply on page load
+    applyDataToPage();
     </script>
 </body>
 </html>

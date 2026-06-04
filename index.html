@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fred Rénovation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --vert-fonce: #0F3D27;
@@ -39,6 +39,8 @@
             justify-content: flex-end;
             align-items: center;
             gap: 8px;
+            position: relative;
+            z-index: 10;
         }
 
         .top-bar a {
@@ -80,7 +82,7 @@
                     transparent,
                     transparent 60px,
                     rgba(255,255,255,0.015) 60px,
-                    rgba(255,255,255,0.015) 61px
+                    rgba(255,255,255,0.015) 1px
                 );
         }
 
@@ -106,8 +108,6 @@
             gap: 40px;
             align-items: flex-end;
         }
-
-        .hero-left {}
 
         .eyebrow {
             display: inline-flex;
@@ -248,7 +248,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 70px 40px;
+            padding: 60px 40px;
         }
 
         .section-header {
@@ -268,6 +268,13 @@
             letter-spacing: -0.5px;
         }
 
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--texte-leger);
+            margin-top: 5px;
+            font-weight: 400;
+        }
+
         .section-count {
             font-size: 12px;
             font-weight: 600;
@@ -280,6 +287,12 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
 
@@ -290,6 +303,8 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.06);
             transition: all 0.3s ease;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
@@ -307,15 +322,16 @@
             justify-content: center;
         }
 
-        .card-img-icon {
-            font-size: 52px;
-            opacity: 0.35;
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
-        /* Unique tints per card */
-        .card:nth-child(1) .card-img { background: linear-gradient(135deg, #BDD4C6 0%, #90BBA6 100%); }
-        .card:nth-child(2) .card-img { background: linear-gradient(135deg, #C4D8CF 0%, #8FAEA3 100%); }
-        .card:nth-child(3) .card-img { background: linear-gradient(135deg, #CBE0D3 0%, #9EC4B2 100%); }
+        .card:hover .card-img img {
+            transform: scale(1.05);
+        }
 
         .card-number {
             position: absolute;
@@ -323,13 +339,18 @@
             left: 14px;
             font-size: 11px;
             font-weight: 700;
-            color: rgba(15,61,39,0.45);
+            color: rgba(15,61,39,0.55);
             letter-spacing: 0.1em;
-            font-family: 'DM Sans', sans-serif;
+            z-index: 2;
+            background: rgba(255,255,255,0.9);
+            padding: 2px 8px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .card-body {
             padding: 24px;
+            flex-grow: 1;
         }
 
         .card-tag {
@@ -528,18 +549,22 @@
         .hero-cta { animation: fadeUp 0.6s 0.35s ease both; }
 
         /* ---- RESPONSIVE ---- */
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 900px) {
             .hero-content { grid-template-columns: 1fr; }
             .hero-cta { align-items: flex-start; }
-            .grid { grid-template-columns: 1fr 1fr; }
             .why-grid { grid-template-columns: 1fr 1fr; }
             .footer-inner { grid-template-columns: 1fr; }
             .footer-links { justify-content: flex-start; }
         }
 
         @media (max-width: 580px) {
-            .grid { grid-template-columns: 1fr; }
-            .why-grid { grid-template-columns: 1fr 1fr; }
+            .grid, .grid-4 { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; gap: 15px; }
             .top-bar { flex-wrap: wrap; gap: 4px; justify-content: center; }
             .hero-title { letter-spacing: -1px; }
         }
@@ -635,7 +660,10 @@
             font-size: 18px;
             flex-shrink: 0;
         }
-        .chat-header-info {}
+        .chat-header-info {
+            display: flex;
+            flex-direction: column;
+        }
         .chat-header-name {
             font-size: 14px;
             font-weight: 700;
@@ -799,11 +827,6 @@
             0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
             40% { transform: translateY(-5px); opacity: 1; }
         }
-
-        @media (max-width: 580px) {
-            #chat-window { width: calc(100vw - 32px); right: 16px; bottom: 90px; }
-            #chat-bubble { right: 16px; bottom: 16px; }
-        }
     </style>
 </head>
 <body>
@@ -818,7 +841,7 @@
         <a href="#">Accès Admin</a>
     </nav>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg-pattern"></div>
         <div class="hero-accent"></div>
@@ -856,65 +879,201 @@
         <span class="strip-item">Interventions Urgentes</span>
     </div>
 
-    <!-- Prestations -->
+    <!-- Section Notre Différence -->
     <section class="container">
         <div class="section-header">
-            <h2 class="section-title">Nos Prestations</h2>
-            <span class="section-count">3 services</span>
+            <div>
+                <h2 class="section-title">Notre Différence ?</h2>
+                <p class="section-subtitle">Trouver la solution la plus intelligente, pas la plus coûteuse.</p>
+            </div>
+            <span class="section-count">Focus</span>
         </div>
 
-        <div class="grid">
-            <!-- Card 1 -->
+        <div class="grid-4">
+            <!-- Focus A -->
             <div class="card">
                 <div class="card-img">
-                    <span class="card-number">01</span>
-                    <span class="card-img-icon">🏠</span>
+                    <span class="card-number">A</span>
+                    <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=600&auto=format&fit=crop" alt="Menuiserie Fenêtre Moderne Intérieur">
                 </div>
                 <div class="card-body">
-                    <span class="card-tag">Toiture</span>
-                    <h3 class="card-title">Couverture traditionnelle</h3>
-                    <p class="card-text">Tuile, zinc, bac acier. Des matériaux de qualité sélectionnés pour allier durabilité et esthétique à chaque projet.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">En savoir plus →</a>
+                    <h3 class="card-title" style="font-size: 16px;">MENUISERIE PVC-ALU</h3>
+                    <p class="card-text" style="font-size: 13px;">Portes & Fenêtres. Isolation, sécurité et design sur-mesure.</p>
                 </div>
             </div>
-
-            <!-- Card 2 -->
+            <!-- Focus B (CORRIGÉ : Façade avec volets/fenêtres nets) -->
             <div class="card">
                 <div class="card-img">
-                    <span class="card-number">02</span>
-                    <span class="card-img-icon">🛡️</span>
+                    <span class="card-number">B</span>
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop" alt="Menuiseries extérieures et volets de maison moderne">
                 </div>
                 <div class="card-body">
-                    <span class="card-tag">Étanchéité</span>
-                    <h3 class="card-title">Toiture plate EPDM</h3>
-                    <p class="card-text">Résistante et durable, notre solution d'étanchéité EPDM garantit une protection optimale contre les infiltrations sur le long terme.</p>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">En savoir plus →</a>
+                    <h3 class="card-title" style="font-size: 16px;">VOLETS ROULANTS</h3>
+                    <p class="card-text" style="font-size: 13px;">Manuels ou motorisés. Confort, sécurité et économies d'énergie.</p>
                 </div>
             </div>
-
-            <!-- Card 3 -->
+            <!-- Focus C -->
             <div class="card">
                 <div class="card-img">
-                    <span class="card-number">03</span>
-                    <span class="card-img-icon">☀️</span>
+                    <span class="card-number">C</span>
+                    <img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?q=80&w=600&auto=format&fit=crop" alt="Chantier de Rénovation Intérieure Peinture et Enduit">
                 </div>
                 <div class="card-body">
-                    <span class="card-tag">Velux</span>
-                    <h3 class="card-title">Fenêtres de toit</h3>
-                    <p class="card-text">Plus de lumière, plus de confort. Nous installons vos fenêtres de toit Velux pour apporter clarté et bien-être à vos espaces.</p>
+                    <h3 class="card-title" style="font-size: 16px;">RÉNOVATION INTÉRIEURE</h3>
+                    <p class="card-text" style="font-size: 13px;">Placo, peinture et isolation. Un agencement intérieur à votre image.</p>
                 </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">En savoir plus →</a>
+            </div>
+            <!-- Focus D (CORRIGÉ : Zoom sur une vraie façade en lattes de bois) -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">D</span>
+                    <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?q=80&w=600&auto=format&fit=crop" alt="Maison contemporaine avec revêtement bardage bois">
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title" style="font-size: 16px;">BARDAGE EXTÉRIEUR</h3>
+                    <p class="card-text" style="font-size: 13px;">Embellissement de vos façades, protection durable contre les intempéries.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why us -->
+    <!-- Section Prestations Unifiée (9 Services) -->
+    <section class="container" style="background-color: rgba(255,255,255,0.5); border-radius: 16px; padding: 40px;">
+        <div class="section-header">
+            <h2 class="section-title">Nos Prestations</h2>
+            <span class="section-count">9 services</span>
+        </div>
+
+        <div class="grid">
+            <!-- Card 01 -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">01</span>
+                    <img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=600&auto=format&fit=crop" alt="Toiture en tuiles couverture traditionnelle artisanale">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Toiture</span>
+                    <h3 class="card-title">Couverture traditionnelle</h3>
+                    <p class="card-text">Tuile, zinc, bac acier. Des matériaux haut de gamme pour allier durabilité et esthétique à votre toiture.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 02 -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">02</span>
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=600&auto=format&fit=crop" alt="Maison moderne avec toit plat étanchéité plateforme">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Étanchéité</span>
+                    <h3 class="card-title">Toiture plate EPDM</h3>
+                    <p class="card-text">Résistante et hautement durable, notre solution d'étanchéité EPDM garantit une protection optimale à long terme.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 03 -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">03</span>
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=600&auto=format&fit=crop" alt="Fenêtre de toit Velux puits de lumière sous comble">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Velux</span>
+                    <h3 class="card-title">Fenêtres de toit</h3>
+                    <p class="card-text">Plus de lumière, plus de confort. Pose parfaite de Velux pour apporter de la clarté sous vos combles.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 04 -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">04</span>
+                    <img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=600&auto=format&fit=crop" alt="Châssis et fenêtres double vitrage alu pvc">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Menuiserie</span>
+                    <h3 class="card-title">Châssis PVC & ALU</h3>
+                    <p class="card-text">Remplacement de fenêtres et portes. Optimisation des performances thermiques et phoniques.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 05 (CORRIGÉ : Fenêtres architecturales propres) -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">05</span>
+                    <img src="https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=600&auto=format&fit=crop" alt="Baies vitrées et stores extérieurs sur façade de villa">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Domotique</span>
+                    <h3 class="card-title">Volets Roulants</h3>
+                    <p class="card-text">Installation de systèmes manuels ou motorisés pour votre confort quotidien et la sécurité du bâtiment.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 06 (CORRIGÉ : Utilise l'ID de structure d'isolation/comble neutre pour libérer le second œuvre) -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">06</span>
+                    <img src="https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=600&auto=format&fit=crop" alt="Structure de rénovation intérieure et isolation thermique">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Isolation</span>
+                    <h3 class="card-title">Isolation Thermique</h3>
+                    <p class="card-text">Isolation performante des combles, des murs ou des sols pour réduire drastiquement vos déperditions d'énergie.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 07 (CORRIGÉ : Vrai intérieur de chantier de placo/ossature métallique) -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">07</span>
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=600&auto=format&fit=crop" alt="Pose de plaques de plâtre et cloisons intérieures placo">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Aménagement</span>
+                    <h3 class="card-title">Placo & Cloisonnement</h3>
+                    <p class="card-text">Doublage des murs, création de séparations de pièces et pose de faux plafonds avec finitions soignées.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 08 (CORRIGÉ : Zoom texture faïence / pose de carrelage blanc métro de salle de bain) -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">08</span>
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=600&auto=format&fit=crop" alt="Revêtement mural faïence blanche salle de bain carrelage">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Revêtements</span>
+                    <h3 class="card-title">Carrelage Sol & Mur</h3>
+                    <p class="card-text">Pose de carrelages, faïences et crédences pour vos pièces d'eau, cuisines ou sols de pièces de vie.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+
+            <!-- Card 09 (CORRIGÉ : Superbe bardage architectural extérieur en bois véritable) -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">09</span>
+                    <img src="https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=600&auto=format&fit=crop" alt="Zoom sur un panneau de bardage extérieur bois moderne">
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Façade</span>
+                    <h3 class="card-title">Bardage Extérieur</h3>
+                    <p class="card-text">Revêtement esthétique en bois ou composite pour moderniser l'aspect visuel extérieur tout en isolant.</p>
+                </div>
+                <div class="card-footer"><a href="#" class="card-link">En savoir plus →</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why us Section -->
     <section class="why-section">
         <div class="why-inner">
             <h2 class="why-title">Pourquoi nous choisir ?</h2>
@@ -958,22 +1117,19 @@
             </nav>
         </div>
         <div class="footer-bottom">
-            <span class="footer-copy">&copy; 2024 Fred Rénovation, Inc.</span>
+            <span class="footer-copy">&copy; 2026 Fred Rénovation, Inc.</span>
             <span class="footer-reg">BE 08332520</span>
         </div>
     </footer>
-
 
     <!-- CHATBOT BUBBLE -->
     <button id="chat-bubble" aria-label="Ouvrir le chat">
         <span class="chat-notif-wrap">
             <div id="chat-notif">1</div>
         </span>
-        <!-- Open icon -->
         <svg class="chat-open-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H6l-2 2V4h16v10z"/>
         </svg>
-        <!-- Close icon -->
         <svg class="chat-close-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
         </svg>
@@ -985,7 +1141,7 @@
             <div class="chat-avatar">🏠</div>
             <div class="chat-header-info">
                 <div class="chat-header-name">Assistant Fred Rénovation</div>
-                <div class="chat-header-status">En ligne — répond en quelques secondes</div>
+                <div class="chat-header-status">En ligne — répond immédiatement</div>
             </div>
         </div>
 
@@ -1007,162 +1163,51 @@
     </div>
 
     <script>
-    // ── Knowledge base Fred Rénovation ──────────────────────────────────────
+    // ── Base de Connaissances Intégrée ──────────────────────────────────────
     const KB = [
       {
         keys: ['fuit','fuite','infiltr','humidité','mouillé','eau','gouttière','gouttières'],
-        reply: `🔍 <strong>Toiture qui fuit ?</strong><br>Voici les étapes à suivre :<br>
-• Repérez d'abord <em>où</em> l'humidité apparaît à l'intérieur<br>
-• Inspectez les <strong>noues, faîtage et solins</strong> (zones les plus vulnérables)<br>
-• Vérifiez l'état des <strong>gouttières</strong> : un débordement peut imiter une fuite de toiture<br>
-• N'attendez pas — une fuite non traitée peut endommager la charpente<br><br>
-👉 Fred Rénovation intervient rapidement. <a href="#" style="color:var(--vert-vif)">Demandez un devis gratuit !</a>`
+        reply: `🔍 <strong>Toiture qui fuit ?</strong><br>Voici les étapes à suivre :<br>• Repérez d'abord <em>où</em> l'humidité apparaît à l'intérieur<br>• Inspectez les <strong>noues, faîtage et solins</strong><br>• Vérifiez l'état des <strong>gouttières</strong><br>• N'attendez pas — une fuite peut endommager la charpente.<br><br>👉 Fred Rénovation intervient en urgence. <a href="#" style="color:var(--vert-vif)">Demandez un devis gratuit !</a>`
       },
       {
         keys: ['epdm','toiture plate','plate','étanch'],
-        reply: `🛡️ <strong>Toiture plate EPDM</strong><br>
-L'EPDM est une membrane caoutchouc très résistante :<br>
-• Durée de vie : <strong>30 à 50 ans</strong><br>
-• Résiste aux UV, gel et dilatations thermiques<br>
-• Pose en <strong>1 à 2 journées</strong> selon la surface<br>
-• Entretien minimal — une inspection annuelle suffit<br><br>
-💡 Idéal pour extensions, garages et toits plats de toute surface.`
+        reply: `🛡️ <strong>Toiture plate EPDM</strong><br>L'EPDM est idéal pour les extensions et garages :<br>• Durée de vie : <strong>30 à 50 ans</strong><br>• Résistance totale aux UV et écarts de température<br>• Entretien minimal.`
       },
       {
         keys: ['velux','fenêtre','lucarne','lumière','skylight'],
-        reply: `☀️ <strong>Fenêtres de toit Velux</strong><br>
-Nos conseils pour un projet réussi :<br>
-• Choisissez l'emplacement selon l'<strong>orientation sud/est</strong> pour maximiser la lumière<br>
-• Taille recommandée : <strong>min. 1/6 de la surface de la pièce</strong><br>
-• Optez pour du double vitrage avec traitement anti-condensation<br>
-• Prévoyez un <strong>volet occultant</strong> pour les chambres<br><br>
-🔧 Pose complète + étanchéité garantie par nos artisans.`
+        reply: `☀️ <strong>Fenêtres de toit Velux</strong><br>Maximisez l'apport de clarté :<br>• Taille recommandée : <strong>min. 1/6 de la surface au sol</strong> de la pièce<br>• Double vitrage thermique renforcé.`
       },
       {
         keys: ['façade','ravalement','crépi','enduit','peinture extérieur','bardage'],
-        reply: `🧱 <strong>Ravalement de façade</strong><br>
-Fred Rénovation prend en charge :<br>
-• Nettoyage haute pression et traitement anti-mousse<br>
-• Réparation des <strong>fissures et joints</strong> avant application<br>
-• Application d'<strong>enduit monocouche ou crépi</strong><br>
-• Peinture façade avec produits respirants et résistants aux intempéries<br>
-• <strong>Bardage bois ou composite</strong> pour un look moderne<br><br>
-🎨 Un ravalement bien fait protège votre maison 15 à 20 ans !`
+        reply: `🧱 <strong>Ravalement de façade & Bardage</strong><br>Nous protégeons vos murs extérieurs :<br>• Nettoyage et traitement anti-mousse<br>• Pose de <strong>bardage bois ou composite</strong> isolé pour un style contemporain.`
       },
       {
-        keys: ['isolation','isoler','combles','murs','thermique','énergie','chauffage','froid','déperdition'],
-        reply: `🌡️ <strong>Isolation thermique</strong><br>
-Réduisez vos factures et gagnez en confort :<br>
-• <strong>Isolation des combles</strong> : la priorité n°1 (30% des pertes de chaleur)<br>
-• Isolation des murs par l'extérieur (ITE) ou l'intérieur<br>
-• Matériaux : laine de verre, laine de roche, ouate de cellulose<br>
-• Éligible aux <strong>primes énergie en Belgique</strong><br><br>
-💶 Un investissement rentabilisé en 3 à 7 ans grâce aux économies de chauffage.`
+        keys: ['isolation','isoler','combles','murs','thermique','énergie','chauffage','froid'],
+        reply: `🌡️ <strong>Isolation thermique</strong><br>Gagnez en confort et réduisez vos factures :<br>• <strong>Isolation des combles</strong> (priorité n°1, évite 30% des pertes)<br>• Travaux éligibles aux primes énergie.`
       },
       {
-        keys: ['salle de bain','salle de bains','douche','carrelage','bain','sanitaire','plomberie'],
-        reply: `🚿 <strong>Rénovation salle de bain</strong><br>
-Fred Rénovation gère votre projet de A à Z :<br>
-• Démolition et évacuation des anciens équipements<br>
-• Pose de <strong>carrelage sol et mural</strong><br>
-• Installation douche à l'italienne, baignoire ou WC<br>
-• <strong>Plomberie et raccordements</strong> inclus<br>
-• Finitions peinture et calfeutrage<br><br>
-🏡 Résultat clé en main en quelques jours selon la superficie.`
+        keys: ['salle de bain','salle de bains','douche','carrelage','bain','sanitaire'],
+        reply: `🚿 <strong>Rénovation de Salle de bain & Carrelage</strong><br>Prise en charge clé en main : de la pose de faïence murale et carrelage au sol jusqu'aux raccordements sanitaires.`
       },
       {
-        keys: ['cuisine','aménagement','placard','dressing','rangement','menuiserie intérieure'],
-        reply: `🪚 <strong>Aménagement intérieur</strong><br>
-Nos prestations menuiserie intérieure :<br>
-• Pose de <strong>placards et dressing sur mesure</strong><br>
-• Aménagement de cuisine (montage et raccordement)<br>
-• <strong>Cloisons et faux plafonds</strong><br>
-• Parquet, stratifié et revêtements de sol<br><br>
-✏️ Chaque projet est personnalisé selon vos besoins et votre budget.`
+        keys: ['cuisine','aménagement','placard','dressing','rangement','cloisons','placo'],
+        reply: `🪚 <strong>Aménagement intérieur & Placo</strong><br>Agencement sur-mesure de vos espaces : cloisons séparatrices, doublage thermo-acoustique et faux plafonds.`
       },
       {
         keys: ['porte','fenêtre','pvc','double vitrage','aluminium','menuiserie','châssis'],
-        reply: `🪟 <strong>Menuiseries extérieures</strong><br>
-Remplacement ou installation de :<br>
-• <strong>Fenêtres PVC, aluminium ou bois</strong> avec double ou triple vitrage<br>
-• Portes d'entrée et portes de garage<br>
-• <strong>Châssis sur mesure</strong> pour toutes ouvertures<br>
-• Réduction du bruit et des pertes thermiques garantie<br><br>
-🔐 Améliore sécurité, confort et valeur de votre bien.`
+        reply: `🪟 <strong>Menuiseries Extérieures</strong><br>Installation de châssis PVC ou Aluminium ultra-isolants pour sécuriser et valoriser votre patrimoine.`
       },
       {
         keys: ['devis','tarif','prix','coût','combien','gratuit'],
-        reply: `💰 <strong>Devis gratuit sous 48h</strong><br>
-Notre processus est simple :<br>
-1. Vous nous décrivez votre projet<br>
-2. Fred se déplace pour une <strong>visite gratuite</strong><br>
-3. Vous recevez un devis détaillé sous 48h<br>
-4. Validation et planification des travaux<br><br>
-📞 Appelez-nous ou cliquez sur <a href="#" style="color:var(--vert-vif)"><strong>Demander un devis</strong></a> — c'est sans engagement !`
+        reply: `💰 <strong>Votre devis gratuit sous 48h</strong><br>1. Contactez-nous pour décrire votre besoin<br>2. Visite technique gratuite sur place<br>3. Envoi du chiffrage clair et transparent sous 48 heures.`
       },
       {
-        keys: ['tuile','ardoise','zinc','acier','bac','matériau','matériaux','couverture','toiture'],
-        reply: `🏗️ <strong>Couverture & matériaux</strong><br>
-• <strong>Tuile terre cuite</strong> — esthétique traditionnelle, 50+ ans de durée de vie<br>
-• <strong>Ardoise naturelle</strong> — élégance intemporelle, très résistante<br>
-• <strong>Zinc</strong> — discret, léger, parfait pour les toits à faible pente<br>
-• <strong>Bac acier</strong> — économique et rapide à poser<br><br>
-💡 Fred vous conseille le matériau le plus adapté à votre style et votre budget.`
-      },
-      {
-        keys: ['urgence','urgent','tempête','dégât','catastrophe','rapide','vite'],
-        reply: `🚨 <strong>Intervention urgente</strong><br>
-Fred Rénovation intervient rapidement en cas de :<br>
-• Dégâts après <strong>tempête ou chute d'arbre</strong><br>
-• <strong>Fuite active</strong> menaçant la structure<br>
-• Tuiles déplacées ou charpente exposée<br><br>
-⚡ Contactez-nous directement — nous évaluons la situation et intervenons en priorité.`
-      },
-      {
-        keys: ['entretien','nettoyage','mousse','lichen','hydrofuge'],
-        reply: `🧹 <strong>Entretien & nettoyage</strong><br>
-Nos recommandations :<br>
-• Nettoyage <strong>tous les 3 à 5 ans</strong> pour éliminer mousse et lichen<br>
-• Traitement hydrofuge après nettoyage pour protéger les tuiles<br>
-• Inspection visuelle chaque année (surtout après l'hiver)<br>
-• Vérification des <strong>solins, noues et joints de faîtage</strong><br><br>
-🌿 Un entretien régulier évite 90% des problèmes.`
-      },
-      {
-        keys: ['bonjour','salut','bonsoir','hello','aide','bienvenu','rénov','renovation','rénovation','bâtiment','batiment'],
-        reply: `👋 <strong>Bonjour ! Je suis l'assistant Fred Rénovation.</strong><br>
-Fred intervient sur tous vos projets de rénovation :<br>
-• 🏠 Toiture & couverture<br>
-• 🧱 Ravalement de façade<br>
-• 🌡️ Isolation thermique<br>
-• 🪟 Menuiseries & Velux<br>
-• 🚿 Salle de bain<br>
-• 🪚 Aménagement intérieur<br>
-• 💰 Devis gratuit sous 48h<br><br>
-Que puis-je faire pour vous ?`
-      },
-      {
-        keys: ['garantie','assurance','certif'],
-        reply: `✅ <strong>Garanties Fred Rénovation</strong><br>
-• <strong>Garantie décennale</strong> sur tous les travaux de couverture<br>
-• Matériaux certifiés et conformes aux normes belges<br>
-• Assurance responsabilité civile professionnelle<br>
-• Devis détaillé avec description précise des travaux<br><br>
-🔒 Vous êtes protégés à chaque étape du chantier.`
-      },
-      {
-        keys: ['charpente','bois','poutre','fermette','structure'],
-        reply: `🪵 <strong>Charpente & structure</strong><br>
-Fred Rénovation inspecte et traite :<br>
-• <strong>Charpentes traditionnelles</strong> et fermettes industrielles<br>
-• Traitement contre les insectes xylophages et champignons<br>
-• Remplacement de pièces endommagées par l'humidité<br>
-• Renforcement pour ajout de Velux ou surcharge<br><br>
-💡 Une charpente saine, c'est la base d'une toiture durable.`
-      },
+        keys: ['bonjour','salut','bonsoir','hello','aide'],
+        reply: `👋 <strong>Bonjour ! Je suis l'assistant virtuel de Fred Rénovation.</strong><br>Besoin d'infos sur une toiture, une isolation, du bardage ou une pose de menuiserie ? Je suis là pour vous aiguiller !`
+      }
     ];
 
-    // ── DOM ──────────────────────────────────────────────────────────────────
+    // ── Logique DOM Chatbot ──────────────────────────────────────────────────
     const bubble    = document.getElementById('chat-bubble');
     const chatWin   = document.getElementById('chat-window');
     const messages  = document.getElementById('chat-messages');
@@ -1173,7 +1218,6 @@ Fred Rénovation inspecte et traite :<br>
 
     let opened = false;
 
-    // ── Toggle ───────────────────────────────────────────────────────────────
     bubble.addEventListener('click', () => {
         opened = !opened;
         bubble.classList.toggle('open', opened);
@@ -1185,18 +1229,14 @@ Fred Rénovation inspecte et traite :<br>
         }
     });
 
-    // ── Greeting ─────────────────────────────────────────────────────────────
     function greet() {
-        addBotMsg(`👋 <strong>Bonjour ! Bienvenue chez Fred Rénovation.</strong><br>Je suis votre assistant en rénovation du bâtiment. Toiture, façade, isolation, aménagement intérieur… Posez-moi vos questions ou choisissez un sujet ci-dessous !`);
+        addBotMsg(`👋 <strong>Bonjour et bienvenue !</strong><br>Je suis votre conseiller virtuel. Toiture, menuiserie, isolation ou aménagement... Posez vos questions ici ou utilisez les boutons ci-dessous !`);
     }
 
-    // ── Add messages ──────────────────────────────────────────────────────────
     function addUserMsg(text) {
         const div = document.createElement('div');
         div.className = 'msg user';
-        div.innerHTML = `
-            <div class="msg-avatar">👤</div>
-            <div class="msg-bubble">${escHtml(text)}</div>`;
+        div.innerHTML = `<div class="msg-avatar">👤</div><div class="msg-bubble">${escHtml(text)}</div>`;
         messages.appendChild(div);
         scrollBottom();
     }
@@ -1204,9 +1244,7 @@ Fred Rénovation inspecte et traite :<br>
     function addBotMsg(html) {
         const div = document.createElement('div');
         div.className = 'msg bot';
-        div.innerHTML = `
-            <div class="msg-avatar">🏠</div>
-            <div class="msg-bubble">${html}</div>`;
+        div.innerHTML = `<div class="msg-avatar">🏠</div><div class="msg-bubble">${html}</div>`;
         messages.appendChild(div);
         scrollBottom();
     }
@@ -1215,13 +1253,7 @@ Fred Rénovation inspecte et traite :<br>
         const div = document.createElement('div');
         div.className = 'msg bot';
         div.id = 'typing-msg';
-        div.innerHTML = `
-            <div class="msg-avatar">🏠</div>
-            <div class="msg-bubble">
-                <div class="typing-indicator">
-                    <span></span><span></span><span></span>
-                </div>
-            </div>`;
+        div.innerHTML = `<div class="msg-avatar">🏠</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
         messages.appendChild(div);
         scrollBottom();
         return div;
@@ -1235,17 +1267,14 @@ Fred Rénovation inspecte et traite :<br>
         return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    // ── Find answer ───────────────────────────────────────────────────────────
     function findAnswer(text) {
         const low = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
         for (const item of KB) {
             if (item.keys.some(k => low.includes(k))) return item.reply;
         }
-        return `🤔 Bonne question ! Je n'ai pas la réponse exacte, mais Fred sera ravi de vous aider personnellement.<br><br>
-📞 <strong>Contactez-nous</strong> via le formulaire ou cliquez sur <a href="#" style="color:var(--vert-vif)">Demander un devis</a> — réponse garantie sous 48h !`;
+        return `🤔 Je ne maîtrise pas tout à fait ce sujet, mais Fred se fera un plaisir de vous répondre en direct !<br><br>📞 Contactez-nous ou demandez un <a href="#" style="color:var(--vert-vif)">Devis Gratuit</a> (étude personnalisée sous 48h).`;
     }
 
-    // ── Send message ──────────────────────────────────────────────────────────
     function sendMessage(text) {
         if (!text.trim()) return;
         suggsEl.style.display = 'none';
@@ -1255,7 +1284,7 @@ Fred Rénovation inspecte et traite :<br>
         setTimeout(() => {
             typingEl.remove();
             addBotMsg(findAnswer(text));
-        }, 900 + Math.random() * 400);
+        }, 800 + Math.random() * 300);
     }
 
     sendBtn.addEventListener('click', () => sendMessage(inputEl.value));

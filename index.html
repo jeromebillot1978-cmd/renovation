@@ -3,170 +3,702 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fred Rénovation - Votre Maison, Notre Passion !</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Fred Rénovation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vert-fonce: #0F3D27;
+            --vert-medium: #1E6B40;
+            --vert-vif: #2FA460;
+            --vert-clair: #A8DFBF;
+            --fond: #EEF7F1;
+            --blanc: #FFFFFF;
+            --texte: #1A1A1A;
+            --texte-leger: #4A5E52;
+            --or: #C9A84C;
+        }
+
+        * {
+            margin: 0; padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--fond);
+            color: var(--texte);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ---- TOP BAR ---- */
+        .top-bar {
+            background-color: var(--vert-fonce);
+            padding: 10px 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .top-bar a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            padding: 4px 10px;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .top-bar a:hover, .top-bar a.active {
+            color: var(--blanc);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .top-bar a.active {
+            color: var(--vert-clair);
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            position: relative;
+            background: var(--vert-fonce);
+            overflow: hidden;
+            min-height: 480px;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .hero-bg-pattern {
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 60px,
+                    rgba(255,255,255,0.015) 60px,
+                    rgba(255,255,255,0.015) 61px
+                );
+        }
+
+        .hero-accent {
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(47,164,96,0.18) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 80px 40px 60px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: flex-end;
+        }
+
+        .hero-left {}
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--vert-clair);
+            margin-bottom: 18px;
+        }
+
+        .eyebrow::before {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--vert-vif);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(52px, 7vw, 88px);
+            font-weight: 900;
+            color: var(--blanc);
+            line-height: 0.95;
+            letter-spacing: -2px;
+        }
+
+        .hero-title .accent {
+            color: var(--vert-vif);
+            font-style: italic;
+        }
+
+        .hero-slogan {
+            margin-top: 24px;
+            font-size: 17px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-slogan strong {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 12px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--blanc);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        .badge-icon {
+            color: var(--vert-vif);
+            font-size: 14px;
+        }
+
+        .hero-cta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--vert-vif);
+            color: var(--blanc);
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .cta-btn:hover {
+            background: #27935A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(47,164,96,0.3);
+        }
+
+        .cta-secondary {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            text-align: right;
+        }
+
+        /* ---- DIVIDER STRIP ---- */
+        .strip {
+            background: var(--vert-medium);
+            padding: 14px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .strip-item {
+            color: rgba(255,255,255,0.85);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strip-item::before {
+            content: '✦';
+            color: var(--vert-clair);
+            font-size: 10px;
+        }
+
+        /* ---- MAIN CONTENT ---- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 70px 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(15,61,39,0.12);
+            padding-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--vert-fonce);
+            letter-spacing: -0.5px;
+        }
+
+        .section-count {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--texte-leger);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ---- CARDS GRID ---- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--blanc);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+        }
+
+        .card-img {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #C8DECE 0%, #A5CCBA 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img-icon {
+            font-size: 52px;
+            opacity: 0.35;
+        }
+
+        /* Unique tints per card */
+        .card:nth-child(1) .card-img { background: linear-gradient(135deg, #BDD4C6 0%, #90BBA6 100%); }
+        .card:nth-child(2) .card-img { background: linear-gradient(135deg, #C4D8CF 0%, #8FAEA3 100%); }
+        .card:nth-child(3) .card-img { background: linear-gradient(135deg, #CBE0D3 0%, #9EC4B2 100%); }
+
+        .card-number {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(15,61,39,0.45);
+            letter-spacing: 0.1em;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-tag {
+            display: inline-block;
+            background: var(--vert-fonce);
+            color: var(--blanc);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 5px 11px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--vert-fonce);
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            color: var(--texte-leger);
+            line-height: 1.65;
+        }
+
+        .card-footer {
+            padding: 16px 24px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--vert-medium);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s;
+        }
+
+        .card-link:hover {
+            gap: 10px;
+        }
+
+        /* ---- WHY US SECTION ---- */
+        .why-section {
+            background: var(--vert-fonce);
+            padding: 70px 40px;
+        }
+
+        .why-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--blanc);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .why-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .why-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 44px;
+            font-weight: 900;
+            color: var(--vert-vif);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .why-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--blanc);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .why-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.5;
+        }
+
+        /* ---- FOOTER ---- */
+        footer {
+            background: #0A2A1A;
+            padding: 40px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--blanc);
+            margin-bottom: 6px;
+        }
+
+        .footer-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 5px 12px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--blanc);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: rgba(255,255,255,0.25);
+        }
+
+        .footer-reg {
+            font-size: 12px;
+            color: rgba(255,255,255,0.25);
+            font-family: monospace;
+            letter-spacing: 0.05em;
+        }
+
+        /* ---- ANIMATIONS ---- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-left > * {
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .eyebrow { animation-delay: 0.1s; }
+        .hero-title { animation-delay: 0.2s; }
+        .hero-slogan { animation-delay: 0.3s; }
+        .hero-badges { animation-delay: 0.4s; }
+        .hero-cta { animation: fadeUp 0.6s 0.35s ease both; }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 900px) {
+            .hero-content { grid-template-columns: 1fr; }
+            .hero-cta { align-items: flex-start; }
+            .grid { grid-template-columns: 1fr 1fr; }
+            .why-grid { grid-template-columns: 1fr 1fr; }
+            .footer-inner { grid-template-columns: 1fr; }
+            .footer-links { justify-content: flex-start; }
+        }
+
+        @media (max-width: 580px) {
+            .grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr 1fr; }
+            .top-bar { flex-wrap: wrap; gap: 4px; justify-content: center; }
+            .hero-title { letter-spacing: -1px; }
+        }
+    </style>
 </head>
 <body>
 
-    <header class="hero">
-        <div class="container">
-            <div class="logo-area">
-                <h1>FRED <span class="accent-text">RÉNOVATION</span></h1>
-                <p class="tagline">VOTRE MAISON, NOTRE PASSION !</p>
-            </div>
-            
-            <div class="badges">
-                <span><i class="fa-solid fa-circle-check"></i> QUALITÉ</span>
-                <span><i class="fa-solid fa-circle-check"></i> FIABILITÉ</span>
-                <span><i class="fa-solid fa-circle-check"></i> TRAVAIL SOIGNÉ</span>
+    <!-- Top bar -->
+    <nav class="top-bar">
+        <a href="#" class="active">Accueil</a>
+        <a href="#">Nos Prestations</a>
+        <a href="#">Devenir Client</a>
+        <a href="#">Contact</a>
+        <a href="#">À Propos</a>
+        <a href="#">Accès Admin</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-accent"></div>
+
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="eyebrow">Artisan Couvreur — Belgique</div>
+                <h1 class="hero-title">
+                    Fred<br>
+                    <span class="accent">Rénovation</span>
+                </h1>
+                <p class="hero-slogan">
+                    Votre maison, <strong>notre passion.</strong><br>
+                    Un travail soigné, du début à la fin.
+                </p>
+                <div class="hero-badges">
+                    <span class="badge"><span class="badge-icon">✓</span> Qualité</span>
+                    <span class="badge"><span class="badge-icon">✓</span> Fiabilité</span>
+                    <span class="badge"><span class="badge-icon">✓</span> Travail soigné</span>
+                </div>
             </div>
 
-            <div class="difference-box">
-                <h3>NOTRE DIFFÉRENCE ?</h3>
-                <p>Trouver la solution la plus <strong class="highlight">intelligente</strong>, pas la plus coûteuse.</p>
-            </div>
-        </div>
-    </header>
-
-    <section class="arguments">
-        <div class="container grid-4">
-            <div class="arg-card">
-                <i class="fa-solid fa-bolt icon-main"></i>
-                <h4>INTERVENTION RAPIDE</h4>
-                <p>Réactivité garantie</p>
-            </div>
-            <div class="arg-card">
-                <i class="fa-solid fa-bullseye icon-main"></i>
-                <h4>TRAVAIL DE QUALITÉ</h4>
-                <p>Finitions impeccables</p>
-            </div>
-            <div class="arg-card">
-                <i class="fa-solid fa-euro-sign icon-main"></i>
-                <h4>PRIX TRANSPARENTS</h4>
-                <p>Aucun frais caché</p>
-            </div>
-            <div class="arg-card">
-                <i class="fa-solid fa-users icon-main"></i>
-                <h4>SATISFACTION CLIENT</h4>
-                <p>Votre satisfaction, notre priorité</p>
+            <div class="hero-cta">
+                <a class="cta-btn" href="#">Demander un devis</a>
+                <span class="cta-secondary">Réponse sous 48h</span>
             </div>
         </div>
     </section>
 
-    <section class="main-services container">
-        <div class="grid-3">
-            <div class="service-card">
-                <div class="card-img placeholder-roof"></div>
-                <div class="card-badge">TOITURE</div>
-                <p class="sub">Tuile - Zinc - Bac acier</p>
-                <p class="desc">Matériaux de qualité pour une toiture solide et esthétique.</p>
-            </div>
-            <div class="service-card">
-                <div class="card-img placeholder-flat"></div>
-                <div class="card-badge">TOITURE PLATE EPDM</div>
-                <p class="sub">Résistante - Durable</p>
-                <p class="desc">Étanchéité optimale pour une protection durable.</p>
-            </div>
-            <div class="service-card">
-                <div class="card-img placeholder-velux"></div>
-                <div class="card-badge">VELUX</div>
-                <p class="sub">Plus de lumière, plus de confort</p>
-                <p class="desc">Apportez clarté et bien-être à vos espaces.</p>
-            </div>
-        </div>
-    </section>
+    <!-- Strip -->
+    <div class="strip">
+        <span class="strip-item">Toiture & Charpente</span>
+        <span class="strip-item">Toiture Plate EPDM</span>
+        <span class="strip-item">Velux & Lucarnes</span>
+        <span class="strip-item">Interventions Urgentes</span>
+    </div>
 
-    <section class="gallery-services container">
-        <div class="grid-4">
-            <div class="gallery-card">
-                <div class="gal-img placeholder-menuiserie"></div>
-                <h5>MENUISERIE PVC-ALU</h5>
-                <p>Portes & Fenêtres<br>Isolation - Sécurité - Design</p>
-            </div>
-            <div class="gallery-card">
-                <div class="gal-img placeholder-volets"></div>
-                <h5>VOLETS ROULANTS</h5>
-                <p>Manuels ou motorisés<br>Confort - Sécurité - Économie</p>
-            </div>
-            <div class="gallery-card">
-                <div class="gal-img placeholder-interieur"></div>
-                <h5>RÉNOVATION INTÉRIEURE</h5>
-                <p>Placo - Peinture - Aménagement<br>Un intérieur à votre image</p>
-            </div>
-            <div class="gallery-card">
-                <div class="gal-img placeholder-exterieur"></div>
-                <h5>BARDAGE EXTÉRIEUR</h5>
-                <p>Embellissement extérieur<br>Protection & durabilité</p>
-            </div>
+    <!-- Prestations -->
+    <section class="container">
+        <div class="section-header">
+            <h2 class="section-title">Nos Prestations</h2>
+            <span class="section-count">3 services</span>
         </div>
-    </section>
 
-    <section class="all-services text-center">
-        <div class="container">
-            <h2 class="section-title">NOS PRESTATIONS</h2>
-            <div class="services-icons-grid">
-                <div class="icon-box">
-                    <i class="fa-solid fa-house-chimney"></i>
-                    <h6>TOITURE</h6>
-                    <p>Tuile, Zinc, Bac acier</p>
+        <div class="grid">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">01</span>
+                    <span class="card-img-icon">🏠</span>
                 </div>
-                <div class="icon-box">
-                    <i class="fa-solid fa-door-open"></i>
-                    <h6>MENUISERIE PVC-ALU</h6>
-                    <p>Portes & Fenêtres</p>
+                <div class="card-body">
+                    <span class="card-tag">Toiture</span>
+                    <h3 class="card-title">Couverture traditionnelle</h3>
+                    <p class="card-text">Tuile, zinc, bac acier. Des matériaux de qualité sélectionnés pour allier durabilité et esthétique à chaque projet.</p>
                 </div>
-                <div class="icon-box">
-                    <i class="fa-solid fa-border-all"></i>
-                    <h6>VOLETS ROULANTS</h6>
-                    <p>Manuels ou motorisés</p>
+                <div class="card-footer">
+                    <a href="#" class="card-link">En savoir plus →</a>
                 </div>
-                <div class="icon-box">
-                    <i class="fa-solid fa-temperature-arrow-down"></i>
-                    <h6>ISOLATION</h6>
-                    <p>Combles, Murs, Sols</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">02</span>
+                    <span class="card-img-icon">🛡️</span>
                 </div>
-                <div class="icon-box">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                    <h6>PLACO & AMÉNAGEMENT</h6>
-                    <p>Doublage, Cloisons</p>
+                <div class="card-body">
+                    <span class="card-tag">Étanchéité</span>
+                    <h3 class="card-title">Toiture plate EPDM</h3>
+                    <p class="card-text">Résistante et durable, notre solution d'étanchéité EPDM garantit une protection optimale contre les infiltrations sur le long terme.</p>
                 </div>
-                <div class="icon-box">
-                    <i class="fa-solid fa-border-top-left"></i>
-                    <h6>CARRELAGE</h6>
-                    <p>Sol & Mur</p>
+                <div class="card-footer">
+                    <a href="#" class="card-link">En savoir plus →</a>
                 </div>
-                <div class="icon-box">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <h6>BARDAGE</h6>
-                    <p>Embellissement extérieur</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card-img">
+                    <span class="card-number">03</span>
+                    <span class="card-img-icon">☀️</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-tag">Velux</span>
+                    <h3 class="card-title">Fenêtres de toit</h3>
+                    <p class="card-text">Plus de lumière, plus de confort. Nous installons vos fenêtres de toit Velux pour apporter clarté et bien-être à vos espaces.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="card-link">En savoir plus →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="contact-footer">
-        <div class="container footer-content">
-            <div class="phone-block">
-                <a href="tel:0782253309" class="phone-btn">
-                    <i class="fa-solid fa-phone"></i> 07 82 25 33 09
-                </a>
-                <div class="cta-badges">
-                    <span class="badge-free">DEVIS GRATUIT</span>
-                    <span class="badge-fast">INTERVENTION RAPIDE</span>
+    <!-- Why us -->
+    <section class="why-section">
+        <div class="why-inner">
+            <h2 class="why-title">Pourquoi nous choisir ?</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <div class="why-num">15+</div>
+                    <div class="why-label">Années d'expérience</div>
+                    <div class="why-desc">Un savoir-faire éprouvé sur des centaines de chantiers</div>
                 </div>
-            </div>
-            <div class="artisan-text">
-                <i class="fa-solid fa-user"></i>
-                <div>
-                    <h3>VOTRE ARTISAN LOCAL</h3>
-                    <h2>À VOTRE SERVICE</h2>
+                <div class="why-item">
+                    <div class="why-num">100%</div>
+                    <div class="why-label">Satisfaction client</div>
+                    <div class="why-desc">Chaque projet livré dans les délais et selon vos attentes</div>
+                </div>
+                <div class="why-item">
+                    <div class="why-num">48h</div>
+                    <div class="why-label">Délai de réponse</div>
+                    <div class="why-desc">Devis gratuit et personnalisé en moins de deux jours</div>
+                </div>
+                <div class="why-item">
+                    <div class="why-num">∞</div>
+                    <div class="why-label">Garantie qualité</div>
+                    <div class="why-desc">Matériaux certifiés et pose assurée par nos artisans</div>
                 </div>
             </div>
         </div>
-        <div class="legal-bar">
-            BE 0832502696
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <div class="footer-brand">Fred Rénovation</div>
+                <div class="footer-sub">Artisan couvreur — Votre maison, notre passion</div>
+            </div>
+            <nav class="footer-links">
+                <a href="#">Site map</a>
+                <a href="#">Nos Prestations</a>
+                <a href="#">Contact</a>
+                <a href="#">À Propos</a>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">&copy; 2024 Fred Rénovation, Inc.</span>
+            <span class="footer-reg">BE 08332520</span>
         </div>
     </footer>
 

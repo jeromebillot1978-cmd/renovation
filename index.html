@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -577,34 +576,115 @@ function sendDevis(){
 
 <script>
 const KB=[
-  {keys:['bonjour','salut','bonsoir','hello','coucou','bjr'],reply:'&#128075; <strong>Bonjour !</strong> Je suis l&apos;assistant de Fred Rénovation.<br>Toiture, isolation, bardage, menuiserie, carrelage... posez vos questions !<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
+  {keys:['bonjour','salut','bonsoir','hello','coucou','bjr'],reply:'&#128075; <strong>Bonjour !</strong> Je suis l&apos;assistant de Fred Rénovation.<br>Cliquez sur une catégorie ci-dessus ou posez directement votre question !<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
   {keys:['fuit','fuite','infiltr','humidit','mouill','eau','gouttiere','dégât'],reply:'&#128269; <strong>Toiture qui fuit ?</strong><br>Inspection rapide des noues, faîtage et solins. Intervention rapide garantie.<br><br>&#128073; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Urgence%20toiture" target="_blank" style="color:#E8490F">Devis urgent !</a> ou &#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
   {keys:['urgent','urgence','rapide','intervention'],reply:'&#9889; <strong>Intervention rapide</strong><br>Fred Rénovation intervient rapidement pour toute urgence toiture ou rénovation.<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a> — Appelez maintenant !'},
-  {keys:['toiture','couverture','tuile','zinc','bac acier','charpente','toit'],reply:'&#127968; <strong>Couverture & Toiture</strong><br>Tuile, zinc, bac acier — matériaux haut de gamme.<br>✔ Pose neuve &nbsp;✔ Rénovation &nbsp;✔ Réparation<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Toiture" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['epdm','toiture plate','plate','etancheite','étanchéité'],reply:'&#128737;&#65039; <strong>Toiture plate EPDM</strong><br>Résistante et durable — durée de vie 30 à 50 ans.<br>✔ Étanchéité optimale &nbsp;✔ Résistance UV &nbsp;✔ Protection durable<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20EPDM" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['velux','fenetre de toit','lucarne','lumiere','skylight','verriere'],reply:'&#9728;&#65039; <strong>Fenêtres de toit & Velux</strong><br>Plus de lumière, plus de confort dans vos combles.<br>✔ Double vitrage thermique &nbsp;✔ Pose soignée &nbsp;✔ Bien-être garanti<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Velux" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['pvc','aluminium','alu','menuiserie','chassis','fenetre','porte','double vitrage'],reply:'&#129695; <strong>Menuiserie PVC & ALU</strong><br>Portes & fenêtres haute performance.<br>✔ Isolation thermique &nbsp;✔ Isolation phonique &nbsp;✔ Sécurité renforcée &nbsp;✔ Design sur-mesure<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Menuiserie" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['volet','volets roulants','motorise','motorisé','store','domotique'],reply:'&#128683; <strong>Volets Roulants</strong><br>Manuels ou motorisés selon vos besoins.<br>✔ Confort quotidien &nbsp;✔ Sécurité &nbsp;✔ Économies d&apos;énergie<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Volets" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['renovation interieure','rénovation intérieure','interieur','peinture','amenagement interieur'],reply:'&#127963;&#65039; <strong>Rénovation Intérieure</strong><br>Placo, peinture, aménagement — un intérieur à votre image.<br>✔ Finitions soignées &nbsp;✔ Délais respectés &nbsp;✔ Sur-mesure<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Renovation" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['isolation','isoler','combles','thermique','energie','chaleur','froid'],reply:'&#127777;&#65039; <strong>Isolation Thermique</strong><br>Combles, murs, sols — priorité n°1 pour économiser l&apos;énergie.<br>✔ -30% sur vos factures &nbsp;✔ Confort hiver/été &nbsp;✔ Primes énergie disponibles<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Isolation" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['placo','cloison','cloisonnement','doublage','faux plafond','plafond'],reply:'&#129454; <strong>Placo & Cloisonnement</strong><br>Séparations de pièces, doublage murs, faux plafonds.<br>✔ Finitions impeccables &nbsp;✔ Isolation acoustique &nbsp;✔ Rapidité d&apos;exécution<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Placo" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['carrelage','faience','faiençe','credence','crédence','salle de bain','douche','cuisine','sol'],reply:'&#128703; <strong>Carrelage Sol & Mur</strong><br>Faïences, crédences, carrelages pour toutes vos pièces.<br>✔ Salle de bain &nbsp;✔ Cuisine &nbsp;✔ Séjour &nbsp;✔ Pose soignée<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Carrelage" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['bardage','facade','façade','crepis','crépis','exterieur','extérieur','parement'],reply:'&#129521; <strong>Bardage Extérieur</strong><br>Bois ou composite — modernisez votre façade tout en isolant.<br>✔ Embellissement &nbsp;✔ Protection durable &nbsp;✔ Isolation<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Bardage" target="_blank" style="color:#E8490F">Demander un devis</a>'},
-  {keys:['devis','tarif','prix','cout','coût','combien','gratuit'],reply:'&#128176; <strong>Devis gratuit sous 48h</strong><br>1️⃣ Demande en ligne ou par tél<br>2️⃣ Visite technique gratuite<br>3️⃣ Chiffrage clair, sans surprise<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">contact.fredrenovation59@gmail.com</a><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
-  {keys:['contact','telephone','mail','email','joindre','appeler'],reply:'&#128222; <strong>Contactez Fred</strong><br>Tél : <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a><br>Email : <a href="mailto:contact.fredrenovation59@gmail.com" style="color:#E8490F">contact.fredrenovation59@gmail.com</a><br><br>Lun–Ven : 8h–18h | Sam : 9h–14h'},
-  {keys:['garantie','assurance','certifie','certifié','qualite','qualité'],reply:'&#128737;&#65039; <strong>Qualité & Garantie</strong><br>✔ Matériaux certifiés &nbsp;✔ Pose assurée &nbsp;✔ Artisan local<br>✔ Satisfaction 100% &nbsp;✔ Prix transparents, aucun frais caché'},
-  {keys:['belgique','region','zone','deplacement','déplacement'],reply:'&#127759; <strong>Zone d&apos;intervention</strong><br>Fred Rénovation intervient partout en <strong>Belgique</strong>.<br>N° BCE : BE 0832502696<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
-  {keys:['merci','super','parfait','nickel','top','excellent'],reply:'&#128522; Merci pour votre confiance ! N&apos;hésitez pas à nous appeler pour tout projet.<br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'}
+  {keys:['toiture','couverture','tuile','zinc','bac acier','charpente','toit'],reply:'&#127968; <strong>Toiture & Couverture</strong><br>Réparation, rénovation ou entretien de votre toit. Fred intervient sur tous types de couvertures.<br><br>✔ Tuile &nbsp;✔ Zinc &nbsp;✔ Bac acier<br>✔ Pose neuve &nbsp;✔ Réparation &nbsp;✔ Rénovation complète<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Un toit en bon état, c&apos;est votre première protection.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Toiture" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['epdm','toiture plate','plate','etancheite','étanchéité','terrasse'],reply:'&#128737;&#65039; <strong>Toiture plate EPDM</strong><br>Spécialisation dans l&apos;étanchéité des toits plats et terrasses grâce à cette membrane en caoutchouc synthétique.<br><br>✔ Durée de vie 30 à 50 ans &nbsp;✔ Résistance UV<br>✔ Étanchéité optimale &nbsp;✔ Protection durable<br>✔ Entretien minimal<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">La solution la plus fiable pour vos toits plats.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20EPDM" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['velux','fenetre de toit','lucarne','lumiere','skylight','verriere','combles'],reply:'&#9728;&#65039; <strong>Velux & Fenêtres de toit</strong><br>Installation ou remplacement de fenêtres de toit pour apporter de la lumière naturelle dans vos combles.<br><br>✔ Double vitrage thermique &nbsp;✔ Pose soignée<br>✔ Plus de luminosité &nbsp;✔ Bien-être amélioré<br>✔ Valorisation de votre bien<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Min. 1/6 de la surface au sol recommandé.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Velux" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['pvc','aluminium','alu','menuiserie','chassis','fenetre','porte','double vitrage','bois'],reply:'&#129695; <strong>Menuiserie PVC & ALU</strong><br>Travaux sur vos ouvertures, portes et fenêtres en bois, PVC ou aluminium pour améliorer confort et sécurité.<br><br>✔ Isolation thermique & phonique &nbsp;✔ Sécurité renforcée<br>✔ Design sur-mesure &nbsp;✔ Économies d&apos;énergie<br>✔ Réduction des courants d&apos;air<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Des châssis performants = moins de chauffage à payer.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Menuiserie" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['volet','volets roulants','motorise','motorisé','store','battant'],reply:'&#128683; <strong>Volets Roulants & Battants</strong><br>Pose, réparation ou motorisation de vos volets roulants ou battants pour plus de confort au quotidien.<br><br>✔ Manuels ou motorisés &nbsp;✔ Confort quotidien<br>✔ Sécurité renforcée &nbsp;✔ Économies d&apos;énergie<br>✔ Domotique possible<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Motorisez vos volets et contrôlez-les depuis votre téléphone.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Volets" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['isolation','isoler','thermique','energie','chaleur','froid','laine','ouate'],reply:'&#127777;&#65039; <strong>Isolation Thermique</strong><br>Travaux destinés à améliorer l&apos;efficacité thermique de votre habitation et réduire vos factures.<br><br>✔ Combles (priorité n°1 — 30% des pertes)<br>✔ Murs intérieurs & extérieurs<br>✔ Sols &nbsp;✔ Primes énergie disponibles<br>✔ Confort hiver & été garanti<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Un logement bien isolé = jusqu&apos;à -40% sur vos factures.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Isolation" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['placo','cloison','cloisonnement','doublage','faux plafond','plafond','platre','plâtre'],reply:'&#129454; <strong>Placo & Cloisonnement</strong><br>Aménagement intérieur, pose de cloisons sèches et faux plafonds en plaques de plâtre.<br><br>✔ Séparation de pièces &nbsp;✔ Doublage des murs<br>✔ Faux plafonds &nbsp;✔ Isolation acoustique<br>✔ Finitions soignées &nbsp;✔ Rapidité d&apos;exécution<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Réaménagez votre intérieur selon vos besoins.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Placo" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['carrelage','faience','faiençe','credence','crédence','salle de bain','douche','cuisine','revêtement','revetement'],reply:'&#128703; <strong>Carrelage Sol & Mur</strong><br>Revêtement de sols ou de murs, en intérieur comme en extérieur, pour toutes vos pièces.<br><br>✔ Salle de bain & douche &nbsp;✔ Cuisine<br>✔ Séjour & couloir &nbsp;✔ Faïences & crédences<br>✔ Pose soignée &nbsp;✔ Résultat impeccable<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Chaque pose est réalisée avec soin pour un rendu parfait.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Carrelage" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['bardage','facade','façade','crepis','crépis','exterieur','extérieur','parement','ravalement'],reply:'&#129521; <strong>Bardage Extérieur</strong><br>Pose d&apos;un revêtement extérieur sur vos façades pour la protection et l&apos;esthétique de votre maison.<br><br>✔ Bois ou composite &nbsp;✔ Embellissement garanti<br>✔ Protection durable &nbsp;✔ Isolation intégrée possible<br>✔ Valorisation de votre bien immobilier<br><br><em style="color:rgba(0,0,0,0.5);font-size:12px;">Modernisez l&apos;aspect extérieur de votre maison.</em><br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Bardage" target="_blank" style="color:#E8490F">Demander un devis gratuit</a>'},
+  {keys:['devis','tarif','prix','cout','coût','combien','gratuit','estimation'],reply:'&#128176; <strong>Devis gratuit sous 48h</strong><br>Accès direct pour obtenir une estimation personnalisée du coût de vos futurs travaux, sans engagement.<br><br>1️⃣ Demande en ligne ou par téléphone<br>2️⃣ Visite technique gratuite<br>3️⃣ Chiffrage clair, sans surprise<br>4️⃣ Prix transparents — aucun frais caché<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">contact.fredrenovation59@gmail.com</a><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
+  {keys:['contact','telephone','mail','email','joindre','appeler','horaire'],reply:'&#128222; <strong>Contactez Fred</strong><br>Tél : <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a><br>Email : <a href="mailto:contact.fredrenovation59@gmail.com" style="color:#E8490F">contact.fredrenovation59@gmail.com</a><br><br>&#128337; Lun–Ven : 8h00–18h00<br>&#128337; Samedi : 9h00–14h00'},
+  {keys:['garantie','assurance','certifie','certifié','qualite','qualité','confiance'],reply:'&#128737;&#65039; <strong>Qualité & Garantie</strong><br>✔ Matériaux certifiés &nbsp;✔ Pose professionnelle<br>✔ 100% satisfaction client &nbsp;✔ Artisan local<br>✔ Prix transparents &nbsp;✔ Aucun frais caché'},
+  {keys:['belgique','region','zone','deplacement','déplacement','ou'],reply:'&#127759; <strong>Zone d&apos;intervention</strong><br>Fred Rénovation intervient partout en <strong>Belgique</strong>.<br>N° BCE : BE 0832502696<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
+  {keys:['merci','super','parfait','nickel','top','excellent','bravo'],reply:'&#128522; Merci pour votre confiance ! Fred sera ravi de vous accompagner dans votre projet.<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'}
 ];
 const bubble=document.getElementById('chat-bubble'),chatWin=document.getElementById('chat-window'),messages=document.getElementById('chat-messages'),inputEl=document.getElementById('chat-input'),sendBtn=document.getElementById('chat-send'),notifEl=document.getElementById('chat-notif'),suggsEl=document.getElementById('chat-suggestions');
 let opened=false;
-bubble.addEventListener('click',()=>{opened=!opened;bubble.classList.toggle('open',opened);chatWin.classList.toggle('open',opened);if(opened){notifEl.style.display='none';if(!messages.children.length)addBotMsg('&#128075; <strong>Bonjour !</strong> Toiture, menuiserie, isolation... posez vos questions !');setTimeout(()=>inputEl.focus(),300);}});
+let chatHistory=[];
+
+const SYSTEM_PROMPT=`Tu es l'assistant virtuel de Fred Rénovation, une entreprise d'artisan couvreur basée en Belgique (N° BCE: BE 0832502696).
+Tu t'appelles "L'assistant Fred Rénovation". Tu es chaleureux, professionnel et tu parles toujours en français.
+Tu aides les clients à comprendre les services proposés et à obtenir un devis.
+
+Services proposés :
+- Toiture & Couverture : tuile, zinc, bac acier — pose neuve, rénovation, réparation
+- Toiture plate EPDM : étanchéité des toits plats et terrasses, durée de vie 30-50 ans
+- Velux & Fenêtres de toit : installation/remplacement, apport de lumière dans les combles
+- Menuiserie PVC & ALU : portes et fenêtres haute performance thermique et phonique
+- Volets roulants : manuels ou motorisés, confort et sécurité
+- Rénovation intérieure : placo, peinture, aménagement
+- Isolation thermique : combles, murs, sols — économies d'énergie jusqu'à -40%
+- Placo & Cloisonnement : cloisons sèches, doublage, faux plafonds
+- Carrelage Sol & Mur : faïences, crédences, toutes pièces
+- Bardage extérieur : bois ou composite, embellissement et protection de façade
+
+Contact :
+- Téléphone : 07 82 25 33 09
+- Email : contact.fredrenovation59@gmail.com
+- Horaires : Lun-Ven 8h-18h, Sam 9h-14h
+- Devis gratuit sous 48h, sans engagement
+
+Règles importantes :
+- Réponds toujours en français, de façon naturelle et conversationnelle
+- Sois concis (3-5 phrases max sauf si on te demande plus de détails)
+- Propose toujours en fin de réponse le contact ou le devis gratuit si c'est pertinent
+- Ne parle que des services de Fred Rénovation
+- Si tu ne sais pas, redirige vers le 07 82 25 33 09
+- Tu peux utiliser des emojis avec modération`;
+
+bubble.addEventListener('click',()=>{opened=!opened;bubble.classList.toggle('open',opened);chatWin.classList.toggle('open',opened);if(opened){notifEl.style.display='none';if(!messages.children.length){addBotMsg('&#128075; <strong>Bonjour !</strong> Je suis l&apos;assistant de Fred Rénovation.<br>Comment puis-je vous aider aujourd&apos;hui ?');}setTimeout(()=>inputEl.focus(),300);}});
+
 function addUserMsg(t){const d=document.createElement('div');d.className='msg user';d.innerHTML=`<div class="msg-avatar">&#128100;</div><div class="msg-bubble">${t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;messages.appendChild(d);scrollBottom();}
 function addBotMsg(h){const d=document.createElement('div');d.className='msg bot';d.innerHTML=`<div class="msg-avatar">&#127968;</div><div class="msg-bubble">${h}</div>`;messages.appendChild(d);scrollBottom();}
 function showTyping(){const d=document.createElement('div');d.className='msg bot';d.id='typing-msg';d.innerHTML='<div class="msg-avatar">&#127968;</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>';messages.appendChild(d);scrollBottom();return d;}
 function scrollBottom(){setTimeout(()=>messages.scrollTop=messages.scrollHeight,50);}
-function findAnswer(text){const low=text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');for(const item of KB)if(item.keys.some(k=>low.includes(k)))return item.reply;return '&#129300; Fred vous répondra directement !<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">Devis Gratuit (48h)</a>';}
-function sendMessage(text){if(!text.trim())return;suggsEl.style.display='none';addUserMsg(text);inputEl.value='';const t=showTyping();setTimeout(()=>{t.remove();addBotMsg(findAnswer(text));},800+Math.random()*300);}
+
+async function askClaude(userText){
+  chatHistory.push({role:'user',content:userText});
+  const body={
+    model:'claude-sonnet-4-20250514',
+    max_tokens:1000,
+    system:SYSTEM_PROMPT,
+    messages:chatHistory
+  };
+  const resp=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(body)
+  });
+  const data=await resp.json();
+  const reply=data.content&&data.content[0]?data.content[0].text:'Désolé, une erreur est survenue. Appelez-nous au 07 82 25 33 09 !';
+  chatHistory.push({role:'assistant',content:reply});
+  return reply;
+}
+
+function textToHtml(text){
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<em>$1</em>')
+    .replace(/\n/g,'<br>')
+    .replace(/(07 82 25 33 09)/g,'<a href="tel:0782253309" style="color:#E8490F;font-weight:700;">$1</a>')
+    .replace(/(contact\.fredrenovation59@gmail\.com)/g,'<a href="mailto:contact.fredrenovation59@gmail.com" style="color:#E8490F;">$1</a>');
+}
+
+async function sendMessage(text){
+  if(!text.trim())return;
+  suggsEl.style.display='none';
+  addUserMsg(text);
+  inputEl.value='';
+  sendBtn.disabled=true;
+  inputEl.disabled=true;
+  const t=showTyping();
+  try{
+    const reply=await askClaude(text);
+    t.remove();
+    addBotMsg(textToHtml(reply));
+  }catch(e){
+    t.remove();
+    addBotMsg('&#128222; Une erreur est survenue. Contactez-nous directement au <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>');
+  }
+  sendBtn.disabled=false;
+  inputEl.disabled=false;
+  setTimeout(()=>inputEl.focus(),100);
+}
+
 sendBtn.addEventListener('click',()=>sendMessage(inputEl.value));
 inputEl.addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage(inputEl.value);});
 function sendSuggestion(btn){sendMessage(btn.textContent.replace(/^[^\w]+/,''));}

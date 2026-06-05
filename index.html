@@ -1,496 +1,176 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fred Rénovation</title>
+    <title>Fred Rénovation — Artisan Couvreur Belgique</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --vert-fonce: #0D1F3C;
-            --vert-medium: #1A3560;
-            --vert-vif: #E8490F;
-            --vert-clair: #FFB899;
-            --fond: #F0F4FA;
+            --navy: #0B1929;
+            --navy-mid: #132240;
+            --navy-light: #1E3358;
+            --orange: #E8490F;
+            --orange-dark: #C53A08;
+            --orange-pale: #FF7A3D;
             --blanc: #FFFFFF;
-            --texte: #1A1A1A;
-            --texte-leger: #4A5570;
-            --or: #E8490F;
+            --fond: #EAF0FA;
+            --texte: #0B1929;
+            --texte-doux: #4A5878;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--fond);
-            color: var(--texte);
-            font-family: 'DM Sans', sans-serif;
-            overflow-x: hidden;
-        }
+        body { background: var(--fond); color: var(--texte); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
 
         /* TOP BAR */
-        .top-bar {
-            background-color: var(--vert-fonce);
-            padding: 10px 40px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 8px;
-            position: relative;
-            z-index: 10;
-        }
-        .top-bar a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.04em;
-            padding: 4px 10px;
-            border-radius: 3px;
-            transition: all 0.2s;
-        }
-        .top-bar a:hover, .top-bar a.active { color: var(--blanc); background: rgba(255,255,255,0.1); }
-        .top-bar a.active { color: var(--vert-clair); }
+        .top-bar { background: var(--navy); padding: 0 40px; display: flex; justify-content: space-between; align-items: center; height: 50px; border-bottom: 3px solid var(--orange); }
+        .top-brand { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 900; color: var(--blanc); letter-spacing: 0.05em; text-transform: uppercase; }
+        .top-brand span { color: var(--orange); }
+        .top-nav { display: flex; gap: 2px; }
+        .top-nav a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 3px; transition: all 0.2s; }
+        .top-nav a:hover { color: var(--blanc); background: rgba(255,255,255,0.08); }
+        .top-nav a.active { color: var(--orange); }
 
         /* HERO */
-        .hero {
-            position: relative;
-            background: var(--vert-fonce);
-            overflow: hidden;
-            min-height: 480px;
-            display: flex;
-            align-items: flex-end;
-        }
-        .hero-bg-pattern {
-            position: absolute;
-            inset: 0;
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px);
-        }
-        .hero-accent {
-            position: absolute;
-            top: -80px;
-            right: -80px;
-            width: 520px;
-            height: 520px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(232,73,15,0.15) 0%, transparent 70%);
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            padding: 80px 40px 60px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 40px;
-            align-items: flex-end;
-        }
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--vert-clair);
-            margin-bottom: 18px;
-        }
-        .eyebrow::before { content: ''; display: block; width: 28px; height: 2px; background: var(--vert-vif); }
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(52px, 7vw, 88px);
-            font-weight: 900;
-            color: var(--blanc);
-            line-height: 0.95;
-            letter-spacing: -2px;
-        }
-        .hero-title .accent { color: var(--vert-vif); font-style: italic; }
-        .hero-slogan {
-            margin-top: 24px;
-            font-size: 17px;
-            font-weight: 300;
-            color: rgba(255,255,255,0.65);
-            letter-spacing: 0.02em;
-        }
-        .hero-slogan strong { color: rgba(255,255,255,0.9); font-weight: 500; }
-        .hero-badges { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
-        .badge {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(255,255,255,0.07);
-            border: 1px solid rgba(255,255,255,0.12);
-            color: var(--blanc);
-            padding: 8px 16px;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.04em;
-        }
-        .badge-icon { color: var(--vert-vif); font-size: 14px; }
-        .hero-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-        .cta-btn {
-            display: inline-block;
-            background: var(--vert-vif);
-            color: var(--blanc);
-            text-decoration: none;
-            padding: 16px 32px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            white-space: nowrap;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
-        }
-        .cta-btn:hover { background: #C53A08; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,73,15,0.3); }
-        .cta-secondary { font-size: 13px; color: rgba(255,255,255,0.45); text-align: right; }
+        .hero { background: var(--navy); position: relative; overflow: hidden; min-height: 560px; display: flex; align-items: center; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px); }
+        .hero-blob { position: absolute; right: -100px; top: -80px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgba(232,73,15,0.2) 0%, transparent 65%); pointer-events: none; }
+        .hero-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--orange) 0%, var(--orange-pale) 50%, var(--orange) 100%); }
+        .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 70px 40px 90px; display: grid; grid-template-columns: 1fr 340px; gap: 60px; align-items: center; }
+        .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 24px; animation: fadeUp 0.5s 0.1s both; }
+        .hero-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(70px, 10vw, 120px); font-weight: 900; color: var(--blanc); line-height: 0.87; letter-spacing: -1px; text-transform: uppercase; animation: fadeUp 0.6s 0.2s both; }
+        .hero-title .orange { color: var(--orange); font-style: italic; }
+        .hero-sub { margin-top: 24px; font-size: 19px; font-weight: 400; color: rgba(255,255,255,0.5); line-height: 1.55; animation: fadeUp 0.6s 0.3s both; }
+        .hero-sub strong { color: rgba(255,255,255,0.88); font-weight: 600; }
+        .hero-badges { display: flex; gap: 10px; margin-top: 34px; flex-wrap: wrap; animation: fadeUp 0.6s 0.4s both; }
+        .badge { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); color: var(--blanc); padding: 8px 18px; border-radius: 3px; font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+        .badge::before { content: '\2713'; color: var(--orange); font-size: 14px; }
+
+        /* CTA BOX */
+        .hero-cta-box { background: var(--orange); border-radius: 8px; padding: 38px 32px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 16px 56px rgba(232,73,15,0.55); animation: fadeUp 0.7s 0.25s both; }
+        .hero-cta-box::before { content: ''; position: absolute; top: -40px; right: -40px; width: 130px; height: 130px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+        .cta-icon { font-size: 38px; margin-bottom: 10px; }
+        .cta-title { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.1; margin-bottom: 8px; }
+        .cta-sub { font-size: 13px; color: rgba(255,255,255,0.78); margin-bottom: 24px; }
+        .cta-btn { display: block; background: var(--navy); color: #fff; text-decoration: none; padding: 15px 24px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; border: none; cursor: pointer; width: 100%; margin-bottom: 10px; }
+        .cta-btn:hover { background: #000; transform: translateY(-2px); }
+        .cta-note { font-size: 11px; color: rgba(255,255,255,0.62); }
 
         /* STRIP */
-        .strip {
-            background: var(--vert-medium);
-            padding: 14px 40px;
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-        .strip-item {
-            color: rgba(255,255,255,0.85);
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .strip-item::before { content: '✦'; color: var(--vert-clair); font-size: 10px; }
+        .strip { background: var(--orange); overflow: hidden; }
+        .strip-inner { display: flex; justify-content: center; flex-wrap: wrap; }
+        .strip-item { color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 13px 28px; display: flex; align-items: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.25); }
+        .strip-item:last-child { border-right: none; }
+        .strip-item::before { content: '\25B6'; font-size: 8px; opacity: 0.7; }
 
-        /* MAIN CONTENT */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 40px;
-        }
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            border-bottom: 1px solid rgba(13,31,60,0.12);
-            padding-bottom: 20px;
-        }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--vert-fonce);
-            letter-spacing: -0.5px;
-        }
-        .section-subtitle { font-size: 16px; color: var(--texte-leger); margin-top: 5px; font-weight: 400; }
-        .section-count { font-size: 12px; font-weight: 600; color: var(--texte-leger); letter-spacing: 0.1em; text-transform: uppercase; }
+        /* SECTIONS */
+        .section-block { max-width: 1200px; margin: 0 auto; padding: 70px 40px; }
+        .section-label { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; }
+        .section-label::before { content: ''; display: block; width: 24px; height: 3px; background: var(--orange); border-radius: 2px; }
+        .section-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(38px, 5vw, 62px); font-weight: 900; color: var(--navy); text-transform: uppercase; letter-spacing: -0.5px; line-height: 1; margin-bottom: 8px; }
+        .section-title .accent { color: var(--orange); font-style: italic; }
+        .section-desc { font-size: 17px; color: var(--texte-doux); margin-bottom: 50px; }
 
-        /* FOCUS GRID (4 colonnes) */
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
+        /* FOCUS CARDS */
+        .focus-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .focus-card { background: var(--navy); border-radius: 6px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+        .focus-card:hover { transform: translateY(-8px); box-shadow: 0 24px 56px rgba(11,25,41,0.35); }
+        .focus-card-img { width: 100%; height: 200px; overflow: hidden; position: relative; }
+        .focus-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.72); }
+        .focus-card:hover .focus-card-img img { transform: scale(1.09); filter: brightness(0.88); }
+        .focus-card-cat { position: absolute; top: 0; left: 0; background: var(--orange); color: #fff; font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 12px; }
+        .focus-card-body { padding: 18px 18px 22px; }
+        .focus-card-line { width: 32px; height: 3px; background: var(--orange); border-radius: 2px; margin-bottom: 10px; }
+        .focus-card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; color: var(--blanc); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px; }
+        .focus-card-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
 
-        /* CARD DE BASE — photo grande, titre en overlay */
-        .card {
-            background: var(--blanc);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.10); }
+        /* PRESTATIONS */
+        .prestations-section { background: var(--navy); padding: 70px 0; }
+        .prestations-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+        .prestations-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 44px; }
+        .prest-count { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; }
+        .prestation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .prest-card { background: var(--navy-light); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.06); }
+        .prest-card:hover { transform: translateY(-6px); box-shadow: 0 22px 52px rgba(0,0,0,0.38); border-color: var(--orange); }
+        .prest-img-box { position: relative; height: 200px; overflow: hidden; background: var(--navy-mid); flex-shrink: 0; }
+        .prest-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s; filter: brightness(0.68); }
+        .prest-card:hover .prest-img-box img { transform: scale(1.06); filter: brightness(0.85); }
+        .prest-num { position: absolute; top: 0; right: 0; background: var(--orange); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 900; padding: 4px 12px; letter-spacing: 0.05em; }
+        .prest-body { padding: 20px 22px; flex-grow: 1; }
+        .prest-tag { display: inline-block; background: rgba(232,73,15,0.14); color: var(--orange); border: 1px solid rgba(232,73,15,0.38); font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 10px; border-radius: 3px; margin-bottom: 10px; }
+        .prest-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; color: var(--blanc); text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 8px; line-height: 1.1; }
+        .prest-text { font-size: 13.5px; color: rgba(255,255,255,0.42); line-height: 1.6; }
+        .prest-footer { padding: 14px 22px; border-top: 1px solid rgba(255,255,255,0.07); }
+        .prest-link { font-size: 11px; font-weight: 800; color: var(--orange); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+        .prest-link:hover { gap: 12px; }
 
-        /* ===== FOCUS CARDS (A/B/C/D) ===== */
-        .focus-card {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-            position: relative;
-            display: block;
-            cursor: default;
-        }
-        .focus-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+        /* PICTOS */
+        .pictos-section { background: var(--fond); padding: 70px 40px; }
+        .pictos-inner { max-width: 1200px; margin: 0 auto; }
+        .pictos-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 14px; margin-top: 50px; }
+        .picto-card { background: var(--blanc); border-radius: 6px; padding: 22px 10px 18px; text-align: center; border: 2px solid transparent; transition: all 0.25s; }
+        .picto-card:hover { border-color: var(--orange); transform: translateY(-5px); box-shadow: 0 12px 32px rgba(232,73,15,0.14); }
+        .picto-icon { width: 54px; height: 54px; background: var(--orange); border-radius: 6px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; }
+        .picto-icon svg { width: 28px; height: 28px; fill: #fff; }
+        .picto-label { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.2; margin-bottom: 4px; }
+        .picto-sub { font-size: 11px; color: var(--texte-doux); line-height: 1.4; }
 
-        .focus-card-img {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-        }
-        .focus-card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-        .focus-card:hover .focus-card-img img { transform: scale(1.06); }
+        /* WHY */
+        .why-section { background: var(--orange); padding: 70px 40px; position: relative; overflow: hidden; }
+        .why-section::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+        .why-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        .why-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 50px; }
+        .why-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: -0.5px; line-height: 1; }
+        .why-title span { opacity: 0.52; display: block; font-size: 0.52em; letter-spacing: 0.12em; font-weight: 700; }
+        .why-phone-num { font-family: 'Barlow Condensed', sans-serif; font-size: 42px; font-weight: 900; color: #fff; letter-spacing: 0.02em; text-align: right; }
+        .why-phone-note { font-size: 12px; color: rgba(255,255,255,0.68); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-align: right; }
+        .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .why-item { background: rgba(255,255,255,0.12); border-radius: 6px; padding: 28px 22px; border: 1px solid rgba(255,255,255,0.18); text-align: center; }
+        .why-icon { font-size: 32px; margin-bottom: 12px; }
+        .why-num { font-family: 'Barlow Condensed', sans-serif; font-size: 54px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 6px; }
+        .why-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.88); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+        .why-desc { font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.5; }
 
-        /* Lettre badge */
-        .focus-card-letter {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            width: 32px;
-            height: 32px;
-            background: var(--vert-fonce);
-            color: var(--blanc);
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-            letter-spacing: 0.05em;
-        }
-
-        /* Overlay titre en bas de la photo */
-        .focus-card-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(8,22,41,0.88) 0%, transparent 100%);
-            padding: 28px 14px 14px;
-            z-index: 2;
-        }
-        .focus-card-overlay h3 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--blanc);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 3px;
-        }
-        .focus-card-overlay p {
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.4;
-        }
-
-        /* ===== PRESTATION CARDS (01-09) — mise en page verticale image + texte ===== */
-        .prestation-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .prest-card {
-            background: var(--blanc);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .prest-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.10); }
-
-        /* La case photo : grande, bien encadrée */
-        .prest-img-box {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            background: #b0bdd4;
-            flex-shrink: 0;
-        }
-        .prest-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-        .prest-card:hover .prest-img-box img { transform: scale(1.05); }
-
-        /* Numéro */
-        .prest-num {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(255,255,255,0.92);
-            color: rgba(13,31,60,0.7);
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            padding: 3px 9px;
-            border-radius: 4px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            z-index: 2;
-        }
-
-        /* Contenu texte sous la photo */
-        .prest-body {
-            padding: 20px 22px;
-            flex-grow: 1;
-        }
-        .prest-tag {
-            display: inline-block;
-            background: var(--vert-fonce);
-            color: var(--blanc);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        .prest-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 19px;
-            font-weight: 700;
-            color: var(--vert-fonce);
-            margin-bottom: 8px;
-            line-height: 1.2;
-        }
-        .prest-text { font-size: 13.5px; color: var(--texte-leger); line-height: 1.65; }
-
-        .prest-footer {
-            padding: 14px 22px;
-            border-top: 1px solid rgba(0,0,0,0.06);
-        }
-        .prest-link {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--vert-medium);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: gap 0.2s;
-        }
-        .prest-link:hover { gap: 10px; }
-
-        /* WHY US */
-        .why-section { background: var(--vert-fonce); padding: 70px 40px; }
-        .why-inner { max-width: 1200px; margin: 0 auto; }
-        .why-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--blanc);
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .why-item {
-            text-align: center;
-            padding: 30px 20px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.07);
-        }
-        .why-num { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 900; color: var(--vert-vif); line-height: 1; margin-bottom: 8px; }
-        .why-label { font-size: 14px; font-weight: 600; color: var(--blanc); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-        .why-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+        /* CTA BAND */
+        .cta-band { background: var(--navy); padding: 54px 40px; }
+        .cta-band-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+        .cta-band-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(34px, 4.5vw, 58px); font-weight: 900; color: #fff; text-transform: uppercase; line-height: 1; }
+        .cta-band-title span { color: var(--orange); }
+        .cta-band-sub { font-size: 15px; color: rgba(255,255,255,0.4); margin-top: 10px; }
+        .cta-band-btn { display: inline-block; background: var(--orange); color: #fff; text-decoration: none; padding: 18px 38px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s; white-space: nowrap; box-shadow: 0 8px 36px rgba(232,73,15,0.45); }
+        .cta-band-btn:hover { background: var(--orange-dark); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(232,73,15,0.58); }
 
         /* FOOTER */
-        footer { background: #081629; padding: 40px; }
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 40px;
-            align-items: center;
-        }
-        .footer-brand { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--blanc); margin-bottom: 6px; }
-        .footer-sub { font-size: 13px; color: rgba(255,255,255,0.35); }
+        footer { background: #060f1c; padding: 40px; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+        .footer-brand { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 900; color: var(--blanc); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .footer-brand span { color: var(--orange); }
+        .footer-sub { font-size: 13px; color: rgba(255,255,255,0.28); }
         .footer-links { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
-        .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; padding: 5px 12px; border-radius: 4px; transition: all 0.2s; }
+        .footer-links a { color: rgba(255,255,255,0.42); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; transition: all 0.2s; }
         .footer-links a:hover { color: var(--blanc); background: rgba(255,255,255,0.07); }
-        .footer-bottom { max-width: 1200px; margin: 24px auto 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: center; }
-        .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
-        .footer-reg { font-size: 12px; color: rgba(255,255,255,0.25); font-family: monospace; letter-spacing: 0.05em; }
+        .footer-bottom { max-width: 1200px; margin: 20px auto 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; }
+        .footer-copy, .footer-reg { font-size: 11px; color: rgba(255,255,255,0.2); }
+        .footer-reg { font-family: monospace; letter-spacing: 0.05em; }
 
         /* ANIMATIONS */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-        .hero-left > * { animation: fadeUp 0.6s ease both; }
-        .eyebrow { animation-delay: 0.1s; }
-        .hero-title { animation-delay: 0.2s; }
-        .hero-slogan { animation-delay: 0.3s; }
-        .hero-badges { animation-delay: 0.4s; }
-        .hero-cta { animation: fadeUp 0.6s 0.35s ease both; }
-
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .grid-4, .prestation-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 900px) {
-            .hero-content { grid-template-columns: 1fr; }
-            .hero-cta { align-items: flex-start; }
-            .why-grid { grid-template-columns: 1fr 1fr; }
-            .footer-inner { grid-template-columns: 1fr; }
-            .footer-links { justify-content: flex-start; }
-        }
-        @media (max-width: 580px) {
-            .grid-4, .prestation-grid { grid-template-columns: 1fr; }
-            .why-grid { grid-template-columns: 1fr; gap: 15px; }
-            .top-bar { flex-wrap: wrap; gap: 4px; justify-content: center; }
-            .hero-title { letter-spacing: -1px; }
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
         /* CHATBOT */
-        #chat-bubble {
-            position: fixed; bottom: 28px; right: 28px;
-            width: 58px; height: 58px; border-radius: 50%;
-            background: var(--vert-vif);
-            box-shadow: 0 6px 24px rgba(232,73,15,0.45);
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-        }
-        #chat-bubble:hover { transform: scale(1.08); box-shadow: 0 10px 32px rgba(232,73,15,0.55); }
+        #chat-bubble { position: fixed; bottom: 28px; right: 28px; width: 60px; height: 60px; border-radius: 50%; background: var(--orange); box-shadow: 0 6px 28px rgba(232,73,15,0.52); cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 9999; transition: transform 0.2s, box-shadow 0.2s; border: none; }
+        #chat-bubble:hover { transform: scale(1.1); box-shadow: 0 10px 36px rgba(232,73,15,0.68); }
         #chat-bubble svg { width: 26px; height: 26px; fill: white; }
         #chat-bubble .chat-close-icon { display: none; }
         #chat-bubble.open .chat-open-icon { display: none; }
         #chat-bubble.open .chat-close-icon { display: block; }
-        #chat-notif {
-            position: absolute; top: -4px; right: -4px;
-            width: 18px; height: 18px;
-            background: var(--or); border-radius: 50%;
-            font-size: 10px; font-weight: 700; color: white;
-            display: flex; align-items: center; justify-content: center;
-            animation: pulse-notif 2s infinite;
-        }
+        #chat-notif { position: absolute; top: -4px; right: -4px; width: 20px; height: 20px; background: var(--navy); border-radius: 50%; font-size: 10px; font-weight: 700; color: var(--orange); display: flex; align-items: center; justify-content: center; animation: pulse-notif 2s infinite; border: 2px solid var(--orange); }
         @keyframes pulse-notif { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
-        #chat-window {
-            position: fixed; bottom: 100px; right: 28px;
-            width: 360px; max-height: 520px;
-            background: white; border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.18);
-            display: flex; flex-direction: column;
-            z-index: 9998; overflow: hidden;
-            transform: scale(0.85) translateY(20px);
-            opacity: 0; pointer-events: none;
-            transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), opacity 0.2s ease;
-            transform-origin: bottom right;
-        }
+        #chat-window { position: fixed; bottom: 104px; right: 28px; width: 360px; max-height: 520px; background: white; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); display: flex; flex-direction: column; z-index: 9998; overflow: hidden; transform: scale(0.85) translateY(20px); opacity: 0; pointer-events: none; transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), opacity 0.2s; transform-origin: bottom right; }
         #chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
-        .chat-header { background: var(--vert-fonce); padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
-        .chat-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--vert-vif); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-        .chat-header-name { font-size: 14px; font-weight: 700; color: white; font-family: 'DM Sans', sans-serif; }
-        .chat-header-status { font-size: 11px; color: #FFB899; display: flex; align-items: center; gap: 5px; }
+        .chat-header { background: var(--navy); padding: 16px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 3px solid var(--orange); }
+        .chat-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .chat-header-name { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 900; color: white; text-transform: uppercase; letter-spacing: 0.05em; }
+        .chat-header-status { font-size: 11px; color: rgba(255,255,255,0.52); display: flex; align-items: center; gap: 5px; }
         .chat-header-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; display: inline-block; }
         .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #f0f4fa; scroll-behavior: smooth; }
         .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -498,1151 +178,382 @@
         .msg { display: flex; gap: 8px; align-items: flex-end; animation: msgIn 0.25s ease both; }
         @keyframes msgIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
         .msg.user { flex-direction: row-reverse; }
-        .msg-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--vert-vif); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
-        .msg.user .msg-avatar { background: var(--vert-medium); }
+        .msg-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+        .msg.user .msg-avatar { background: var(--navy); }
         .msg-bubble { max-width: 75%; padding: 10px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.55; color: var(--texte); background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border-bottom-left-radius: 4px; }
-        .msg.user .msg-bubble { background: var(--vert-fonce); color: white; border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
+        .msg.user .msg-bubble { background: var(--navy); color: white; border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
         .chat-suggestions { padding: 8px 16px 12px; display: flex; gap: 6px; flex-wrap: wrap; background: #f0f4fa; border-top: 1px solid rgba(0,0,0,0.05); }
-        .suggestion-btn { background: white; border: 1px solid rgba(13,31,60,0.18); color: var(--vert-medium); font-size: 12px; font-weight: 500; padding: 5px 11px; border-radius: 100px; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
-        .suggestion-btn:hover { background: var(--vert-fonce); color: white; border-color: var(--vert-fonce); }
+        .suggestion-btn { background: white; border: 1px solid rgba(13,31,60,0.18); color: var(--navy); font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 4px; cursor: pointer; transition: all 0.15s; }
+        .suggestion-btn:hover { background: var(--orange); color: white; border-color: var(--orange); }
         .chat-input-row { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid rgba(0,0,0,0.07); background: white; }
-        #chat-input { flex: 1; border: 1px solid rgba(13,31,60,0.2); border-radius: 8px; padding: 9px 13px; font-size: 13.5px; font-family: 'DM Sans', sans-serif; color: var(--texte); outline: none; transition: border-color 0.2s; background: #f0f4fa; }
-        #chat-input:focus { border-color: var(--vert-vif); background: white; }
-        #chat-send { background: var(--vert-vif); border: none; border-radius: 8px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
-        #chat-send:hover { background: var(--vert-medium); }
+        #chat-input { flex: 1; border: 1px solid rgba(13,31,60,0.2); border-radius: 6px; padding: 9px 13px; font-size: 13.5px; color: var(--texte); outline: none; transition: border-color 0.2s; background: #f0f4fa; }
+        #chat-input:focus { border-color: var(--orange); background: white; }
+        #chat-send { background: var(--orange); border: none; border-radius: 6px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+        #chat-send:hover { background: var(--orange-dark); }
         #chat-send svg { width: 16px; height: 16px; fill: white; }
         .typing-indicator { display: flex; gap: 4px; padding: 10px 14px; align-items: center; }
         .typing-indicator span { width: 7px; height: 7px; border-radius: 50%; background: #b0bdd4; animation: typing 1.2s infinite; }
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typing { 0%,80%,100%{transform:translateY(0);opacity:0.4} 40%{transform:translateY(-5px);opacity:1} }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) { .focus-grid, .prestation-grid { grid-template-columns: repeat(2, 1fr); } .pictos-grid { grid-template-columns: repeat(4, 1fr); } .why-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 900px) { .hero-content { grid-template-columns: 1fr; } .hero-cta-box { max-width: 380px; } .cta-band-inner { grid-template-columns: 1fr; text-align: center; } .footer-inner { grid-template-columns: 1fr; } .footer-links { justify-content: flex-start; } .why-header { flex-direction: column; align-items: flex-start; gap: 20px; } .why-phone-num, .why-phone-note { text-align: left; } }
+        @media (max-width: 640px) { .focus-grid, .prestation-grid { grid-template-columns: 1fr; } .pictos-grid { grid-template-columns: repeat(2, 1fr); } .why-grid { grid-template-columns: 1fr; gap: 12px; } .top-brand { display: none; } .section-block, .pictos-section { padding: 50px 20px; } .prestations-inner { padding: 0 20px; } }
     </style>
 </head>
 <body>
 
-    <nav class="top-bar">
+<nav class="top-bar">
+    <div class="top-brand">FRED <span>RÉNOVATION</span></div>
+    <div class="top-nav">
         <a href="#" class="active">Accueil</a>
-        <a href="#">Nos Prestations</a>
-        <a href="#">Devenir Client</a>
+        <a href="#">Prestations</a>
+        <a href="#">Devis</a>
         <a href="#">Contact</a>
         <a href="#">À Propos</a>
-        <a href="#" onclick="openAdmin(); return false;" id="admin-nav-link">Accès Admin</a>
-    </nav>
+        <a href="#" onclick="openAdmin(); return false;">Admin</a>
+    </div>
+</nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-bg-pattern"></div>
-        <div class="hero-accent"></div>
-        <div class="hero-content">
-            <div class="hero-left">
-                <div class="eyebrow">Artisan Couvreur — Belgique</div>
-                <h1 class="hero-title">Fred<br><span class="accent">Rénovation</span></h1>
-                <p class="hero-slogan">Votre maison, <strong>notre passion.</strong><br>Un travail soigné, du début à la fin.</p>
-                <div class="hero-badges">
-                    <span class="badge"><span class="badge-icon">✓</span> Qualité</span>
-                    <span class="badge"><span class="badge-icon">✓</span> Fiabilité</span>
-                    <span class="badge"><span class="badge-icon">✓</span> Travail soigné</span>
-                </div>
-            </div>
-            <div class="hero-cta">
-                <a class="cta-btn" href="mailto:contact.fredrenovation@gmail.com?subject=Demande%20de%20devis%20-%20Fred%20R%C3%A9novation&body=Bonjour%2C%0A%0AJe%20souhaite%20obtenir%20un%20devis%20pour%20les%20travaux%20suivants%20%3A%0A%0A">Demander un devis</a>
-                <span class="cta-secondary">Réponse sous 48h</span>
+<section class="hero">
+    <div class="hero-blob"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-content">
+        <div class="hero-left">
+            <div class="hero-tag">&#9889; Artisan Couvreur — Belgique</div>
+            <h1 class="hero-title">FRED<br><span class="orange">RÉNOVATION</span></h1>
+            <p class="hero-sub">Votre maison, <strong>notre passion.</strong><br>La solution la plus <strong>intelligente</strong>, pas la plus coûteuse.</p>
+            <div class="hero-badges">
+                <span class="badge">Qualité</span>
+                <span class="badge">Fiabilité</span>
+                <span class="badge">Travail soigné</span>
             </div>
         </div>
-    </section>
+        <div class="hero-cta-box">
+            <div class="cta-icon">&#128222;</div>
+            <div class="cta-title">DEVIS GRATUIT</div>
+            <div class="cta-sub">Réponse sous 48h — Intervention rapide</div>
+            <a class="cta-btn" href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis" target="_blank">&#9993; Demander un devis</a>
+            <div class="cta-note">Votre artisan local à votre service</div>
+        </div>
+    </div>
+</section>
 
-    <!-- STRIP -->
-    <div class="strip">
-        <span class="strip-item">Toiture & Charpente</span>
+<div class="strip">
+    <div class="strip-inner" id="strip-display">
+        <span class="strip-item">Toiture &amp; Charpente</span>
         <span class="strip-item">Toiture Plate EPDM</span>
-        <span class="strip-item">Velux & Lucarnes</span>
+        <span class="strip-item">Velux &amp; Lucarnes</span>
         <span class="strip-item">Interventions Urgentes</span>
     </div>
+</div>
 
-    <!-- NOTRE DIFFÉRENCE — Focus A B C D -->
-    <section class="container">
-        <div class="section-header">
-            <div>
-                <h2 class="section-title">Notre Différence ?</h2>
-                <p class="section-subtitle">Trouver la solution la plus intelligente, pas la plus coûteuse.</p>
+<div class="section-block">
+    <div class="section-label">Notre Différence</div>
+    <h2 class="section-title">LA SOLUTION <span class="accent">INTELLIGENTE</span></h2>
+    <p class="section-desc">Pas la plus chère — la meilleure pour vous.</p>
+    <div class="focus-grid">
+        <div class="focus-card">
+            <div class="focus-card-img">
+                <span class="focus-card-cat">Menuiserie</span>
+                <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=600&auto=format&fit=crop" alt="Menuiserie PVC-ALU">
             </div>
-            <span class="section-count">Focus</span>
-        </div>
-
-        <div class="grid-4">
-            <div class="focus-card">
-                <div class="focus-card-img">
-                    <span class="focus-card-letter">A</span>
-                    <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=600&auto=format&fit=crop" alt="Menuiserie PVC-ALU">
-                    <div class="focus-card-overlay">
-                        <h3>Menuiserie PVC-ALU</h3>
-                        <p>Portes & Fenêtres. Isolation, sécurité et design sur-mesure.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="focus-card">
-                <div class="focus-card-img">
-                    <span class="focus-card-letter">B</span>
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop" alt="Volets Roulants">
-                    <div class="focus-card-overlay">
-                        <h3>Volets Roulants</h3>
-                        <p>Manuels ou motorisés. Confort, sécurité et économies d'énergie.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="focus-card">
-                <div class="focus-card-img">
-                    <span class="focus-card-letter">C</span>
-                    <img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?q=80&w=600&auto=format&fit=crop" alt="Rénovation Intérieure">
-                    <div class="focus-card-overlay">
-                        <h3>Rénovation Intérieure</h3>
-                        <p>Placo, peinture et isolation. Un agencement à votre image.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="focus-card">
-                <div class="focus-card-img">
-                    <span class="focus-card-letter">D</span>
-                    <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?q=80&w=600&auto=format&fit=crop" alt="Bardage Extérieur">
-                    <div class="focus-card-overlay">
-                        <h3>Bardage Extérieur</h3>
-                        <p>Embellissement de vos façades, protection durable contre les intempéries.</p>
-                    </div>
-                </div>
+            <div class="focus-card-body">
+                <div class="focus-card-line"></div>
+                <div class="focus-card-title">PVC-ALU</div>
+                <div class="focus-card-desc">Portes &amp; Fenêtres. Isolation, sécurité, design sur-mesure.</div>
             </div>
         </div>
-    </section>
-
-    <!-- NOS PRESTATIONS — 9 cartes avec grande case photo -->
-    <section class="container" style="background-color: rgba(255,255,255,0.5); border-radius: 16px; padding: 40px;">
-        <div class="section-header">
-            <h2 class="section-title">Nos Prestations</h2>
-            <span class="section-count">9 services</span>
-        </div>
-
-        <div class="prestation-grid">
-
-            <!-- 01 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">01</span>
-                    <img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop" alt="Couverture traditionnelle toiture tuiles">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Toiture</span>
-                    <h3 class="prest-title">Couverture traditionnelle</h3>
-                    <p class="prest-text">Tuile, zinc, bac acier. Des matériaux haut de gamme pour allier durabilité et esthétique à votre toiture.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
+        <div class="focus-card">
+            <div class="focus-card-img">
+                <span class="focus-card-cat">Volets</span>
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop" alt="Volets Roulants">
             </div>
-
-            <!-- 02 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">02</span>
-                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop" alt="Toiture plate EPDM étanchéité">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Étanchéité</span>
-                    <h3 class="prest-title">Toiture plate EPDM</h3>
-                    <p class="prest-text">Résistante et hautement durable, notre solution d'étanchéité EPDM garantit une protection optimale à long terme.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-            <!-- 03 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">03</span>
-                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop" alt="Fenêtre de toit Velux lumière combles">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Velux</span>
-                    <h3 class="prest-title">Fenêtres de toit</h3>
-                    <p class="prest-text">Plus de lumière, plus de confort. Pose parfaite de Velux pour apporter de la clarté sous vos combles.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-            <!-- 04 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">04</span>
-                    <img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop" alt="Châssis PVC ALU double vitrage fenêtres">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Menuiserie</span>
-                    <h3 class="prest-title">Châssis PVC & ALU</h3>
-                    <p class="prest-text">Remplacement de fenêtres et portes. Optimisation des performances thermiques et phoniques.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-            <!-- 05 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">05</span>
-                    <img src="https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop" alt="Volets roulants stores extérieurs façade">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Domotique</span>
-                    <h3 class="prest-title">Volets Roulants</h3>
-                    <p class="prest-text">Installation de systèmes manuels ou motorisés pour votre confort quotidien et la sécurité du bâtiment.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-            <!-- 06 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">06</span>
-                    <img src="https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop" alt="Isolation thermique combles murs structure">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Isolation</span>
-                    <h3 class="prest-title">Isolation Thermique</h3>
-                    <p class="prest-text">Isolation performante des combles, des murs ou des sols pour réduire drastiquement vos déperditions d'énergie.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-            <!-- 07 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">07</span>
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop" alt="Placo cloisons intérieures pose plaques plâtre">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Aménagement</span>
-                    <h3 class="prest-title">Placo & Cloisonnement</h3>
-                    <p class="prest-text">Doublage des murs, création de séparations de pièces et pose de faux plafonds avec finitions soignées.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-            <!-- 08 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">08</span>
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop" alt="Carrelage faïence salle de bain sol mur">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Revêtements</span>
-                    <h3 class="prest-title">Carrelage Sol & Mur</h3>
-                    <p class="prest-text">Pose de carrelages, faïences et crédences pour vos pièces d'eau, cuisines ou sols de pièces de vie.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-            <!-- 09 -->
-            <div class="prest-card">
-                <div class="prest-img-box">
-                    <span class="prest-num">09</span>
-                    <img src="https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop" alt="Bardage extérieur bois composite façade moderne">
-                </div>
-                <div class="prest-body">
-                    <span class="prest-tag">Façade</span>
-                    <h3 class="prest-title">Bardage Extérieur</h3>
-                    <p class="prest-text">Revêtement esthétique en bois ou composite pour moderniser l'aspect visuel extérieur tout en isolant.</p>
-                </div>
-                <div class="prest-footer"><a href="#" class="prest-link">En savoir plus →</a></div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- WHY US -->
-    <section class="why-section">
-        <div class="why-inner">
-            <h2 class="why-title">Pourquoi nous choisir ?</h2>
-            <div class="why-grid">
-                <div class="why-item">
-                    <div class="why-num">15+</div>
-                    <div class="why-label">Années d'expérience</div>
-                    <div class="why-desc">Un savoir-faire éprouvé sur des centaines de chantiers</div>
-                </div>
-                <div class="why-item">
-                    <div class="why-num">100%</div>
-                    <div class="why-label">Satisfaction client</div>
-                    <div class="why-desc">Chaque projet livré dans les délais et selon vos attentes</div>
-                </div>
-                <div class="why-item">
-                    <div class="why-num">48h</div>
-                    <div class="why-label">Délai de réponse</div>
-                    <div class="why-desc">Devis gratuit et personnalisé en moins de deux jours</div>
-                </div>
-                <div class="why-item">
-                    <div class="why-num">∞</div>
-                    <div class="why-label">Garantie qualité</div>
-                    <div class="why-desc">Matériaux certifiés et pose assurée par nos artisans</div>
-                </div>
+            <div class="focus-card-body">
+                <div class="focus-card-line"></div>
+                <div class="focus-card-title">VOLETS ROULANTS</div>
+                <div class="focus-card-desc">Manuels ou motorisés. Confort, sécurité, économies.</div>
             </div>
         </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-inner">
-            <div>
-                <div class="footer-brand">Fred Rénovation</div>
-                <div class="footer-sub">Artisan couvreur — Votre maison, notre passion</div>
+        <div class="focus-card">
+            <div class="focus-card-img">
+                <span class="focus-card-cat">Intérieur</span>
+                <img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?q=80&w=600&auto=format&fit=crop" alt="Rénovation Intérieure">
             </div>
-            <nav class="footer-links">
-                <a href="#">Site map</a>
-                <a href="#">Nos Prestations</a>
-                <a href="#">Contact</a>
-                <a href="#">À Propos</a>
-            </nav>
-        </div>
-        <div class="footer-bottom">
-            <span class="footer-copy">&copy; 2026 Fred Rénovation, Inc.</span>
-            <span class="footer-reg">BE 08332520</span>
-        </div>
-    </footer>
-
-    <!-- CHATBOT -->
-    <button id="chat-bubble" aria-label="Ouvrir le chat">
-        <span class="chat-notif-wrap"><div id="chat-notif">1</div></span>
-        <svg class="chat-open-icon" viewBox="0 0 24 24"><path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H6l-2 2V4h16v10z"/></svg>
-        <svg class="chat-close-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-    </button>
-
-    <div id="chat-window" role="dialog" aria-label="Assistant Fred Rénovation">
-        <div class="chat-header">
-            <div class="chat-avatar">🏠</div>
-            <div class="chat-header-info">
-                <div class="chat-header-name">Assistant Fred Rénovation</div>
-                <div class="chat-header-status">En ligne — répond immédiatement</div>
+            <div class="focus-card-body">
+                <div class="focus-card-line"></div>
+                <div class="focus-card-title">RÉNO INTÉRIEURE</div>
+                <div class="focus-card-desc">Placo, peinture, isolation. Un intérieur à votre image.</div>
             </div>
         </div>
-        <div class="chat-messages" id="chat-messages"></div>
-        <div class="chat-suggestions" id="chat-suggestions">
-            <button class="suggestion-btn" onclick="sendSuggestion(this)">🏠 Toiture & couverture</button>
-            <button class="suggestion-btn" onclick="sendSuggestion(this)">🧱 Façade & isolation</button>
-            <button class="suggestion-btn" onclick="sendSuggestion(this)">🪟 Menuiserie & Velux</button>
-            <button class="suggestion-btn" onclick="sendSuggestion(this)">💰 Demander un devis</button>
-        </div>
-        <div class="chat-input-row">
-            <input type="text" id="chat-input" placeholder="Posez votre question…" autocomplete="off" />
-            <button id="chat-send" aria-label="Envoyer">
-                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-            </button>
+        <div class="focus-card">
+            <div class="focus-card-img">
+                <span class="focus-card-cat">Façade</span>
+                <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?q=80&w=600&auto=format&fit=crop" alt="Bardage Extérieur">
+            </div>
+            <div class="focus-card-body">
+                <div class="focus-card-line"></div>
+                <div class="focus-card-title">BARDAGE EXT.</div>
+                <div class="focus-card-desc">Embellissement de façade, protection durable.</div>
+            </div>
         </div>
     </div>
+</div>
 
-    <script>
-    const KB = [
-      { keys: ['fuit','fuite','infiltr','humidité','mouillé','eau','gouttière','gouttières'], reply: `🔍 <strong>Toiture qui fuit ?</strong><br>• Repérez <em>où</em> l'humidité apparaît à l'intérieur<br>• Inspectez les <strong>noues, faîtage et solins</strong><br>• Vérifiez l'état des <strong>gouttières</strong><br>• N'attendez pas — une fuite peut endommager la charpente.<br><br>👉 Fred Rénovation intervient en urgence. <a href="mailto:contact.fredrenovation@gmail.com?subject=Urgence%20toiture%20-%20Devis" style="color:var(--vert-vif)">Demandez un devis gratuit !</a>` },
-      { keys: ['epdm','toiture plate','plate','étanch'], reply: `🛡️ <strong>Toiture plate EPDM</strong><br>Idéal pour les extensions et garages :<br>• Durée de vie : <strong>30 à 50 ans</strong><br>• Résistance totale aux UV et écarts de température<br>• Entretien minimal.` },
-      { keys: ['velux','fenêtre','lucarne','lumière','skylight'], reply: `☀️ <strong>Fenêtres de toit Velux</strong><br>• Taille recommandée : <strong>min. 1/6 de la surface au sol</strong><br>• Double vitrage thermique renforcé.` },
-      { keys: ['façade','ravalement','crépi','enduit','bardage'], reply: `🧱 <strong>Ravalement de façade & Bardage</strong><br>• Nettoyage et traitement anti-mousse<br>• Pose de <strong>bardage bois ou composite</strong> isolé.` },
-      { keys: ['isolation','isoler','combles','murs','thermique','énergie','chauffage','froid'], reply: `🌡️ <strong>Isolation thermique</strong><br>• <strong>Isolation des combles</strong> (priorité n°1, évite 30% des pertes)<br>• Travaux éligibles aux primes énergie.` },
-      { keys: ['salle de bain','salle de bains','douche','carrelage','sanitaire'], reply: `🚿 <strong>Rénovation Salle de bain & Carrelage</strong><br>Prise en charge clé en main : faïence murale, carrelage au sol et raccordements sanitaires.` },
-      { keys: ['cuisine','aménagement','placard','cloisons','placo'], reply: `🪚 <strong>Aménagement intérieur & Placo</strong><br>Cloisons séparatrices, doublage thermo-acoustique et faux plafonds.` },
-      { keys: ['porte','pvc','double vitrage','aluminium','menuiserie','châssis'], reply: `🪟 <strong>Menuiseries Extérieures</strong><br>Châssis PVC ou Aluminium ultra-isolants pour sécuriser et valoriser votre patrimoine.` },
-      { keys: ['devis','tarif','prix','coût','combien','gratuit'], reply: `💰 <strong>Votre devis gratuit sous 48h</strong><br>1. Envoyez-nous votre demande par email<br>2. Visite technique gratuite sur place<br>3. Chiffrage clair sous 48 heures.<br><br>📧 <a href="mailto:contact.fredrenovation@gmail.com?subject=Demande%20de%20devis%20Fred%20R%C3%A9novation" style="color:#E8490F">contact.fredrenovation@gmail.com</a>` },
-      { keys: ['bonjour','salut','bonsoir','hello','aide'], reply: `👋 <strong>Bonjour ! Je suis l'assistant de Fred Rénovation.</strong><br>Besoin d'infos sur une toiture, isolation, bardage ou menuiserie ? Je suis là !` }
-    ];
-
-    const bubble = document.getElementById('chat-bubble');
-    const chatWin = document.getElementById('chat-window');
-    const messages = document.getElementById('chat-messages');
-    const inputEl = document.getElementById('chat-input');
-    const sendBtn = document.getElementById('chat-send');
-    const notifEl = document.getElementById('chat-notif');
-    const suggsEl = document.getElementById('chat-suggestions');
-    let opened = false;
-
-    bubble.addEventListener('click', () => {
-        opened = !opened;
-        bubble.classList.toggle('open', opened);
-        chatWin.classList.toggle('open', opened);
-        if (opened) {
-            notifEl.style.display = 'none';
-            if (messages.children.length === 0) addBotMsg(`👋 <strong>Bonjour et bienvenue !</strong><br>Je suis votre conseiller virtuel. Toiture, menuiserie, isolation... Posez vos questions ici !`);
-            setTimeout(() => inputEl.focus(), 300);
-        }
-    });
-
-    function addUserMsg(text) {
-        const d = document.createElement('div');
-        d.className = 'msg user';
-        d.innerHTML = `<div class="msg-avatar">👤</div><div class="msg-bubble">${text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
-        messages.appendChild(d);
-        scrollBottom();
-    }
-    function addBotMsg(html) {
-        const d = document.createElement('div');
-        d.className = 'msg bot';
-        d.innerHTML = `<div class="msg-avatar">🏠</div><div class="msg-bubble">${html}</div>`;
-        messages.appendChild(d);
-        scrollBottom();
-    }
-    function showTyping() {
-        const d = document.createElement('div');
-        d.className = 'msg bot'; d.id = 'typing-msg';
-        d.innerHTML = `<div class="msg-avatar">🏠</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
-        messages.appendChild(d); scrollBottom(); return d;
-    }
-    function scrollBottom() { setTimeout(() => messages.scrollTop = messages.scrollHeight, 50); }
-    function findAnswer(text) {
-        const low = text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-        for (const item of KB) if (item.keys.some(k => low.includes(k))) return item.reply;
-        return `🤔 Fred se fera un plaisir de vous répondre en direct !<br><br>📧 <a href="mailto:contact.fredrenovation@gmail.com?subject=Demande%20de%20devis%20Fred%20R%C3%A9novation" style="color:#E8490F">Devis Gratuit (48h)</a>.`;
-    }
-    function sendMessage(text) {
-        if (!text.trim()) return;
-        suggsEl.style.display = 'none';
-        addUserMsg(text);
-        inputEl.value = '';
-        const t = showTyping();
-        setTimeout(() => { t.remove(); addBotMsg(findAnswer(text)); }, 800 + Math.random() * 300);
-    }
-    sendBtn.addEventListener('click', () => sendMessage(inputEl.value));
-    inputEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendMessage(inputEl.value); });
-    function sendSuggestion(btn) { sendMessage(btn.textContent.replace(/^[^\w]+/, '')); }
-    </script>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         ADMIN PANEL
-    ════════════════════════════════════════════════════════════ -->
-    <style>
-    /* OVERLAY */
-    #admin-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(5,12,28,0.82);
-        z-index: 99990;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(4px);
-    }
-    #admin-overlay.show { display: flex; }
-
-    /* LOGIN BOX */
-    #admin-login {
-        background: #fff;
-        border-radius: 14px;
-        padding: 40px 36px;
-        width: 360px;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-        text-align: center;
-    }
-    #admin-login .al-logo {
-        width: 52px; height: 52px; border-radius: 50%;
-        background: var(--vert-fonce);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 22px; margin: 0 auto 16px;
-    }
-    #admin-login h2 { font-family: 'Playfair Display',serif; font-size: 22px; color: var(--vert-fonce); margin-bottom: 4px; }
-    #admin-login p { font-size: 13px; color: var(--texte-leger); margin-bottom: 24px; }
-    #admin-login input[type=password] {
-        width: 100%; padding: 11px 14px; border: 1.5px solid #d0ddd5;
-        border-radius: 8px; font-size: 14px; font-family: 'DM Sans',sans-serif;
-        outline: none; transition: border-color 0.2s; margin-bottom: 12px;
-    }
-    #admin-login input[type=password]:focus { border-color: var(--vert-vif); }    #admin-login .al-btn {
-        width: 100%; padding: 12px; background: var(--vert-vif); color: #fff;
-        border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
-        cursor: pointer; transition: background 0.2s;
-    }
-    #admin-login .al-btn:hover { background: var(--vert-medium); }
-    #admin-login .al-err { color: #c0392b; font-size: 12px; margin-top: 8px; display: none; }
-    #admin-login .al-cancel {
-        margin-top: 14px; font-size: 12px; color: var(--texte-leger);
-        cursor: pointer; background: none; border: none; text-decoration: underline;
-    }
-
-    /* ADMIN PANEL */
-    #admin-panel {
-        display: none;
-        background: #f4f7f5;
-        border-radius: 16px;
-        width: 92vw; max-width: 900px;
-        max-height: 88vh;
-        overflow: hidden;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.3);
-        flex-direction: column;
-    }
-    #admin-panel.show { display: flex; }
-
-    .ap-header {
-        background: var(--vert-fonce);
-        padding: 18px 24px;
-        display: flex; align-items: center; justify-content: space-between;
-        flex-shrink: 0;
-    }
-    .ap-header h2 { font-family: 'Playfair Display',serif; font-size: 20px; color: #fff; }
-    .ap-header-right { display: flex; align-items: center; gap: 10px; }
-    .ap-logout {
-        background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
-        color: #fff; font-size: 12px; font-weight: 600; padding: 6px 14px;
-        border-radius: 6px; cursor: pointer; transition: background 0.2s;
-        font-family: 'DM Sans',sans-serif;
-    }
-    .ap-logout:hover { background: rgba(255,255,255,0.22); }
-    .ap-close {
-        background: none; border: none; color: rgba(255,255,255,0.6);
-        font-size: 22px; cursor: pointer; line-height: 1; padding: 0 4px;
-    }
-    .ap-close:hover { color: #fff; }
-
-    /* TABS */
-    .ap-tabs {
-        display: flex; gap: 0;
-        background: var(--vert-medium);
-        flex-shrink: 0;
-    }
-    .ap-tab {
-        padding: 11px 20px; font-size: 13px; font-weight: 600;
-        color: rgba(255,255,255,0.65); cursor: pointer; border: none;
-        background: none; font-family: 'DM Sans',sans-serif;
-        letter-spacing: 0.04em; transition: all 0.2s; white-space: nowrap;
-    }
-    .ap-tab:hover { color: #fff; background: rgba(255,255,255,0.08); }
-    .ap-tab.active { color: #fff; background: rgba(255,255,255,0.15); border-bottom: 2px solid var(--vert-clair); }
-
-    /* BODY */
-    .ap-body { flex: 1; overflow-y: auto; padding: 24px; }
-    .ap-section { display: none; }
-    .ap-section.active { display: block; }
-
-    /* FORM elements */
-    .ap-label { font-size: 12px; font-weight: 600; color: var(--texte-leger); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; display: block; }
-    .ap-input, .ap-textarea, .ap-select {
-        width: 100%; padding: 10px 13px; border: 1.5px solid #d0ddd5;
-        border-radius: 7px; font-size: 13.5px; font-family: 'DM Sans',sans-serif;
-        color: var(--texte); background: #fff; outline: none; transition: border-color 0.2s;
-    }
-    .ap-textarea { resize: vertical; min-height: 80px; }
-    .ap-input:focus, .ap-textarea:focus, .ap-select:focus { border-color: var(--vert-vif); }
-
-    .ap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    .ap-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    .ap-field { margin-bottom: 14px; }
-
-    .ap-btn {
-        padding: 10px 22px; border-radius: 7px; font-size: 13px; font-weight: 600;
-        cursor: pointer; border: none; font-family: 'DM Sans',sans-serif;
-        transition: all 0.18s;
-    }
-    .ap-btn-primary { background: var(--vert-vif); color: #fff; }
-    .ap-btn-primary:hover { background: var(--vert-medium); }
-    .ap-btn-danger { background: #fdecea; color: #c0392b; border: 1px solid #f5c6c2; }
-    .ap-btn-danger:hover { background: #f5c6c2; }
-    .ap-btn-sm { padding: 6px 13px; font-size: 12px; }
-
-    .ap-card {
-        background: #fff; border-radius: 10px; padding: 18px 20px;
-        margin-bottom: 14px; border: 1px solid #e0ece5;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    }
-    .ap-card-header {
-        display: flex; align-items: center; justify-content: space-between;
-        margin-bottom: 12px;
-    }
-    .ap-card-title { font-size: 14px; font-weight: 600; color: var(--vert-fonce); }
-
-    .ap-section-title {
-        font-family: 'Playfair Display',serif; font-size: 20px; color: var(--vert-fonce);
-        margin-bottom: 18px; padding-bottom: 10px;
-        border-bottom: 1px solid #d0ddd5;
-    }
-
-    .ap-tag-preview {
-        display: inline-block; background: var(--vert-fonce); color: #fff;
-        font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-        text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
-    }
-
-    .ap-save-bar {
-        background: #e9f5ee; border: 1px solid #b8dfc8; border-radius: 8px;
-        padding: 10px 16px; margin-bottom: 20px;
-        display: none; align-items: center; justify-content: space-between;
-        font-size: 13px; color: var(--vert-medium);
-    }
-    .ap-save-bar.show { display: flex; }
-
-    .ap-badge-saved {
-        display: inline-flex; align-items: center; gap: 5px;
-        background: #d4edda; color: #1a6b35; font-size: 11px; font-weight: 600;
-        padding: 3px 10px; border-radius: 100px;
-    }
-
-    /* Strip items editor */
-    .strip-item-row {
-        display: flex; gap: 8px; align-items: center; margin-bottom: 8px;
-    }
-    .strip-item-row input { flex: 1; }
-
-    /* Reviews */
-    .review-card {
-        background: #fff; border-radius: 8px; padding: 14px 16px;
-        margin-bottom: 10px; border: 1px solid #e0ece5;
-        display: flex; align-items: flex-start; gap: 12px;
-    }
-    .review-stars { color: #f0a500; font-size: 14px; letter-spacing: 1px; }
-
-    /* Dashboard stats */
-    .ap-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 24px; }
-    .ap-stat {
-        background: #fff; border-radius: 10px; padding: 16px 18px;
-        border: 1px solid #e0ece5; text-align: center;
-    }
-    .ap-stat-num { font-family: 'Playfair Display',serif; font-size: 28px; font-weight: 700; color: var(--vert-vif); }
-    .ap-stat-label { font-size: 12px; color: var(--texte-leger); margin-top: 2px; }
-
-    @media (max-width: 640px) {
-        #admin-panel { width: 98vw; max-height: 95vh; }
-        .ap-row, .ap-row-3 { grid-template-columns: 1fr; }
-        .ap-stats { grid-template-columns: 1fr 1fr; }
-        .ap-tab { padding: 9px 12px; font-size: 11px; }
-    }
-    </style>
-
-    <!-- OVERLAY -->
-    <div id="admin-overlay">
-
-        <!-- LOGIN -->
-        <div id="admin-login">
-            <div class="al-logo">🔐</div>
-            <h2>Espace Admin</h2>
-            <p>Fred Rénovation — accès restreint</p>
-            <input type="password" id="admin-pwd" placeholder="Mot de passe" autocomplete="current-password" />
-            <button class="al-btn" onclick="doLogin()">Connexion</button>
-            <div class="al-err" id="admin-err">Mot de passe incorrect.</div>
-            <button class="al-cancel" onclick="closeAdmin()">Annuler</button>
+<section class="prestations-section">
+    <div class="prestations-inner">
+        <div class="prestations-header">
+            <div>
+                <div class="section-label" style="color:var(--orange)">Nos Prestations</div>
+                <h2 class="section-title" style="color:#fff">CE QU'ON <span class="accent">FAIT</span></h2>
+            </div>
+            <span class="prest-count" id="prest-count-label">9 SERVICES</span>
         </div>
+        <div class="prestation-grid" id="prestation-grid-main">
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">01</span><img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop" alt="Toiture" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Toiture</span><h3 class="prest-title">COUVERTURE TRADITIONNELLE</h3><p class="prest-text">Tuile, zinc, bac acier. Matériaux haut de gamme pour allier durabilité et esthétique.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Toiture" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">02</span><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop" alt="EPDM" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Étanchéité</span><h3 class="prest-title">TOITURE PLATE EPDM</h3><p class="prest-text">Résistante et durable — solution EPDM pour une protection optimale à long terme.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20EPDM" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">03</span><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop" alt="Velux" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Velux</span><h3 class="prest-title">FENÊTRES DE TOIT</h3><p class="prest-text">Plus de lumière, plus de confort. Pose parfaite de Velux pour vos combles.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Velux" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">04</span><img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop" alt="Châssis PVC" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Menuiserie</span><h3 class="prest-title">CHÂSSIS PVC &amp; ALU</h3><p class="prest-text">Fenêtres et portes de haute performance thermique et phonique.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Chassis" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">05</span><img src="https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop" alt="Volets" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Domotique</span><h3 class="prest-title">VOLETS ROULANTS</h3><p class="prest-text">Manuels ou motorisés — confort quotidien et sécurité du bâtiment.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Volets" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">06</span><img src="https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop" alt="Isolation" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Isolation</span><h3 class="prest-title">ISOLATION THERMIQUE</h3><p class="prest-text">Combles, murs, sols — réduisez drastiquement vos déperditions d'énergie.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Isolation" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">07</span><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop" alt="Placo" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Aménagement</span><h3 class="prest-title">PLACO &amp; CLOISONNEMENT</h3><p class="prest-text">Doublage, séparations de pièces, faux plafonds — finitions soignées.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Placo" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">08</span><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop" alt="Carrelage" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Revêtements</span><h3 class="prest-title">CARRELAGE SOL &amp; MUR</h3><p class="prest-text">Faïences, crédences, carrelages pour vos pièces d'eau et séjours.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Carrelage" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">09</span><img src="https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop" alt="Bardage" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Façade</span><h3 class="prest-title">BARDAGE EXTÉRIEUR</h3><p class="prest-text">Bois ou composite — modernisez l'aspect extérieur tout en isolant.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Bardage" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+        </div>
+    </div>
+</section>
 
-        <!-- PANEL -->
-        <div id="admin-panel">
-            <div class="ap-header">
-                <h2>🏠 Admin — Fred Rénovation</h2>
-                <div class="ap-header-right">
-                    <button class="ap-logout" onclick="doLogout()">Déconnexion</button>
-                    <button class="ap-close" onclick="closeAdmin()">✕</button>
-                </div>
+<div class="pictos-section">
+    <div class="pictos-inner">
+        <div class="section-label">Tous nos services</div>
+        <h2 class="section-title">NOS <span class="accent">PRESTATIONS</span></h2>
+        <div class="pictos-grid">
+            <div class="picto-card"><div class="picto-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div><div class="picto-label">Toiture</div><div class="picto-sub">Tuile, Zinc, Bac acier</div></div>
+            <div class="picto-card"><div class="picto-icon"><svg viewBox="0 0 24 24"><path d="M3 9v11h7v-7h4v7h7V9L12 3z"/></svg></div><div class="picto-label">Menuiserie PVC-ALU</div><div class="picto-sub">Portes &amp; Fenêtres</div></div>
+            <div class="picto-card"><div class="picto-icon"><svg viewBox="0 0 24 24"><path d="M20 3H4v18h16V3zm-2 16H6V5h12v14zM8 11h8v2H8zm0-3h8v2H8zm0 6h5v2H8z"/></svg></div><div class="picto-label">Volets Roulants</div><div class="picto-sub">Manuels ou motorisés</div></div>
+            <div class="picto-card"><div class="picto-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7zm0 9.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg></div><div class="picto-label">Isolation</div><div class="picto-sub">Combles, Murs, Sols</div></div>
+            <div class="picto-card"><div class="picto-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div><div class="picto-label">Placo &amp; Aménag.</div><div class="picto-sub">Doublage, Cloisons</div></div>
+            <div class="picto-card"><div class="picto-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg></div><div class="picto-label">Carrelage</div><div class="picto-sub">Sol &amp; Mur</div></div>
+            <div class="picto-card"><div class="picto-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg></div><div class="picto-label">Bardage</div><div class="picto-sub">Embellissement ext.</div></div>
+        </div>
+    </div>
+</div>
+
+<section class="why-section">
+    <div class="why-inner">
+        <div class="why-header">
+            <div class="why-title"><span>POURQUOI CHOISIR</span>FRED RÉNOVATION ?</div>
+            <div><div class="why-phone-num">07 82 25 33 09</div><div class="why-phone-note">&#128222; Devis gratuit — Intervention rapide</div></div>
+        </div>
+        <div class="why-grid">
+            <div class="why-item"><div class="why-icon">&#9889;</div><div class="why-num" id="why-num-1">15+</div><div class="why-label">Années d'expérience</div><div class="why-desc">Savoir-faire éprouvé sur des centaines de chantiers</div></div>
+            <div class="why-item"><div class="why-icon">&#127919;</div><div class="why-num">100%</div><div class="why-label">Satisfaction client</div><div class="why-desc">Chaque projet livré dans les délais et selon vos attentes</div></div>
+            <div class="why-item"><div class="why-icon">&#128182;</div><div class="why-num">48h</div><div class="why-label">Délai de réponse</div><div class="why-desc">Devis gratuit et personnalisé en moins de deux jours</div></div>
+            <div class="why-item"><div class="why-icon">&#128737;&#65039;</div><div class="why-num">&#8734;</div><div class="why-label">Garantie qualité</div><div class="why-desc">Matériaux certifiés et pose assurée par nos artisans</div></div>
+        </div>
+    </div>
+</section>
+
+<div class="cta-band">
+    <div class="cta-band-inner">
+        <div>
+            <div class="cta-band-title">PRÊT À <span>DÉMARRER</span><br>VOTRE PROJET ?</div>
+            <div class="cta-band-sub">Votre artisan local — Belgique — BE 0832502696</div>
+        </div>
+        <a class="cta-band-btn" href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis%20Fred%20Renovation" target="_blank">&#128233; DEVIS GRATUIT</a>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">FRED <span>RÉNOVATION</span></div>
+            <div class="footer-sub">Artisan couvreur — Votre maison, notre passion</div>
+        </div>
+        <nav class="footer-links">
+            <a href="#">Accueil</a>
+            <a href="#">Prestations</a>
+            <a href="#">Contact</a>
+            <a href="#">À Propos</a>
+        </nav>
+    </div>
+    <div class="footer-bottom">
+        <span class="footer-copy">&copy; 2026 Fred Rénovation</span>
+        <span class="footer-reg" id="footer-reg">BE 08332520</span>
+    </div>
+</footer>
+
+<button id="chat-bubble" aria-label="Ouvrir le chat">
+    <span><div id="chat-notif">1</div></span>
+    <svg class="chat-open-icon" viewBox="0 0 24 24"><path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H6l-2 2V4h16v10z"/></svg>
+    <svg class="chat-close-icon" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+<div id="chat-window">
+    <div class="chat-header">
+        <div class="chat-avatar">&#127968;</div>
+        <div>
+            <div class="chat-header-name">Fred Rénovation</div>
+            <div class="chat-header-status">En ligne — répond immédiatement</div>
+        </div>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-suggestions" id="chat-suggestions">
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#127968; Toiture</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#129521; Façade</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#129695; Menuiserie</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#128176; Devis</button>
+    </div>
+    <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Posez votre question…" autocomplete="off" />
+        <button id="chat-send"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>
+    </div>
+</div>
+
+<script>
+const KB=[{keys:['fuit','fuite','infiltr','humidit','mouill','eau','gouttieres','gouttiere'],reply:'&#128269; <strong>Toiture qui fuit ?</strong><br>Inspectez les noues, faitage et solins.<br><br>&#128073; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Urgence%20toiture" target="_blank" style="color:#E8490F">Devis urgent !</a>'},{keys:['epdm','toiture plate','plate'],reply:'&#128737;&#65039; <strong>Toiture plate EPDM</strong><br>Durée de vie 30-50 ans. Résistance totale aux UV.'},{keys:['velux','fenetre','lucarne','lumiere'],reply:'&#9728;&#65039; <strong>Velux</strong><br>Min. 1/6 de la surface au sol. Double vitrage thermique.'},{keys:['facade','bardage','crepis'],reply:'&#129521; <strong>Bardage & Façade</strong><br>Nettoyage, bardage bois ou composite isolé.'},{keys:['isolation','isoler','combles','thermique'],reply:'&#127777;&#65039; <strong>Isolation thermique</strong><br>Combles = priorité n°1 (30% des pertes). Primes énergie disponibles.'},{keys:['carrelage','salle de bain','douche'],reply:'&#128703; <strong>Carrelage &amp; Salle de bain</strong><br>Faïence, carrelage sol — clé en main.'},{keys:['placo','cloison','amenagement'],reply:'&#129454; <strong>Placo &amp; Aménagement</strong><br>Cloisons, doublage, faux plafonds.'},{keys:['pvc','aluminium','menuiserie','chassis'],reply:'&#129695; <strong>Menuiseries PVC-ALU</strong><br>Châssis ultra-isolants pour sécuriser votre maison.'},{keys:['devis','tarif','prix','cout','combien','gratuit'],reply:'&#128176; <strong>Devis gratuit sous 48h</strong><br>1. Email de demande<br>2. Visite technique gratuite<br>3. Chiffrage clair<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">contact.fredrenovation@gmail.com</a>'},{keys:['bonjour','salut','bonsoir','hello'],reply:'&#128075; <strong>Bonjour !</strong> Je suis l&apos;assistant de Fred Rénovation.<br>Toiture, isolation, bardage, menuiserie ?'}];
+const bubble=document.getElementById('chat-bubble'),chatWin=document.getElementById('chat-window'),messages=document.getElementById('chat-messages'),inputEl=document.getElementById('chat-input'),sendBtn=document.getElementById('chat-send'),notifEl=document.getElementById('chat-notif'),suggsEl=document.getElementById('chat-suggestions');
+let opened=false;
+bubble.addEventListener('click',()=>{opened=!opened;bubble.classList.toggle('open',opened);chatWin.classList.toggle('open',opened);if(opened){notifEl.style.display='none';if(!messages.children.length)addBotMsg('&#128075; <strong>Bonjour !</strong> Toiture, menuiserie, isolation... posez vos questions !');setTimeout(()=>inputEl.focus(),300);}});
+function addUserMsg(t){const d=document.createElement('div');d.className='msg user';d.innerHTML=`<div class="msg-avatar">&#128100;</div><div class="msg-bubble">${t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;messages.appendChild(d);scrollBottom();}
+function addBotMsg(h){const d=document.createElement('div');d.className='msg bot';d.innerHTML=`<div class="msg-avatar">&#127968;</div><div class="msg-bubble">${h}</div>`;messages.appendChild(d);scrollBottom();}
+function showTyping(){const d=document.createElement('div');d.className='msg bot';d.id='typing-msg';d.innerHTML='<div class="msg-avatar">&#127968;</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>';messages.appendChild(d);scrollBottom();return d;}
+function scrollBottom(){setTimeout(()=>messages.scrollTop=messages.scrollHeight,50);}
+function findAnswer(text){const low=text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');for(const item of KB)if(item.keys.some(k=>low.includes(k)))return item.reply;return '&#129300; Fred vous répondra directement !<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">Devis Gratuit (48h)</a>';}
+function sendMessage(text){if(!text.trim())return;suggsEl.style.display='none';addUserMsg(text);inputEl.value='';const t=showTyping();setTimeout(()=>{t.remove();addBotMsg(findAnswer(text));},800+Math.random()*300);}
+sendBtn.addEventListener('click',()=>sendMessage(inputEl.value));
+inputEl.addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage(inputEl.value);});
+function sendSuggestion(btn){sendMessage(btn.textContent.replace(/^[^\w]+/,''));}
+</script>
+
+<style>
+#admin-overlay{display:none;position:fixed;inset:0;background:rgba(5,12,28,0.88);z-index:99990;align-items:center;justify-content:center;backdrop-filter:blur(5px);}
+#admin-overlay.show{display:flex;}
+#admin-login{background:#fff;border-radius:10px;padding:40px 36px;width:360px;box-shadow:0 24px 60px rgba(0,0,0,0.4);text-align:center;border-top:4px solid var(--orange);}
+#admin-login .al-logo{width:52px;height:52px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 16px;}
+#admin-login h2{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:var(--navy);margin-bottom:4px;text-transform:uppercase;}
+#admin-login p{font-size:13px;color:var(--texte-doux);margin-bottom:24px;}
+#admin-login input[type=password]{width:100%;padding:11px 14px;border:2px solid #dde3ef;border-radius:6px;font-size:14px;outline:none;transition:border-color 0.2s;margin-bottom:12px;}
+#admin-login input[type=password]:focus{border-color:var(--orange);}
+#admin-login .al-btn{width:100%;padding:13px;background:var(--orange);color:#fff;border:none;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
+#admin-login .al-btn:hover{background:var(--orange-dark);}
+#admin-login .al-err{color:#c0392b;font-size:12px;margin-top:8px;display:none;}
+#admin-login .al-cancel{margin-top:14px;font-size:12px;color:var(--texte-doux);cursor:pointer;background:none;border:none;text-decoration:underline;}
+#admin-panel{display:none;background:#f0f4fa;border-radius:12px;width:92vw;max-width:900px;max-height:88vh;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.4);flex-direction:column;}
+#admin-panel.show{display:flex;}
+.ap-header{background:var(--navy);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid var(--orange);}
+.ap-header h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:0.05em;}
+.ap-header-right{display:flex;align-items:center;gap:10px;}
+.ap-logout{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:5px;cursor:pointer;transition:background 0.2s;}
+.ap-logout:hover{background:rgba(255,255,255,0.2);}
+.ap-close{background:none;border:none;color:rgba(255,255,255,0.55);font-size:22px;cursor:pointer;line-height:1;padding:0 4px;}
+.ap-close:hover{color:#fff;}
+.ap-tabs{display:flex;background:var(--navy-mid);flex-shrink:0;overflow-x:auto;}
+.ap-tab{padding:11px 18px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.55);cursor:pointer;border:none;background:none;letter-spacing:0.06em;text-transform:uppercase;transition:all 0.2s;white-space:nowrap;}
+.ap-tab:hover{color:#fff;background:rgba(255,255,255,0.08);}
+.ap-tab.active{color:#fff;background:rgba(255,255,255,0.12);border-bottom:3px solid var(--orange);}
+.ap-body{flex:1;overflow-y:auto;padding:24px;}
+.ap-section{display:none;}
+.ap-section.active{display:block;}
+.ap-label{font-size:11px;font-weight:700;color:var(--texte-doux);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;display:block;}
+.ap-input,.ap-textarea,.ap-select{width:100%;padding:10px 13px;border:2px solid #d8dff0;border-radius:6px;font-size:13.5px;color:var(--texte);background:#fff;outline:none;transition:border-color 0.2s;}
+.ap-textarea{resize:vertical;min-height:80px;}
+.ap-input:focus,.ap-textarea:focus,.ap-select:focus{border-color:var(--orange);}
+.ap-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.ap-field{margin-bottom:14px;}
+.ap-btn{padding:10px 22px;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all 0.18s;letter-spacing:0.04em;text-transform:uppercase;}
+.ap-btn-primary{background:var(--orange);color:#fff;}
+.ap-btn-primary:hover{background:var(--orange-dark);}
+.ap-btn-danger{background:#fdecea;color:#c0392b;border:1px solid #f5c6c2;}
+.ap-btn-danger:hover{background:#f5c6c2;}
+.ap-btn-sm{padding:6px 13px;font-size:11px;}
+.ap-card{background:#fff;border-radius:8px;padding:18px 20px;margin-bottom:14px;border:1px solid #d8dff0;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.ap-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.ap-card-title{font-size:14px;font-weight:700;color:var(--navy);}
+.ap-section-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid #d8dff0;}
+.ap-tag-preview{display:inline-block;background:var(--orange);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:3px;}
+.strip-item-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.strip-item-row input{flex:1;}
+.review-card{background:#fff;border-radius:6px;padding:14px 16px;margin-bottom:10px;border:1px solid #d8dff0;display:flex;align-items:flex-start;gap:12px;}
+.review-stars{color:#f0a500;font-size:14px;letter-spacing:1px;}
+.ap-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.ap-stat{background:#fff;border-radius:8px;padding:16px 18px;border:1px solid #d8dff0;text-align:center;}
+.ap-stat-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--orange);}
+.ap-stat-label{font-size:11px;color:var(--texte-doux);margin-top:2px;text-transform:uppercase;letter-spacing:0.06em;}
+@media(max-width:640px){#admin-panel{width:98vw;max-height:95vh;}.ap-row{grid-template-columns:1fr;}.ap-stats{grid-template-columns:1fr 1fr;}}
+</style>
+
+<div id="admin-overlay">
+    <div id="admin-login">
+        <div class="al-logo">&#128272;</div>
+        <h2>Espace Admin</h2>
+        <p>Fred Rénovation — accès restreint</p>
+        <input type="password" id="admin-pwd" placeholder="Mot de passe" autocomplete="current-password" />
+        <button class="al-btn" onclick="doLogin()">Connexion</button>
+        <div class="al-err" id="admin-err">Mot de passe incorrect.</div>
+        <button class="al-cancel" onclick="closeAdmin()">Annuler</button>
+    </div>
+    <div id="admin-panel">
+        <div class="ap-header">
+            <h2>&#9889; Admin — Fred Rénovation</h2>
+            <div class="ap-header-right">
+                <button class="ap-logout" onclick="doLogout()">Déconnexion</button>
+                <button class="ap-close" onclick="closeAdmin()">&#10005;</button>
             </div>
+        </div>
+        <div class="ap-tabs">
+            <button class="ap-tab active" onclick="showTab('dashboard')">&#128202; Dashboard</button>
+            <button class="ap-tab" onclick="showTab('services')">&#128295; Services</button>
+            <button class="ap-tab" onclick="showTab('strip')">&#128226; Annonces</button>
+            <button class="ap-tab" onclick="showTab('reviews')">&#11088; Avis</button>
+            <button class="ap-tab" onclick="showTab('contact')">&#128222; Contact</button>
+            <button class="ap-tab" onclick="showTab('pwd')">&#128273; Mot de passe</button>
+        </div>
+        <div class="ap-body">
+            <div class="ap-section active" id="tab-dashboard"><div class="ap-section-title">Tableau de bord</div><div class="ap-stats" id="dash-stats"></div><div class="ap-card"><div class="ap-card-header"><span class="ap-card-title">Dernières modifications</span></div><div id="dash-log" style="font-size:13px;color:var(--texte-doux);line-height:1.8;"></div></div></div>
+            <div class="ap-section" id="tab-services"><div class="ap-section-title">Gérer les services</div><div id="services-list"></div><button class="ap-btn ap-btn-primary" onclick="addService()">+ Ajouter un service</button></div>
+            <div class="ap-section" id="tab-strip"><div class="ap-section-title">Bandeau d'annonces</div><p style="font-size:13px;color:var(--texte-doux);margin-bottom:16px;">Ces textes apparaissent dans le bandeau orange sous le héro.</p><div id="strip-list"></div><div style="display:flex;gap:10px;margin-top:8px;"><button class="ap-btn ap-btn-primary" onclick="addStripItem()">+ Ajouter</button><button class="ap-btn ap-btn-primary" onclick="saveStrip()">&#128190; Enregistrer</button></div></div>
+            <div class="ap-section" id="tab-reviews"><div class="ap-section-title">Avis clients</div><div id="reviews-list"></div><div class="ap-card"><div class="ap-card-header"><span class="ap-card-title">Ajouter un avis</span></div><div class="ap-row"><div class="ap-field"><label class="ap-label">Prénom &amp; Nom</label><input class="ap-input" id="rev-name" placeholder="Marie D." /></div><div class="ap-field"><label class="ap-label">Note</label><select class="ap-select" id="rev-stars"><option value="5">&#11088;&#11088;&#11088;&#11088;&#11088;</option><option value="4">&#11088;&#11088;&#11088;&#11088;</option><option value="3">&#11088;&#11088;&#11088;</option><option value="2">&#11088;&#11088;</option><option value="1">&#11088;</option></select></div></div><div class="ap-field"><label class="ap-label">Commentaire</label><textarea class="ap-textarea" id="rev-text" placeholder="Travail soigné..."></textarea></div><div class="ap-field"><label class="ap-label">Service</label><input class="ap-input" id="rev-service" placeholder="Toiture, Isolation..." /></div><button class="ap-btn ap-btn-primary" onclick="addReview()">Ajouter l'avis</button></div></div>
+            <div class="ap-section" id="tab-contact"><div class="ap-section-title">Informations de contact</div><div class="ap-card"><div class="ap-row"><div class="ap-field"><label class="ap-label">Téléphone</label><input class="ap-input" id="ct-phone" placeholder="+32 4XX XXX XXX" /></div><div class="ap-field"><label class="ap-label">Email</label><input class="ap-input" id="ct-email" value="contact.fredrenovation@gmail.com" /></div></div><div class="ap-row"><div class="ap-field"><label class="ap-label">Ville / Région</label><input class="ap-input" id="ct-city" placeholder="Belgique" /></div><div class="ap-field"><label class="ap-label">Numéro TVA / BCE</label><input class="ap-input" id="ct-tva" placeholder="BE 08332520" /></div></div><div class="ap-field"><label class="ap-label">Slogan</label><input class="ap-input" id="ct-slogan" placeholder="Votre maison, notre passion." /></div><div class="ap-field"><label class="ap-label">Années d'expérience</label><input class="ap-input" id="ct-years" placeholder="15+" /></div><button class="ap-btn ap-btn-primary" onclick="saveContact()">&#128190; Enregistrer</button></div></div>
+            <div class="ap-section" id="tab-pwd"><div class="ap-section-title">Changer le mot de passe</div><div class="ap-card" style="max-width:380px;"><div class="ap-field"><label class="ap-label">Mot de passe actuel</label><input class="ap-input" type="password" id="pwd-current" /></div><div class="ap-field"><label class="ap-label">Nouveau mot de passe</label><input class="ap-input" type="password" id="pwd-new" /></div><div class="ap-field"><label class="ap-label">Confirmer</label><input class="ap-input" type="password" id="pwd-confirm" /></div><button class="ap-btn ap-btn-primary" onclick="changePwd()">&#128273; Changer</button><div id="pwd-msg" style="font-size:13px;margin-top:10px;"></div></div></div>
+        </div>
+    </div>
+</div>
 
-            <div class="ap-tabs">
-                <button class="ap-tab active" onclick="showTab('dashboard')">📊 Tableau de bord</button>
-                <button class="ap-tab" onclick="showTab('services')">🔧 Services</button>
-                <button class="ap-tab" onclick="showTab('strip')">📢 Annonces</button>
-                <button class="ap-tab" onclick="showTab('reviews')">⭐ Avis</button>
-                <button class="ap-tab" onclick="showTab('contact')">📞 Contact</button>
-                <button class="ap-tab" onclick="showTab('pwd')">🔑 Mot de passe</button>
-            </div>
-
-            <div class="ap-body">
-
-                <!-- DASHBOARD -->
-                <div class="ap-section active" id="tab-dashboard">
-                    <div class="ap-section-title">Tableau de bord</div>
-                    <div class="ap-stats" id="dash-stats"></div>
-                    <div class="ap-card">
-                        <div class="ap-card-header"><span class="ap-card-title">Dernières modifications</span></div>
-                        <div id="dash-log" style="font-size:13px;color:var(--texte-leger);line-height:1.8;"></div>
-                    </div>
-                </div>
-
-                <!-- SERVICES -->
-                <div class="ap-section" id="tab-services">
-                    <div class="ap-section-title">Gérer les services</div>
-                    <div id="services-list"></div>
-                    <button class="ap-btn ap-btn-primary" onclick="addService()">+ Ajouter un service</button>
-                </div>
-
-                <!-- STRIP -->
-                <div class="ap-section" id="tab-strip">
-                    <div class="ap-section-title">Bandeau d'annonces</div>
-                    <p style="font-size:13px;color:var(--texte-leger);margin-bottom:16px;">Ces textes apparaissent dans le bandeau vert sous le héro.</p>
-                    <div id="strip-list"></div>
-                    <div style="display:flex;gap:10px;margin-top:8px;">
-                        <button class="ap-btn ap-btn-primary" onclick="addStripItem()">+ Ajouter</button>
-                        <button class="ap-btn ap-btn-primary" onclick="saveStrip()">💾 Enregistrer</button>
-                    </div>
-                </div>
-
-                <!-- REVIEWS -->
-                <div class="ap-section" id="tab-reviews">
-                    <div class="ap-section-title">Avis clients</div>
-                    <div id="reviews-list"></div>
-                    <div class="ap-card">
-                        <div class="ap-card-header"><span class="ap-card-title">Ajouter un avis</span></div>
-                        <div class="ap-row">
-                            <div class="ap-field">
-                                <label class="ap-label">Prénom & Nom</label>
-                                <input class="ap-input" id="rev-name" placeholder="Marie D." />
-                            </div>
-                            <div class="ap-field">
-                                <label class="ap-label">Note (1–5 étoiles)</label>
-                                <select class="ap-select" id="rev-stars">
-                                    <option value="5">⭐⭐⭐⭐⭐ — Excellent</option>
-                                    <option value="4">⭐⭐⭐⭐ — Très bien</option>
-                                    <option value="3">⭐⭐⭐ — Bien</option>
-                                    <option value="2">⭐⭐ — Moyen</option>
-                                    <option value="1">⭐ — Décevant</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="ap-field">
-                            <label class="ap-label">Commentaire</label>
-                            <textarea class="ap-textarea" id="rev-text" placeholder="Travail soigné, équipe professionnelle..."></textarea>
-                        </div>
-                        <div class="ap-field">
-                            <label class="ap-label">Service concerné</label>
-                            <input class="ap-input" id="rev-service" placeholder="Toiture, Isolation, Carrelage..." />
-                        </div>
-                        <button class="ap-btn ap-btn-primary" onclick="addReview()">Ajouter l'avis</button>
-                    </div>
-                </div>
-
-                <!-- CONTACT -->
-                <div class="ap-section" id="tab-contact">
-                    <div class="ap-section-title">Informations de contact</div>
-                    <div class="ap-card">
-                        <div class="ap-row">
-                            <div class="ap-field">
-                                <label class="ap-label">Téléphone</label>
-                                <input class="ap-input" id="ct-phone" placeholder="+32 4XX XXX XXX" />
-                            </div>
-                            <div class="ap-field">
-                                <label class="ap-label">Email</label>
-                                <input class="ap-input" id="ct-email" value="contact.fredrenovation@gmail.com" />
-                            </div>
-                        </div>
-                        <div class="ap-row">
-                            <div class="ap-field">
-                                <label class="ap-label">Ville / Région</label>
-                                <input class="ap-input" id="ct-city" placeholder="Belgique" />
-                            </div>
-                            <div class="ap-field">
-                                <label class="ap-label">Numéro TVA / BCE</label>
-                                <input class="ap-input" id="ct-tva" placeholder="BE 08332520" />
-                            </div>
-                        </div>
-                        <div class="ap-field">
-                            <label class="ap-label">Slogan (affiché dans le héro)</label>
-                            <input class="ap-input" id="ct-slogan" placeholder="Votre maison, notre passion." />
-                        </div>
-                        <div class="ap-field">
-                            <label class="ap-label">Années d'expérience (statistique)</label>
-                            <input class="ap-input" id="ct-years" placeholder="15+" />
-                        </div>
-                        <button class="ap-btn ap-btn-primary" onclick="saveContact()">💾 Enregistrer</button>
-                    </div>
-                </div>
-
-                <!-- MOT DE PASSE -->
-                <div class="ap-section" id="tab-pwd">
-                    <div class="ap-section-title">Changer le mot de passe</div>
-                    <div class="ap-card" style="max-width:380px;">
-                        <div class="ap-field">
-                            <label class="ap-label">Mot de passe actuel</label>
-                            <input class="ap-input" type="password" id="pwd-current" />
-                        </div>
-                        <div class="ap-field">
-                            <label class="ap-label">Nouveau mot de passe</label>
-                            <input class="ap-input" type="password" id="pwd-new" />
-                        </div>
-                        <div class="ap-field">
-                            <label class="ap-label">Confirmer le nouveau</label>
-                            <input class="ap-input" type="password" id="pwd-confirm" />
-                        </div>
-                        <button class="ap-btn ap-btn-primary" onclick="changePwd()">🔑 Changer</button>
-                        <div id="pwd-msg" style="font-size:13px;margin-top:10px;"></div>
-                    </div>
-                </div>
-
-            </div><!-- /ap-body -->
-        </div><!-- /admin-panel -->
-    </div><!-- /admin-overlay -->
-
-    <script>
-    // ═══════════════════════════════════════════
-    // ADMIN — Storage helpers
-    // ═══════════════════════════════════════════
-    const ADMIN_PWD_KEY  = 'fred_admin_pwd';
-    const ADMIN_DATA_KEY = 'fred_admin_data';
-    const DEFAULT_PWD    = 'fred2026';
-
-    function getAdminPwd() { return localStorage.getItem(ADMIN_PWD_KEY) || DEFAULT_PWD; }
-    function getData() {
-        try { return JSON.parse(localStorage.getItem(ADMIN_DATA_KEY)) || defaultData(); }
-        catch(e) { return defaultData(); }
-    }
-    function saveData(d) {
-        d.lastSaved = new Date().toLocaleString('fr-FR');
-        localStorage.setItem(ADMIN_DATA_KEY, JSON.stringify(d));
-    }
-    function defaultData() {
-        return {
-            services: [
-                { id:1, tag:'Toiture',    title:'Couverture traditionnelle', text:'Tuile, zinc, bac acier. Des matériaux haut de gamme pour allier durabilité et esthétique.', img:'https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop' },
-                { id:2, tag:'Étanchéité', title:'Toiture plate EPDM',        text:'Résistante et hautement durable, notre solution EPDM garantit une protection optimale.',    img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop' },
-                { id:3, tag:'Velux',      title:'Fenêtres de toit',          text:'Plus de lumière, plus de confort. Pose parfaite de Velux pour apporter de la clarté.',      img:'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop' },
-                { id:4, tag:'Menuiserie', title:'Châssis PVC & ALU',         text:'Remplacement de fenêtres et portes. Optimisation des performances thermiques et phoniques.',img:'https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop' },
-                { id:5, tag:'Domotique',  title:'Volets Roulants',           text:'Installation de systèmes manuels ou motorisés pour votre confort quotidien.',              img:'https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop' },
-                { id:6, tag:'Isolation',  title:'Isolation Thermique',       text:'Isolation performante des combles, murs ou sols pour réduire vos déperditions d\'énergie.', img:'https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop' },
-                { id:7, tag:'Aménagement',title:'Placo & Cloisonnement',     text:'Doublage des murs, séparations de pièces et faux plafonds avec finitions soignées.',       img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop' },
-                { id:8, tag:'Revêtements',title:'Carrelage Sol & Mur',       text:'Pose de carrelages, faïences et crédences pour pièces d\'eau, cuisines ou séjours.',       img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop' },
-                { id:9, tag:'Façade',     title:'Bardage Extérieur',         text:'Revêtement esthétique bois ou composite pour moderniser la façade tout en isolant.',       img:'https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop' }
-            ],
-            strip: ['Toiture & Charpente','Toiture Plate EPDM','Velux & Lucarnes','Interventions Urgentes'],
-            reviews: [],
-            contact: { phone:'', email:'contact.fredrenovation@gmail.com', city:'Belgique', tva:'BE 08332520', slogan:'Votre maison, notre passion.', years:'15+' },
-            lastSaved: null,
-            log: []
-        };
-    }
-
-    function logAction(msg) {
-        const d = getData();
-        if (!d.log) d.log = [];
-        d.log.unshift(new Date().toLocaleString('fr-FR') + ' — ' + msg);
-        if (d.log.length > 20) d.log = d.log.slice(0,20);
-        saveData(d);
-    }
-
-    // ═══════════════════════════════════════════
-    // ADMIN — open / close / login
-    // ═══════════════════════════════════════════
-    function openAdmin() {
-        document.getElementById('admin-overlay').classList.add('show');
-        document.getElementById('admin-login').style.display = 'block';
-        document.getElementById('admin-panel').classList.remove('show');
-        document.getElementById('admin-pwd').value = '';
-        document.getElementById('admin-err').style.display = 'none';
-        setTimeout(() => document.getElementById('admin-pwd').focus(), 200);
-    }
-    function closeAdmin() {
-        document.getElementById('admin-overlay').classList.remove('show');
-    }
-    function doLogin() {
-        const val = document.getElementById('admin-pwd').value;
-        if (val === getAdminPwd()) {
-            document.getElementById('admin-login').style.display = 'none';
-            document.getElementById('admin-panel').classList.add('show');
-            refreshAll();
-        } else {
-            document.getElementById('admin-err').style.display = 'block';
-            document.getElementById('admin-pwd').value = '';
-            document.getElementById('admin-pwd').focus();
-        }
-    }
-    document.getElementById('admin-pwd').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
-    function doLogout() {
-        document.getElementById('admin-panel').classList.remove('show');
-        document.getElementById('admin-login').style.display = 'block';
-        document.getElementById('admin-pwd').value = '';
-    }
-
-    // ═══════════════════════════════════════════
-    // TABS
-    // ═══════════════════════════════════════════
-    function showTab(name) {
-        document.querySelectorAll('.ap-section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.ap-tab').forEach(t => t.classList.remove('active'));
-        document.getElementById('tab-'+name).classList.add('active');
-        event.currentTarget.classList.add('active');
-        if (name==='dashboard') refreshDashboard();
-        if (name==='services')  renderServices();
-        if (name==='strip')     renderStrip();
-        if (name==='reviews')   renderReviews();
-        if (name==='contact')   loadContact();
-    }
-
-    function refreshAll() {
-        refreshDashboard();
-        renderServices();
-        renderStrip();
-        renderReviews();
-        loadContact();
-        applyDataToPage();
-    }
-
-    // ═══════════════════════════════════════════
-    // DASHBOARD
-    // ═══════════════════════════════════════════
-    function refreshDashboard() {
-        const d = getData();
-        document.getElementById('dash-stats').innerHTML = `
-            <div class="ap-stat"><div class="ap-stat-num">${d.services.length}</div><div class="ap-stat-label">Services</div></div>
-            <div class="ap-stat"><div class="ap-stat-num">${d.strip.length}</div><div class="ap-stat-label">Annonces</div></div>
-            <div class="ap-stat"><div class="ap-stat-num">${d.reviews.length}</div><div class="ap-stat-label">Avis clients</div></div>
-            <div class="ap-stat"><div class="ap-stat-num">${d.lastSaved ? '✓' : '—'}</div><div class="ap-stat-label">Dernière sauvegarde</div></div>
-        `;
-        const log = d.log && d.log.length ? d.log.map(l => `<div>• ${l}</div>`).join('') : '<div style="color:#aaa">Aucune modification enregistrée.</div>';
-        document.getElementById('dash-log').innerHTML = log;
-    }
-
-    // ═══════════════════════════════════════════
-    // SERVICES
-    // ═══════════════════════════════════════════
-    function renderServices() {
-        const d = getData();
-        const el = document.getElementById('services-list');
-        el.innerHTML = '';
-        d.services.forEach((s, i) => {
-            el.innerHTML += `
-            <div class="ap-card" id="svc-card-${s.id}">
-                <div class="ap-card-header">
-                    <span class="ap-card-title"><span class="ap-tag-preview">${escA(s.tag)}</span> &nbsp;${escA(s.title)}</span>
-                    <div style="display:flex;gap:6px;">
-                        <button class="ap-btn ap-btn-sm ap-btn-primary" onclick="toggleSvcEdit(${s.id})">✏️ Modifier</button>
-                        <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteService(${s.id})">🗑 Supprimer</button>
-                    </div>
-                </div>
-                <div id="svc-edit-${s.id}" style="display:none;">
-                    <div class="ap-row">
-                        <div class="ap-field"><label class="ap-label">Tag / Catégorie</label>
-                            <input class="ap-input" id="svc-tag-${s.id}" value="${escA(s.tag)}" /></div>
-                        <div class="ap-field"><label class="ap-label">Titre du service</label>
-                            <input class="ap-input" id="svc-title-${s.id}" value="${escA(s.title)}" /></div>
-                    </div>
-                    <div class="ap-field"><label class="ap-label">Description</label>
-                        <textarea class="ap-textarea" id="svc-text-${s.id}">${escA(s.text)}</textarea></div>
-                    <div class="ap-field"><label class="ap-label">URL de l'image (Unsplash ou autre)</label>
-                        <input class="ap-input" id="svc-img-${s.id}" value="${escA(s.img)}" /></div>
-                    <button class="ap-btn ap-btn-primary" onclick="saveService(${s.id})">💾 Enregistrer</button>
-                </div>
-            </div>`;
-        });
-    }
-
-    function toggleSvcEdit(id) {
-        const el = document.getElementById('svc-edit-'+id);
-        el.style.display = el.style.display === 'none' ? 'block' : 'none';
-    }
-
-    function saveService(id) {
-        const d = getData();
-        const s = d.services.find(x => x.id===id);
-        if (!s) return;
-        s.tag   = document.getElementById('svc-tag-'+id).value.trim();
-        s.title = document.getElementById('svc-title-'+id).value.trim();
-        s.text  = document.getElementById('svc-text-'+id).value.trim();
-        s.img   = document.getElementById('svc-img-'+id).value.trim();
-        saveData(d);
-        logAction('Service modifié : ' + s.title);
-        applyDataToPage();
-        alert('✅ Service "' + s.title + '" enregistré !');
-        toggleSvcEdit(id);
-    }
-
-    function deleteService(id) {
-        if (!confirm('Supprimer ce service ?')) return;
-        const d = getData();
-        const s = d.services.find(x => x.id===id);
-        d.services = d.services.filter(x => x.id!==id);
-        saveData(d);
-        logAction('Service supprimé : ' + (s ? s.title : id));
-        renderServices();
-        applyDataToPage();
-    }
-
-    function addService() {
-        const d = getData();
-        const newId = Date.now();
-        d.services.push({ id: newId, tag:'Nouveau', title:'Nouveau service', text:'Description du service.', img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop' });
-        saveData(d);
-        logAction('Nouveau service ajouté');
-        renderServices();
-        applyDataToPage();
-        setTimeout(() => {
-            document.getElementById('svc-edit-'+newId).style.display = 'block';
-            document.getElementById('svc-edit-'+newId).scrollIntoView({behavior:'smooth'});
-        }, 100);
-    }
-
-    // ═══════════════════════════════════════════
-    // STRIP
-    // ═══════════════════════════════════════════
-    function renderStrip() {
-        const d = getData();
-        const el = document.getElementById('strip-list');
-        el.innerHTML = '';
-        d.strip.forEach((item, i) => {
-            el.innerHTML += `<div class="strip-item-row">
-                <input class="ap-input" value="${escA(item)}" id="strip-item-${i}" />
-                <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="removeStripItem(${i})">✕</button>
-            </div>`;
-        });
-    }
-
-    function addStripItem() {
-        const d = getData();
-        d.strip.push('Nouvelle annonce');
-        saveData(d);
-        renderStrip();
-    }
-
-    function removeStripItem(i) {
-        const d = getData();
-        d.strip.splice(i, 1);
-        saveData(d);
-        renderStrip();
-    }
-
-    function saveStrip() {
-        const d = getData();
-        const inputs = document.querySelectorAll('[id^="strip-item-"]');
-        d.strip = Array.from(inputs).map(inp => inp.value.trim()).filter(Boolean);
-        saveData(d);
-        logAction('Bandeau annonces mis à jour');
-        applyDataToPage();
-        alert('✅ Bandeau enregistré !');
-    }
-
-    // ═══════════════════════════════════════════
-    // REVIEWS
-    // ═══════════════════════════════════════════
-    function renderReviews() {
-        const d = getData();
-        const el = document.getElementById('reviews-list');
-        if (!d.reviews.length) { el.innerHTML = '<p style="color:var(--texte-leger);font-size:13px;margin-bottom:16px;">Aucun avis pour le moment.</p>'; return; }
-        el.innerHTML = d.reviews.map((r,i) => `
-            <div class="review-card">
-                <div style="flex:1;">
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-                        <strong style="font-size:14px;">${escA(r.name)}</strong>
-                        <span class="review-stars">${'⭐'.repeat(parseInt(r.stars))}</span>
-                        ${r.service ? `<span style="font-size:11px;background:#e8eef8;color:var(--vert-medium);padding:2px 8px;border-radius:4px;">${escA(r.service)}</span>` : ''}
-                    </div>
-                    <p style="font-size:13px;color:var(--texte-leger);">${escA(r.text)}</p>
-                </div>
-                <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteReview(${i})">🗑</button>
-            </div>`).join('');
-    }
-
-    function addReview() {
-        const name = document.getElementById('rev-name').value.trim();
-        const text = document.getElementById('rev-text').value.trim();
-        if (!name || !text) { alert('Nom et commentaire requis.'); return; }
-        const d = getData();
-        if (!d.reviews) d.reviews = [];
-        d.reviews.push({
-            name, stars: document.getElementById('rev-stars').value,
-            text, service: document.getElementById('rev-service').value.trim(),
-            date: new Date().toLocaleDateString('fr-FR')
-        });
-        saveData(d);
-        logAction('Avis ajouté : ' + name);
-        document.getElementById('rev-name').value = '';
-        document.getElementById('rev-text').value = '';
-        document.getElementById('rev-service').value = '';
-        renderReviews();
-        alert('✅ Avis ajouté !');
-    }
-
-    function deleteReview(i) {
-        if (!confirm('Supprimer cet avis ?')) return;
-        const d = getData();
-        d.reviews.splice(i, 1);
-        saveData(d);
-        logAction('Avis supprimé');
-        renderReviews();
-    }
-
-    // ═══════════════════════════════════════════
-    // CONTACT
-    // ═══════════════════════════════════════════
-    function loadContact() {
-        const d = getData();
-        const c = d.contact || {};
-        document.getElementById('ct-phone').value  = c.phone  || '';
-        document.getElementById('ct-email').value  = c.email  || 'contact.fredrenovation@gmail.com';
-        document.getElementById('ct-city').value   = c.city   || '';
-        document.getElementById('ct-tva').value    = c.tva    || 'BE 08332520';
-        document.getElementById('ct-slogan').value = c.slogan || '';
-        document.getElementById('ct-years').value  = c.years  || '15+';
-    }
-
-    function saveContact() {
-        const d = getData();
-        d.contact = {
-            phone:  document.getElementById('ct-phone').value.trim(),
-            email:  document.getElementById('ct-email').value.trim(),
-            city:   document.getElementById('ct-city').value.trim(),
-            tva:    document.getElementById('ct-tva').value.trim(),
-            slogan: document.getElementById('ct-slogan').value.trim(),
-            years:  document.getElementById('ct-years').value.trim()
-        };
-        saveData(d);
-        logAction('Informations contact mises à jour');
-        applyDataToPage();
-        alert('✅ Contact enregistré !');
-    }
-
-    // ═══════════════════════════════════════════
-    // MOT DE PASSE
-    // ═══════════════════════════════════════════
-    function changePwd() {
-        const cur = document.getElementById('pwd-current').value;
-        const nw  = document.getElementById('pwd-new').value;
-        const cf  = document.getElementById('pwd-confirm').value;
-        const msg = document.getElementById('pwd-msg');
-        if (cur !== getAdminPwd()) { msg.style.color='#c0392b'; msg.textContent='Mot de passe actuel incorrect.'; return; }
-        if (nw.length < 4)         { msg.style.color='#c0392b'; msg.textContent='Le nouveau mot de passe doit faire au moins 4 caractères.'; return; }
-        if (nw !== cf)             { msg.style.color='#c0392b'; msg.textContent='Les mots de passe ne correspondent pas.'; return; }
-        localStorage.setItem(ADMIN_PWD_KEY, nw);
-        msg.style.color='#0D1F3C'; msg.textContent='✅ Mot de passe changé avec succès !';
-        document.getElementById('pwd-current').value = '';
-        document.getElementById('pwd-new').value = '';
-        document.getElementById('pwd-confirm').value = '';
-    }
-
-    // ═══════════════════════════════════════════
-    // APPLY DATA TO PAGE (live update)
-    // ═══════════════════════════════════════════
-    function applyDataToPage() {
-        const d = getData();
-
-        // Services grid
-        const grid = document.querySelector('.prestation-grid');
-        if (grid) {
-            grid.innerHTML = '';
-            d.services.forEach((s, i) => {
-                const num = String(i+1).padStart(2,'0');
-                grid.innerHTML += `
-                <div class="prest-card">
-                    <div class="prest-img-box">
-                        <span class="prest-num">${num}</span>
-                        <img src="${escA(s.img)}" alt="${escA(s.title)}" loading="lazy">
-                    </div>
-                    <div class="prest-body">
-                        <span class="prest-tag">${escA(s.tag)}</span>
-                        <h3 class="prest-title">${escA(s.title)}</h3>
-                        <p class="prest-text">${escA(s.text)}</p>
-                    </div>
-                    <div class="prest-footer"><a href="mailto:contact.fredrenovation@gmail.com?subject=Devis%20${encodeURIComponent(s.title)}" class="prest-link">En savoir plus →</a></div>
-                </div>`;
-            });
-            // update count
-            const cnt = document.querySelector('.section-count');
-            if (cnt) cnt.textContent = d.services.length + ' services';
-        }
-
-        // Strip
-        const stripEl = document.querySelector('.strip');
-        if (stripEl && d.strip.length) {
-            stripEl.innerHTML = d.strip.map(t => `<span class="strip-item">${escA(t)}</span>`).join('');
-        }
-
-        // Footer TVA
-        const footerReg = document.querySelector('.footer-reg');
-        if (footerReg && d.contact && d.contact.tva) footerReg.textContent = d.contact.tva;
-
-        // Why years
-        const whyNums = document.querySelectorAll('.why-num');
-        if (whyNums.length && d.contact && d.contact.years) whyNums[0].textContent = d.contact.years;
-    }
-
-    function escA(str) { return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-    // Auto-apply on page load
-    applyDataToPage();
-    </script>
+<script>
+const ADMIN_PWD_KEY='fred_admin_pwd',ADMIN_DATA_KEY='fred_admin_data',DEFAULT_PWD='fred2026';
+function getAdminPwd(){return localStorage.getItem(ADMIN_PWD_KEY)||DEFAULT_PWD;}
+function getData(){try{return JSON.parse(localStorage.getItem(ADMIN_DATA_KEY))||defaultData();}catch(e){return defaultData();}}
+function saveData(d){d.lastSaved=new Date().toLocaleString('fr-FR');localStorage.setItem(ADMIN_DATA_KEY,JSON.stringify(d));}
+function defaultData(){return{services:[{id:1,tag:'Toiture',title:'Couverture traditionnelle',text:'Tuile, zinc, bac acier. Des matériaux haut de gamme pour allier durabilité et esthétique.',img:'https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop'},{id:2,tag:'Étanchéité',title:'Toiture plate EPDM',text:'Résistante et hautement durable, notre solution EPDM garantit une protection optimale.',img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop'},{id:3,tag:'Velux',title:'Fenêtres de toit',text:'Plus de lumière, plus de confort. Pose parfaite de Velux pour apporter de la clarté.',img:'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop'},{id:4,tag:'Menuiserie',title:'Châssis PVC & ALU',text:'Remplacement de fenêtres et portes. Optimisation des performances thermiques et phoniques.',img:'https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop'},{id:5,tag:'Domotique',title:'Volets Roulants',text:'Installation de systèmes manuels ou motorisés pour votre confort quotidien.',img:'https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop'},{id:6,tag:'Isolation',title:'Isolation Thermique',text:"Isolation performante des combles, murs ou sols pour réduire vos déperditions d'énergie.",img:'https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop'},{id:7,tag:'Aménagement',title:'Placo & Cloisonnement',text:'Doublage des murs, séparations de pièces et faux plafonds avec finitions soignées.',img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop'},{id:8,tag:'Revêtements',title:'Carrelage Sol & Mur',text:"Pose de carrelages, faïences et crédences pour pièces d'eau, cuisines ou séjours.",img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop'},{id:9,tag:'Façade',title:'Bardage Extérieur',text:'Revêtement esthétique bois ou composite pour moderniser la façade tout en isolant.',img:'https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop'}],strip:['Toiture & Charpente','Toiture Plate EPDM','Velux & Lucarnes','Interventions Urgentes'],reviews:[],contact:{phone:'07 82 25 33 09',email:'contact.fredrenovation@gmail.com',city:'Belgique',tva:'BE 08332520',slogan:'Votre maison, notre passion.',years:'15+'},lastSaved:null,log:[]};}
+function logAction(msg){const d=getData();if(!d.log)d.log=[];d.log.unshift(new Date().toLocaleString('fr-FR')+' — '+msg);if(d.log.length>20)d.log=d.log.slice(0,20);saveData(d);}
+function openAdmin(){document.getElementById('admin-overlay').classList.add('show');document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').classList.remove('show');document.getElementById('admin-pwd').value='';document.getElementById('admin-err').style.display='none';setTimeout(()=>document.getElementById('admin-pwd').focus(),200);}
+function closeAdmin(){document.getElementById('admin-overlay').classList.remove('show');}
+function doLogin(){const val=document.getElementById('admin-pwd').value;if(val===getAdminPwd()){document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').classList.add('show');refreshAll();}else{document.getElementById('admin-err').style.display='block';document.getElementById('admin-pwd').value='';document.getElementById('admin-pwd').focus();}}
+document.getElementById('admin-pwd').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function doLogout(){document.getElementById('admin-panel').classList.remove('show');document.getElementById('admin-login').style.display='block';document.getElementById('admin-pwd').value='';}
+function showTab(name){document.querySelectorAll('.ap-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.ap-tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');event.currentTarget.classList.add('active');if(name==='dashboard')refreshDashboard();if(name==='services')renderServices();if(name==='strip')renderStrip();if(name==='reviews')renderReviews();if(name==='contact')loadContact();}
+function refreshAll(){refreshDashboard();renderServices();renderStrip();renderReviews();loadContact();applyDataToPage();}
+function refreshDashboard(){const d=getData();document.getElementById('dash-stats').innerHTML=`<div class="ap-stat"><div class="ap-stat-num">${d.services.length}</div><div class="ap-stat-label">Services</div></div><div class="ap-stat"><div class="ap-stat-num">${d.strip.length}</div><div class="ap-stat-label">Annonces</div></div><div class="ap-stat"><div class="ap-stat-num">${d.reviews.length}</div><div class="ap-stat-label">Avis</div></div><div class="ap-stat"><div class="ap-stat-num">${d.lastSaved?'&#10003;':'—'}</div><div class="ap-stat-label">Sauvegardé</div></div>`;document.getElementById('dash-log').innerHTML=d.log&&d.log.length?d.log.map(l=>`<div>• ${l}</div>`).join(''):'<div style="color:#aaa">Aucune modification.</div>';}
+function renderServices(){const d=getData();const el=document.getElementById('services-list');el.innerHTML='';d.services.forEach(s=>{el.innerHTML+=`<div class="ap-card" id="svc-card-${s.id}"><div class="ap-card-header"><span class="ap-card-title"><span class="ap-tag-preview">${escA(s.tag)}</span> &nbsp;${escA(s.title)}</span><div style="display:flex;gap:6px;"><button class="ap-btn ap-btn-sm ap-btn-primary" onclick="toggleSvcEdit(${s.id})">&#9998; Modifier</button><button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteService(${s.id})">&#128465; Supprimer</button></div></div><div id="svc-edit-${s.id}" style="display:none;"><div class="ap-row"><div class="ap-field"><label class="ap-label">Tag</label><input class="ap-input" id="svc-tag-${s.id}" value="${escA(s.tag)}" /></div><div class="ap-field"><label class="ap-label">Titre</label><input class="ap-input" id="svc-title-${s.id}" value="${escA(s.title)}" /></div></div><div class="ap-field"><label class="ap-label">Description</label><textarea class="ap-textarea" id="svc-text-${s.id}">${escA(s.text)}</textarea></div><div class="ap-field"><label class="ap-label">URL image</label><input class="ap-input" id="svc-img-${s.id}" value="${escA(s.img)}" /></div><button class="ap-btn ap-btn-primary" onclick="saveService(${s.id})">&#128190; Enregistrer</button></div></div>`;});}
+function toggleSvcEdit(id){const el=document.getElementById('svc-edit-'+id);el.style.display=el.style.display==='none'?'block':'none';}
+function saveService(id){const d=getData();const s=d.services.find(x=>x.id===id);if(!s)return;s.tag=document.getElementById('svc-tag-'+id).value.trim();s.title=document.getElementById('svc-title-'+id).value.trim();s.text=document.getElementById('svc-text-'+id).value.trim();s.img=document.getElementById('svc-img-'+id).value.trim();saveData(d);logAction('Service modifié : '+s.title);applyDataToPage();alert('✅ "'+s.title+'" enregistré !');toggleSvcEdit(id);}
+function deleteService(id){if(!confirm('Supprimer ?'))return;const d=getData();const s=d.services.find(x=>x.id===id);d.services=d.services.filter(x=>x.id!==id);saveData(d);logAction('Service supprimé : '+(s?s.title:id));renderServices();applyDataToPage();}
+function addService(){const d=getData();const newId=Date.now();d.services.push({id:newId,tag:'Nouveau',title:'Nouveau service',text:'Description.',img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop'});saveData(d);logAction('Nouveau service ajouté');renderServices();applyDataToPage();setTimeout(()=>{document.getElementById('svc-edit-'+newId).style.display='block';document.getElementById('svc-edit-'+newId).scrollIntoView({behavior:'smooth'});},100);}
+function renderStrip(){const d=getData();const el=document.getElementById('strip-list');el.innerHTML='';d.strip.forEach((item,i)=>{el.innerHTML+=`<div class="strip-item-row"><input class="ap-input" value="${escA(item)}" id="strip-item-${i}" /><button class="ap-btn ap-btn-sm ap-btn-danger" onclick="removeStripItem(${i})">&#10005;</button></div>`;});}
+function addStripItem(){const d=getData();d.strip.push('Nouvelle annonce');saveData(d);renderStrip();}
+function removeStripItem(i){const d=getData();d.strip.splice(i,1);saveData(d);renderStrip();}
+function saveStrip(){const d=getData();d.strip=Array.from(document.querySelectorAll('[id^="strip-item-"]')).map(inp=>inp.value.trim()).filter(Boolean);saveData(d);logAction('Bandeau mis à jour');applyDataToPage();alert('✅ Bandeau enregistré !');}
+function renderReviews(){const d=getData();const el=document.getElementById('reviews-list');if(!d.reviews.length){el.innerHTML='<p style="color:var(--texte-doux);font-size:13px;margin-bottom:16px;">Aucun avis.</p>';return;}el.innerHTML=d.reviews.map((r,i)=>`<div class="review-card"><div style="flex:1;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;"><strong style="font-size:14px;">${escA(r.name)}</strong><span class="review-stars">${'⭐'.repeat(parseInt(r.stars))}</span>${r.service?`<span style="font-size:11px;background:#fff4f0;color:var(--orange);padding:2px 8px;border-radius:3px;font-weight:700;">${escA(r.service)}</span>`:''}</div><p style="font-size:13px;color:var(--texte-doux);">${escA(r.text)}</p></div><button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteReview(${i})">&#128465;</button></div>`).join('');}
+function addReview(){const name=document.getElementById('rev-name').value.trim();const text=document.getElementById('rev-text').value.trim();if(!name||!text){alert('Nom et commentaire requis.');return;}const d=getData();if(!d.reviews)d.reviews=[];d.reviews.push({name,stars:document.getElementById('rev-stars').value,text,service:document.getElementById('rev-service').value.trim(),date:new Date().toLocaleDateString('fr-FR')});saveData(d);logAction('Avis ajouté : '+name);document.getElementById('rev-name').value='';document.getElementById('rev-text').value='';document.getElementById('rev-service').value='';renderReviews();alert('✅ Avis ajouté !');}
+function deleteReview(i){if(!confirm('Supprimer ?'))return;const d=getData();d.reviews.splice(i,1);saveData(d);logAction('Avis supprimé');renderReviews();}
+function loadContact(){const d=getData();const c=d.contact||{};document.getElementById('ct-phone').value=c.phone||'';document.getElementById('ct-email').value=c.email||'contact.fredrenovation@gmail.com';document.getElementById('ct-city').value=c.city||'';document.getElementById('ct-tva').value=c.tva||'BE 08332520';document.getElementById('ct-slogan').value=c.slogan||'';document.getElementById('ct-years').value=c.years||'15+';}
+function saveContact(){const d=getData();d.contact={phone:document.getElementById('ct-phone').value.trim(),email:document.getElementById('ct-email').value.trim(),city:document.getElementById('ct-city').value.trim(),tva:document.getElementById('ct-tva').value.trim(),slogan:document.getElementById('ct-slogan').value.trim(),years:document.getElementById('ct-years').value.trim()};saveData(d);logAction('Contact mis à jour');applyDataToPage();alert('✅ Contact enregistré !');}
+function changePwd(){const cur=document.getElementById('pwd-current').value;const nw=document.getElementById('pwd-new').value;const cf=document.getElementById('pwd-confirm').value;const msg=document.getElementById('pwd-msg');if(cur!==getAdminPwd()){msg.style.color='#c0392b';msg.textContent='Mot de passe actuel incorrect.';return;}if(nw.length<4){msg.style.color='#c0392b';msg.textContent='Minimum 4 caractères.';return;}if(nw!==cf){msg.style.color='#c0392b';msg.textContent='Les mots de passe ne correspondent pas.';return;}localStorage.setItem(ADMIN_PWD_KEY,nw);msg.style.color='#0D1F3C';msg.textContent='✅ Mot de passe changé !';document.getElementById('pwd-current').value='';document.getElementById('pwd-new').value='';document.getElementById('pwd-confirm').value='';}
+function applyDataToPage(){const d=getData();const grid=document.getElementById('prestation-grid-main');if(grid){grid.innerHTML='';d.services.forEach((s,i)=>{const num=String(i+1).padStart(2,'0');grid.innerHTML+=`<div class="prest-card"><div class="prest-img-box"><span class="prest-num">${num}</span><img src="${escA(s.img)}" alt="${escA(s.title)}" loading="lazy"></div><div class="prest-body"><span class="prest-tag">${escA(s.tag)}</span><h3 class="prest-title">${escA(s.title).toUpperCase()}</h3><p class="prest-text">${escA(s.text)}</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20${encodeURIComponent(s.title)}" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>`;});const cnt=document.getElementById('prest-count-label');if(cnt)cnt.textContent=d.services.length+' SERVICES';}const stripEl=document.getElementById('strip-display');if(stripEl&&d.strip.length)stripEl.innerHTML=d.strip.map(t=>`<span class="strip-item">${escA(t)}</span>`).join('');const footerReg=document.getElementById('footer-reg');if(footerReg&&d.contact&&d.contact.tva)footerReg.textContent=d.contact.tva;const whyNum1=document.getElementById('why-num-1');if(whyNum1&&d.contact&&d.contact.years)whyNum1.textContent=d.contact.years;}
+function escA(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+applyDataToPage();
+</script>
 </body>
 </html>

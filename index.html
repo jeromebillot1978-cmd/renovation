@@ -550,10 +550,11 @@ function sendDevis(){
 <div id="chat-window">
     <div class="chat-header">
         <div class="chat-avatar">&#127968;</div>
-        <div>
+        <div style="flex:1;">
             <div class="chat-header-name">Fred Rénovation</div>
             <div class="chat-header-status">En ligne — répond immédiatement</div>
         </div>
+        <button onclick="closeChat()" style="background:rgba(255,255,255,0.12);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'" title="Fermer">&#10005;</button>
     </div>
     <div class="chat-messages" id="chat-messages"></div>
     <div class="chat-suggestions" id="chat-suggestions">
@@ -702,6 +703,7 @@ async function sendMessage(text){
   setTimeout(()=>inputEl.focus(),100);
 }
 
+function closeChat(){opened=false;bubble.classList.remove('open');chatWin.classList.remove('open');messages.innerHTML='';chatHistory=[];suggsEl.style.display='flex';notifEl.style.display='flex';}
 sendBtn.addEventListener('click',()=>sendMessage(inputEl.value));
 inputEl.addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage(inputEl.value);});
 function sendSuggestion(btn){sendMessage(btn.textContent.replace(/^[^\w]+/,''));}

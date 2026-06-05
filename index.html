@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,6 +21,7 @@
             --texte-doux: #4A5878;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body { background: var(--fond); color: var(--texte); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
 
         /* TOP BAR */
@@ -30,14 +32,10 @@
         .top-nav a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 3px; transition: all 0.2s; }
         .top-nav a:hover { color: var(--blanc); background: rgba(255,255,255,0.08); }
         .top-nav a.active { color: var(--orange); }
-        .top-qr { display: flex; align-items: center; gap: 8px; margin-right: 12px; }
-        .top-qr img { width: 38px; height: 38px; border-radius: 4px; border: 2px solid var(--orange); background: #fff; }
-        .top-qr-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.3; }
-        .top-qr-label span { color: var(--orange); display: block; }
-
-        /* HERO */
+/* HERO */
         .hero { background: var(--navy); position: relative; overflow: hidden; min-height: 560px; display: flex; align-items: center; }
         .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px); }
+.hero-blob { position: absolute; right: -100px; top: -80px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgba(232,73,15,0.2) 0%, transparent 65%); pointer-events: none; }
         .hero-qr-badge {
             position: absolute;
             top: 20px;
@@ -61,7 +59,6 @@
             margin-top: 5px;
         }
         .hero-qr-badge-label span { color: var(--orange); }
-        .hero-blob { position: absolute; right: -100px; top: -80px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgba(232,73,15,0.2) 0%, transparent 65%); pointer-events: none; }
         .hero-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--orange) 0%, var(--orange-pale) 50%, var(--orange) 100%); }
         .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 70px 40px 90px; display: grid; grid-template-columns: 1fr 340px; gap: 60px; align-items: center; }
         .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 24px; animation: fadeUp 0.5s 0.1s both; }
@@ -236,29 +233,24 @@
 
 <nav class="top-bar">
     <div class="top-brand">FRED <span>RÉNOVATION</span></div>
-    <div class="top-qr">
-        <a href="https://fredrenovation.vercel.app" target="_blank" title="Scanner pour accéder au site">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://fredrenovation.vercel.app&color=0B1929&bgcolor=ffffff&qzone=1" alt="QR Code Fred Rénovation">
-        </a>
-        <div class="top-qr-label">Scannez<span>notre site</span></div>
-    </div>
+</div>
     <div class="top-nav">
-        <a href="#" class="active">Accueil</a>
-        <a href="#">Prestations</a>
-        <a href="#">Devis</a>
-        <a href="#">Contact</a>
-        <a href="#">À Propos</a>
+        <a href="#accueil" class="active">Accueil</a>
+        <a href="#prestations">Prestations</a>
+        <a href="#devis">Devis</a>
+        <a href="#contact">Contact</a>
+        <a href="#apropos">À Propos</a>
         <a href="#" onclick="openAdmin(); return false;">Admin</a>
     </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="accueil">
     <div class="hero-blob"></div>
     <a class="hero-qr-badge" href="https://fredrenovation.vercel.app" target="_blank" title="fredrenovation.vercel.app" style="text-decoration:none;">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://fredrenovation.vercel.app&color=0B1929&bgcolor=ffffff&qzone=1&format=png" alt="QR Code Fred Rénovation">
         <div class="hero-qr-badge-label">Scanner<span>notre site</span></div>
     </a>
-    <div class="hero-stripe"></div>
+<div class="hero-stripe"></div>
     <div class="hero-content">
         <div class="hero-left">
             <div class="hero-tag">&#9889; Artisan Couvreur — Belgique</div>
@@ -274,7 +266,7 @@
             <div class="cta-icon">&#128222;</div>
             <div class="cta-title">DEVIS GRATUIT</div>
             <div class="cta-sub">Réponse sous 48h — Intervention rapide</div>
-            <a class="cta-btn" href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis" target="_blank">&#9993; Demander un devis</a>
+            <a class="cta-btn" href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Demande%20de%20devis" target="_blank">&#9993; Demander un devis</a>
             <a class="cta-tel" href="tel:0782253309">&#128222; 07 82 25 33 09</a>
             <div class="cta-note">Votre artisan local à votre service</div>
         </div>
@@ -342,7 +334,7 @@
     </div>
 </div>
 
-<section class="prestations-section">
+<section class="prestations-section" id="prestations">
     <div class="prestations-inner">
         <div class="prestations-header">
             <div>
@@ -352,15 +344,15 @@
             <span class="prest-count" id="prest-count-label">9 SERVICES</span>
         </div>
         <div class="prestation-grid" id="prestation-grid-main">
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">01</span><img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop" alt="Toiture" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Toiture</span><h3 class="prest-title">COUVERTURE TRADITIONNELLE</h3><p class="prest-text">Tuile, zinc, bac acier. Matériaux haut de gamme pour allier durabilité et esthétique.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Toiture" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">02</span><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop" alt="EPDM" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Étanchéité</span><h3 class="prest-title">TOITURE PLATE EPDM</h3><p class="prest-text">Résistante et durable — solution EPDM pour une protection optimale à long terme.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20EPDM" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">03</span><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop" alt="Velux" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Velux</span><h3 class="prest-title">FENÊTRES DE TOIT</h3><p class="prest-text">Plus de lumière, plus de confort. Pose parfaite de Velux pour vos combles.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Velux" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">04</span><img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop" alt="Châssis PVC" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Menuiserie</span><h3 class="prest-title">CHÂSSIS PVC &amp; ALU</h3><p class="prest-text">Fenêtres et portes de haute performance thermique et phonique.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Chassis" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">05</span><img src="https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop" alt="Volets" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Domotique</span><h3 class="prest-title">VOLETS ROULANTS</h3><p class="prest-text">Manuels ou motorisés — confort quotidien et sécurité du bâtiment.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Volets" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">06</span><img src="https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop" alt="Isolation" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Isolation</span><h3 class="prest-title">ISOLATION THERMIQUE</h3><p class="prest-text">Combles, murs, sols — réduisez drastiquement vos déperditions d'énergie.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Isolation" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">07</span><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop" alt="Placo" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Aménagement</span><h3 class="prest-title">PLACO &amp; CLOISONNEMENT</h3><p class="prest-text">Doublage, séparations de pièces, faux plafonds — finitions soignées.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Placo" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">08</span><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop" alt="Carrelage" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Revêtements</span><h3 class="prest-title">CARRELAGE SOL &amp; MUR</h3><p class="prest-text">Faïences, crédences, carrelages pour vos pièces d'eau et séjours.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Carrelage" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
-            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">09</span><img src="https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop" alt="Bardage" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Façade</span><h3 class="prest-title">BARDAGE EXTÉRIEUR</h3><p class="prest-text">Bois ou composite — modernisez l'aspect extérieur tout en isolant.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20Bardage" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">01</span><img src="https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop" alt="Toiture" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Toiture</span><h3 class="prest-title">COUVERTURE TRADITIONNELLE</h3><p class="prest-text">Tuile, zinc, bac acier. Matériaux haut de gamme pour allier durabilité et esthétique.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Toiture" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">02</span><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop" alt="EPDM" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Étanchéité</span><h3 class="prest-title">TOITURE PLATE EPDM</h3><p class="prest-text">Résistante et durable — solution EPDM pour une protection optimale à long terme.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20EPDM" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">03</span><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop" alt="Velux" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Velux</span><h3 class="prest-title">FENÊTRES DE TOIT</h3><p class="prest-text">Plus de lumière, plus de confort. Pose parfaite de Velux pour vos combles.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Velux" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">04</span><img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop" alt="Châssis PVC" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Menuiserie</span><h3 class="prest-title">CHÂSSIS PVC &amp; ALU</h3><p class="prest-text">Fenêtres et portes de haute performance thermique et phonique.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Chassis" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">05</span><img src="https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop" alt="Volets" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Domotique</span><h3 class="prest-title">VOLETS ROULANTS</h3><p class="prest-text">Manuels ou motorisés — confort quotidien et sécurité du bâtiment.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Volets" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">06</span><img src="https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop" alt="Isolation" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Isolation</span><h3 class="prest-title">ISOLATION THERMIQUE</h3><p class="prest-text">Combles, murs, sols — réduisez drastiquement vos déperditions d'énergie.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Isolation" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">07</span><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop" alt="Placo" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Aménagement</span><h3 class="prest-title">PLACO &amp; CLOISONNEMENT</h3><p class="prest-text">Doublage, séparations de pièces, faux plafonds — finitions soignées.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Placo" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">08</span><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop" alt="Carrelage" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Revêtements</span><h3 class="prest-title">CARRELAGE SOL &amp; MUR</h3><p class="prest-text">Faïences, crédences, carrelages pour vos pièces d'eau et séjours.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Carrelage" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
+            <div class="prest-card"><div class="prest-img-box"><span class="prest-num">09</span><img src="https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop" alt="Bardage" loading="lazy"></div><div class="prest-body"><span class="prest-tag">Façade</span><h3 class="prest-title">BARDAGE EXTÉRIEUR</h3><p class="prest-text">Bois ou composite — modernisez l'aspect extérieur tout en isolant.</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Bardage" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>
         </div>
     </div>
 </section>
@@ -402,9 +394,135 @@
             <div class="cta-band-title">PRÊT À <span>DÉMARRER</span><br>VOTRE PROJET ?</div>
             <div class="cta-band-sub">Votre artisan local — Belgique — BE 0832502696</div>
         </div>
-        <a class="cta-band-btn" href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis%20Fred%20Renovation" target="_blank">&#128233; DEVIS GRATUIT</a>
+        <a class="cta-band-btn" href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Demande%20de%20devis%20Fred%20Renovation" target="_blank">&#128233; DEVIS GRATUIT</a>
     </div>
 </div>
+
+
+<!-- DEVIS -->
+<section id="devis" style="background:#fff;padding:70px 40px;">
+  <div style="max-width:700px;margin:0 auto;">
+    <div class="section-label">Demande de devis</div>
+    <h2 class="section-title">VOTRE <span class="accent">DEVIS GRATUIT</span></h2>
+    <p class="section-desc" style="margin-bottom:30px;">Remplissez le formulaire, Fred vous répond sous 48h.</p>
+    <div style="background:var(--fond);border-radius:10px;padding:36px;border:2px solid #d8dff0;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+        <div><label style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:5px;">Prénom & Nom</label>
+        <input id="dv-nom" type="text" placeholder="Jean Dupont" style="width:100%;padding:11px 13px;border:2px solid #d8dff0;border-radius:6px;font-size:14px;outline:none;font-family:inherit;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='#d8dff0'"/></div>
+        <div><label style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:5px;">Téléphone</label>
+        <input id="dv-tel" type="tel" placeholder="07 00 00 00 00" style="width:100%;padding:11px 13px;border:2px solid #d8dff0;border-radius:6px;font-size:14px;outline:none;font-family:inherit;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='#d8dff0'"/></div>
+      </div>
+      <div style="margin-bottom:16px;"><label style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:5px;">Email</label>
+      <input id="dv-email" type="email" placeholder="votre@email.com" style="width:100%;padding:11px 13px;border:2px solid #d8dff0;border-radius:6px;font-size:14px;outline:none;font-family:inherit;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='#d8dff0'"/></div>
+      <div style="margin-bottom:16px;"><label style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:5px;">Type de travaux</label>
+      <select id="dv-type" style="width:100%;padding:11px 13px;border:2px solid #d8dff0;border-radius:6px;font-size:14px;outline:none;font-family:inherit;background:#fff;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='#d8dff0'">
+        <option value="">-- Choisir --</option>
+        <option>Toiture / Couverture</option>
+        <option>Toiture plate EPDM</option>
+        <option>Velux / Fenêtres de toit</option>
+        <option>Châssis PVC & ALU</option>
+        <option>Volets roulants</option>
+        <option>Isolation thermique</option>
+        <option>Placo & Cloisonnement</option>
+        <option>Carrelage</option>
+        <option>Bardage extérieur</option>
+        <option>Autre</option>
+      </select></div>
+      <div style="margin-bottom:24px;"><label style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:5px;">Votre message</label>
+      <textarea id="dv-msg" rows="4" placeholder="Décrivez votre projet..." style="width:100%;padding:11px 13px;border:2px solid #d8dff0;border-radius:6px;font-size:14px;outline:none;font-family:inherit;resize:vertical;" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='#d8dff0'"></textarea></div>
+      <button onclick="sendDevis()" style="width:100%;padding:15px;background:var(--orange);color:#fff;border:none;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--orange-dark)'" onmouseout="this.style.background='var(--orange)'">&#9993; Envoyer ma demande</button>
+      <div id="dv-confirm" style="display:none;margin-top:16px;background:#f0fff4;border:2px solid #4ade80;border-radius:6px;padding:14px;text-align:center;font-weight:600;color:#166534;">✅ Demande envoyée ! Fred vous contacte sous 48h.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--fond);padding:70px 40px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="section-label">Nous contacter</div>
+    <h2 class="section-title">CONTACT & <span class="accent">COORDONNÉES</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;">
+      <div style="background:#fff;border-radius:10px;padding:32px;border:2px solid #d8dff0;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--navy);text-transform:uppercase;margin-bottom:24px;">&#128222; Informations</div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">&#128222;</div>
+            <div><div style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;">Téléphone</div><a href="tel:0782253309" style="font-size:18px;font-weight:700;color:var(--navy);text-decoration:none;">07 82 25 33 09</a></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">&#128231;</div>
+            <div><div style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;">Email</div><a href="mailto:contact.fredrenovation59@gmail.com" style="font-size:14px;font-weight:600;color:var(--orange);text-decoration:none;word-break:break-all;">contact.fredrenovation59@gmail.com</a></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">&#127759;</div>
+            <div><div style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;">Zone d'intervention</div><div style="font-size:15px;font-weight:600;color:var(--navy);">Belgique</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:44px;height:44px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">&#127968;</div>
+            <div><div style="font-size:11px;font-weight:700;color:var(--texte-doux);text-transform:uppercase;letter-spacing:0.1em;">N° BCE</div><div style="font-size:15px;font-weight:600;color:var(--navy);">BE 0832502696</div></div>
+          </div>
+        </div>
+        <a href="tel:0782253309" style="display:block;margin-top:28px;background:var(--orange);color:#fff;text-align:center;padding:14px;border-radius:6px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;text-transform:uppercase;text-decoration:none;letter-spacing:0.06em;">&#128222; Appeler maintenant</a>
+      </div>
+      <div style="background:var(--navy);border-radius:10px;padding:32px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+        <div style="font-size:52px;margin-bottom:16px;">&#128337;</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:#fff;text-transform:uppercase;margin-bottom:10px;">Horaires</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:14px;line-height:2;">
+          Lundi — Vendredi<br><strong style="color:#fff;font-size:17px;">8h00 – 18h00</strong><br>Samedi<br><strong style="color:#fff;font-size:17px;">9h00 – 14h00</strong><br><br><span style="color:var(--orange);font-weight:700;">Devis gratuit sous 48h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos" style="background:var(--navy);padding:70px 40px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="section-label" style="color:var(--orange);">À propos</div>
+    <h2 class="section-title" style="color:#fff;">QUI EST <span class="accent">FRED ?</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px;align-items:center;">
+      <div>
+        <div style="width:120px;height:120px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:56px;margin-bottom:24px;">&#128736;&#65039;</div>
+        <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:16px;">Artisan couvreur passionné avec plus de <strong style="color:#fff;">15 ans d'expérience</strong> dans la rénovation et la construction en Belgique.</p>
+        <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:16px;">Fred Rénovation, c'est l'engagement d'un artisan local qui privilégie la <strong style="color:#fff;">qualité du travail</strong> et la satisfaction du client avant tout.</p>
+        <p style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.8;">De la toiture au carrelage, chaque chantier est traité avec le même sérieux : <strong style="color:var(--orange);">votre maison, notre passion.</strong></p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="background:rgba(255,255,255,0.07);border-radius:8px;padding:22px;text-align:center;border:1px solid rgba(255,255,255,0.1);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--orange);">15+</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.08em;">Ans d'expérience</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.07);border-radius:8px;padding:22px;text-align:center;border:1px solid rgba(255,255,255,0.1);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--orange);">9</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.08em;">Services proposés</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.07);border-radius:8px;padding:22px;text-align:center;border:1px solid rgba(255,255,255,0.1);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--orange);">100%</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.08em;">Satisfaction client</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.07);border-radius:8px;padding:22px;text-align:center;border:1px solid rgba(255,255,255,0.1);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:44px;font-weight:900;color:var(--orange);">48h</div>
+          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.08em;">Délai de réponse</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function sendDevis(){
+  const nom=document.getElementById('dv-nom').value.trim();
+  const email=document.getElementById('dv-email').value.trim();
+  const tel=document.getElementById('dv-tel').value.trim();
+  const type=document.getElementById('dv-type').value;
+  const msg=document.getElementById('dv-msg').value.trim();
+  if(!nom||!email){alert('Merci de renseigner votre nom et email.');return;}
+  const subject=encodeURIComponent('Demande de devis — '+(type||'Fred Rénovation'));
+  const body=encodeURIComponent('Nom : '+nom+'\nTél : '+tel+'\nEmail : '+email+'\nTravaux : '+type+'\n\nMessage :\n'+msg);
+  window.open('https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su='+subject+'&body='+body,'_blank');
+  document.getElementById('dv-confirm').style.display='block';
+}
+</script>
 
 <footer>
     <div class="footer-inner">
@@ -441,8 +559,14 @@
     <div class="chat-messages" id="chat-messages"></div>
     <div class="chat-suggestions" id="chat-suggestions">
         <button class="suggestion-btn" onclick="sendSuggestion(this)">&#127968; Toiture</button>
-        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#129521; Façade</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#128737; EPDM</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#9728; Velux</button>
         <button class="suggestion-btn" onclick="sendSuggestion(this)">&#129695; Menuiserie</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#128683; Volets</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#127777; Isolation</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#129454; Placo</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#128703; Carrelage</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)">&#129521; Bardage</button>
         <button class="suggestion-btn" onclick="sendSuggestion(this)">&#128176; Devis</button>
     </div>
     <div class="chat-input-row">
@@ -452,7 +576,26 @@
 </div>
 
 <script>
-const KB=[{keys:['fuit','fuite','infiltr','humidit','mouill','eau','gouttieres','gouttiere'],reply:'&#128269; <strong>Toiture qui fuit ?</strong><br>Inspectez les noues, faitage et solins.<br><br>&#128073; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Urgence%20toiture" target="_blank" style="color:#E8490F">Devis urgent !</a>'},{keys:['epdm','toiture plate','plate'],reply:'&#128737;&#65039; <strong>Toiture plate EPDM</strong><br>Durée de vie 30-50 ans. Résistance totale aux UV.'},{keys:['velux','fenetre','lucarne','lumiere'],reply:'&#9728;&#65039; <strong>Velux</strong><br>Min. 1/6 de la surface au sol. Double vitrage thermique.'},{keys:['facade','bardage','crepis'],reply:'&#129521; <strong>Bardage & Façade</strong><br>Nettoyage, bardage bois ou composite isolé.'},{keys:['isolation','isoler','combles','thermique'],reply:'&#127777;&#65039; <strong>Isolation thermique</strong><br>Combles = priorité n°1 (30% des pertes). Primes énergie disponibles.'},{keys:['carrelage','salle de bain','douche'],reply:'&#128703; <strong>Carrelage &amp; Salle de bain</strong><br>Faïence, carrelage sol — clé en main.'},{keys:['placo','cloison','amenagement'],reply:'&#129454; <strong>Placo &amp; Aménagement</strong><br>Cloisons, doublage, faux plafonds.'},{keys:['pvc','aluminium','menuiserie','chassis'],reply:'&#129695; <strong>Menuiseries PVC-ALU</strong><br>Châssis ultra-isolants pour sécuriser votre maison.'},{keys:['devis','tarif','prix','cout','combien','gratuit'],reply:'&#128176; <strong>Devis gratuit sous 48h</strong><br>1. Email de demande<br>2. Visite technique gratuite<br>3. Chiffrage clair<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">contact.fredrenovation@gmail.com</a>'},{keys:['bonjour','salut','bonsoir','hello'],reply:'&#128075; <strong>Bonjour !</strong> Je suis l&apos;assistant de Fred Rénovation.<br>Toiture, isolation, bardage, menuiserie ?'}];
+const KB=[
+  {keys:['bonjour','salut','bonsoir','hello','coucou','bjr'],reply:'&#128075; <strong>Bonjour !</strong> Je suis l&apos;assistant de Fred Rénovation.<br>Toiture, isolation, bardage, menuiserie, carrelage... posez vos questions !<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
+  {keys:['fuit','fuite','infiltr','humidit','mouill','eau','gouttiere','dégât'],reply:'&#128269; <strong>Toiture qui fuit ?</strong><br>Inspection rapide des noues, faîtage et solins. Intervention rapide garantie.<br><br>&#128073; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Urgence%20toiture" target="_blank" style="color:#E8490F">Devis urgent !</a> ou &#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
+  {keys:['urgent','urgence','rapide','intervention'],reply:'&#9889; <strong>Intervention rapide</strong><br>Fred Rénovation intervient rapidement pour toute urgence toiture ou rénovation.<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a> — Appelez maintenant !'},
+  {keys:['toiture','couverture','tuile','zinc','bac acier','charpente','toit'],reply:'&#127968; <strong>Couverture & Toiture</strong><br>Tuile, zinc, bac acier — matériaux haut de gamme.<br>✔ Pose neuve &nbsp;✔ Rénovation &nbsp;✔ Réparation<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Toiture" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['epdm','toiture plate','plate','etancheite','étanchéité'],reply:'&#128737;&#65039; <strong>Toiture plate EPDM</strong><br>Résistante et durable — durée de vie 30 à 50 ans.<br>✔ Étanchéité optimale &nbsp;✔ Résistance UV &nbsp;✔ Protection durable<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20EPDM" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['velux','fenetre de toit','lucarne','lumiere','skylight','verriere'],reply:'&#9728;&#65039; <strong>Fenêtres de toit & Velux</strong><br>Plus de lumière, plus de confort dans vos combles.<br>✔ Double vitrage thermique &nbsp;✔ Pose soignée &nbsp;✔ Bien-être garanti<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Velux" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['pvc','aluminium','alu','menuiserie','chassis','fenetre','porte','double vitrage'],reply:'&#129695; <strong>Menuiserie PVC & ALU</strong><br>Portes & fenêtres haute performance.<br>✔ Isolation thermique &nbsp;✔ Isolation phonique &nbsp;✔ Sécurité renforcée &nbsp;✔ Design sur-mesure<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Menuiserie" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['volet','volets roulants','motorise','motorisé','store','domotique'],reply:'&#128683; <strong>Volets Roulants</strong><br>Manuels ou motorisés selon vos besoins.<br>✔ Confort quotidien &nbsp;✔ Sécurité &nbsp;✔ Économies d&apos;énergie<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Volets" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['renovation interieure','rénovation intérieure','interieur','peinture','amenagement interieur'],reply:'&#127963;&#65039; <strong>Rénovation Intérieure</strong><br>Placo, peinture, aménagement — un intérieur à votre image.<br>✔ Finitions soignées &nbsp;✔ Délais respectés &nbsp;✔ Sur-mesure<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Renovation" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['isolation','isoler','combles','thermique','energie','chaleur','froid'],reply:'&#127777;&#65039; <strong>Isolation Thermique</strong><br>Combles, murs, sols — priorité n°1 pour économiser l&apos;énergie.<br>✔ -30% sur vos factures &nbsp;✔ Confort hiver/été &nbsp;✔ Primes énergie disponibles<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Isolation" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['placo','cloison','cloisonnement','doublage','faux plafond','plafond'],reply:'&#129454; <strong>Placo & Cloisonnement</strong><br>Séparations de pièces, doublage murs, faux plafonds.<br>✔ Finitions impeccables &nbsp;✔ Isolation acoustique &nbsp;✔ Rapidité d&apos;exécution<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Placo" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['carrelage','faience','faiençe','credence','crédence','salle de bain','douche','cuisine','sol'],reply:'&#128703; <strong>Carrelage Sol & Mur</strong><br>Faïences, crédences, carrelages pour toutes vos pièces.<br>✔ Salle de bain &nbsp;✔ Cuisine &nbsp;✔ Séjour &nbsp;✔ Pose soignée<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Carrelage" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['bardage','facade','façade','crepis','crépis','exterieur','extérieur','parement'],reply:'&#129521; <strong>Bardage Extérieur</strong><br>Bois ou composite — modernisez votre façade tout en isolant.<br>✔ Embellissement &nbsp;✔ Protection durable &nbsp;✔ Isolation<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20Bardage" target="_blank" style="color:#E8490F">Demander un devis</a>'},
+  {keys:['devis','tarif','prix','cout','coût','combien','gratuit'],reply:'&#128176; <strong>Devis gratuit sous 48h</strong><br>1️⃣ Demande en ligne ou par tél<br>2️⃣ Visite technique gratuite<br>3️⃣ Chiffrage clair, sans surprise<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">contact.fredrenovation59@gmail.com</a><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
+  {keys:['contact','telephone','mail','email','joindre','appeler'],reply:'&#128222; <strong>Contactez Fred</strong><br>Tél : <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a><br>Email : <a href="mailto:contact.fredrenovation59@gmail.com" style="color:#E8490F">contact.fredrenovation59@gmail.com</a><br><br>Lun–Ven : 8h–18h | Sam : 9h–14h'},
+  {keys:['garantie','assurance','certifie','certifié','qualite','qualité'],reply:'&#128737;&#65039; <strong>Qualité & Garantie</strong><br>✔ Matériaux certifiés &nbsp;✔ Pose assurée &nbsp;✔ Artisan local<br>✔ Satisfaction 100% &nbsp;✔ Prix transparents, aucun frais caché'},
+  {keys:['belgique','region','zone','deplacement','déplacement'],reply:'&#127759; <strong>Zone d&apos;intervention</strong><br>Fred Rénovation intervient partout en <strong>Belgique</strong>.<br>N° BCE : BE 0832502696<br><br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'},
+  {keys:['merci','super','parfait','nickel','top','excellent'],reply:'&#128522; Merci pour votre confiance ! N&apos;hésitez pas à nous appeler pour tout projet.<br>&#128222; <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>'}
+];
 const bubble=document.getElementById('chat-bubble'),chatWin=document.getElementById('chat-window'),messages=document.getElementById('chat-messages'),inputEl=document.getElementById('chat-input'),sendBtn=document.getElementById('chat-send'),notifEl=document.getElementById('chat-notif'),suggsEl=document.getElementById('chat-suggestions');
 let opened=false;
 bubble.addEventListener('click',()=>{opened=!opened;bubble.classList.toggle('open',opened);chatWin.classList.toggle('open',opened);if(opened){notifEl.style.display='none';if(!messages.children.length)addBotMsg('&#128075; <strong>Bonjour !</strong> Toiture, menuiserie, isolation... posez vos questions !');setTimeout(()=>inputEl.focus(),300);}});
@@ -460,7 +603,7 @@ function addUserMsg(t){const d=document.createElement('div');d.className='msg us
 function addBotMsg(h){const d=document.createElement('div');d.className='msg bot';d.innerHTML=`<div class="msg-avatar">&#127968;</div><div class="msg-bubble">${h}</div>`;messages.appendChild(d);scrollBottom();}
 function showTyping(){const d=document.createElement('div');d.className='msg bot';d.id='typing-msg';d.innerHTML='<div class="msg-avatar">&#127968;</div><div class="msg-bubble"><div class="typing-indicator"><span></span><span></span><span></span></div></div>';messages.appendChild(d);scrollBottom();return d;}
 function scrollBottom(){setTimeout(()=>messages.scrollTop=messages.scrollHeight,50);}
-function findAnswer(text){const low=text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');for(const item of KB)if(item.keys.some(k=>low.includes(k)))return item.reply;return '&#129300; Fred vous répondra directement !<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">Devis Gratuit (48h)</a>';}
+function findAnswer(text){const low=text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');for(const item of KB)if(item.keys.some(k=>low.includes(k)))return item.reply;return '&#129300; Fred vous répondra directement !<br><br>&#128231; <a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Demande%20de%20devis" target="_blank" style="color:#E8490F">Devis Gratuit (48h)</a>';}
 function sendMessage(text){if(!text.trim())return;suggsEl.style.display='none';addUserMsg(text);inputEl.value='';const t=showTyping();setTimeout(()=>{t.remove();addBotMsg(findAnswer(text));},800+Math.random()*300);}
 sendBtn.addEventListener('click',()=>sendMessage(inputEl.value));
 inputEl.addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage(inputEl.value);});
@@ -555,7 +698,7 @@ function sendSuggestion(btn){sendMessage(btn.textContent.replace(/^[^\w]+/,''));
             <div class="ap-section" id="tab-services"><div class="ap-section-title">Gérer les services</div><div id="services-list"></div><button class="ap-btn ap-btn-primary" onclick="addService()">+ Ajouter un service</button></div>
             <div class="ap-section" id="tab-strip"><div class="ap-section-title">Bandeau d'annonces</div><p style="font-size:13px;color:var(--texte-doux);margin-bottom:16px;">Ces textes apparaissent dans le bandeau orange sous le héro.</p><div id="strip-list"></div><div style="display:flex;gap:10px;margin-top:8px;"><button class="ap-btn ap-btn-primary" onclick="addStripItem()">+ Ajouter</button><button class="ap-btn ap-btn-primary" onclick="saveStrip()">&#128190; Enregistrer</button></div></div>
             <div class="ap-section" id="tab-reviews"><div class="ap-section-title">Avis clients</div><div id="reviews-list"></div><div class="ap-card"><div class="ap-card-header"><span class="ap-card-title">Ajouter un avis</span></div><div class="ap-row"><div class="ap-field"><label class="ap-label">Prénom &amp; Nom</label><input class="ap-input" id="rev-name" placeholder="Marie D." /></div><div class="ap-field"><label class="ap-label">Note</label><select class="ap-select" id="rev-stars"><option value="5">&#11088;&#11088;&#11088;&#11088;&#11088;</option><option value="4">&#11088;&#11088;&#11088;&#11088;</option><option value="3">&#11088;&#11088;&#11088;</option><option value="2">&#11088;&#11088;</option><option value="1">&#11088;</option></select></div></div><div class="ap-field"><label class="ap-label">Commentaire</label><textarea class="ap-textarea" id="rev-text" placeholder="Travail soigné..."></textarea></div><div class="ap-field"><label class="ap-label">Service</label><input class="ap-input" id="rev-service" placeholder="Toiture, Isolation..." /></div><button class="ap-btn ap-btn-primary" onclick="addReview()">Ajouter l'avis</button></div></div>
-            <div class="ap-section" id="tab-contact"><div class="ap-section-title">Informations de contact</div><div class="ap-card"><div class="ap-row"><div class="ap-field"><label class="ap-label">Téléphone</label><input class="ap-input" id="ct-phone" placeholder="+32 4XX XXX XXX" /></div><div class="ap-field"><label class="ap-label">Email</label><input class="ap-input" id="ct-email" value="contact.fredrenovation@gmail.com" /></div></div><div class="ap-row"><div class="ap-field"><label class="ap-label">Ville / Région</label><input class="ap-input" id="ct-city" placeholder="Belgique" /></div><div class="ap-field"><label class="ap-label">Numéro TVA / BCE</label><input class="ap-input" id="ct-tva" placeholder="BE 08332520" /></div></div><div class="ap-field"><label class="ap-label">Slogan</label><input class="ap-input" id="ct-slogan" placeholder="Votre maison, notre passion." /></div><div class="ap-field"><label class="ap-label">Années d'expérience</label><input class="ap-input" id="ct-years" placeholder="15+" /></div><button class="ap-btn ap-btn-primary" onclick="saveContact()">&#128190; Enregistrer</button></div></div>
+            <div class="ap-section" id="tab-contact"><div class="ap-section-title">Informations de contact</div><div class="ap-card"><div class="ap-row"><div class="ap-field"><label class="ap-label">Téléphone</label><input class="ap-input" id="ct-phone" placeholder="+32 4XX XXX XXX" /></div><div class="ap-field"><label class="ap-label">Email</label><input class="ap-input" id="ct-email" value="contact.fredrenovation59@gmail.com" /></div></div><div class="ap-row"><div class="ap-field"><label class="ap-label">Ville / Région</label><input class="ap-input" id="ct-city" placeholder="Belgique" /></div><div class="ap-field"><label class="ap-label">Numéro TVA / BCE</label><input class="ap-input" id="ct-tva" placeholder="BE 08332520" /></div></div><div class="ap-field"><label class="ap-label">Slogan</label><input class="ap-input" id="ct-slogan" placeholder="Votre maison, notre passion." /></div><div class="ap-field"><label class="ap-label">Années d'expérience</label><input class="ap-input" id="ct-years" placeholder="15+" /></div><button class="ap-btn ap-btn-primary" onclick="saveContact()">&#128190; Enregistrer</button></div></div>
             <div class="ap-section" id="tab-pwd"><div class="ap-section-title">Changer le mot de passe</div><div class="ap-card" style="max-width:380px;"><div class="ap-field"><label class="ap-label">Mot de passe actuel</label><input class="ap-input" type="password" id="pwd-current" /></div><div class="ap-field"><label class="ap-label">Nouveau mot de passe</label><input class="ap-input" type="password" id="pwd-new" /></div><div class="ap-field"><label class="ap-label">Confirmer</label><input class="ap-input" type="password" id="pwd-confirm" /></div><button class="ap-btn ap-btn-primary" onclick="changePwd()">&#128273; Changer</button><div id="pwd-msg" style="font-size:13px;margin-top:10px;"></div></div></div>
         </div>
     </div>
@@ -566,7 +709,7 @@ const ADMIN_PWD_KEY='fred_admin_pwd',ADMIN_DATA_KEY='fred_admin_data',DEFAULT_PW
 function getAdminPwd(){return localStorage.getItem(ADMIN_PWD_KEY)||DEFAULT_PWD;}
 function getData(){try{return JSON.parse(localStorage.getItem(ADMIN_DATA_KEY))||defaultData();}catch(e){return defaultData();}}
 function saveData(d){d.lastSaved=new Date().toLocaleString('fr-FR');localStorage.setItem(ADMIN_DATA_KEY,JSON.stringify(d));}
-function defaultData(){return{services:[{id:1,tag:'Toiture',title:'Couverture traditionnelle',text:'Tuile, zinc, bac acier. Des matériaux haut de gamme pour allier durabilité et esthétique.',img:'https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop'},{id:2,tag:'Étanchéité',title:'Toiture plate EPDM',text:'Résistante et hautement durable, notre solution EPDM garantit une protection optimale.',img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop'},{id:3,tag:'Velux',title:'Fenêtres de toit',text:'Plus de lumière, plus de confort. Pose parfaite de Velux pour apporter de la clarté.',img:'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop'},{id:4,tag:'Menuiserie',title:'Châssis PVC & ALU',text:'Remplacement de fenêtres et portes. Optimisation des performances thermiques et phoniques.',img:'https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop'},{id:5,tag:'Domotique',title:'Volets Roulants',text:'Installation de systèmes manuels ou motorisés pour votre confort quotidien.',img:'https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop'},{id:6,tag:'Isolation',title:'Isolation Thermique',text:"Isolation performante des combles, murs ou sols pour réduire vos déperditions d'énergie.",img:'https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop'},{id:7,tag:'Aménagement',title:'Placo & Cloisonnement',text:'Doublage des murs, séparations de pièces et faux plafonds avec finitions soignées.',img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop'},{id:8,tag:'Revêtements',title:'Carrelage Sol & Mur',text:"Pose de carrelages, faïences et crédences pour pièces d'eau, cuisines ou séjours.",img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop'},{id:9,tag:'Façade',title:'Bardage Extérieur',text:'Revêtement esthétique bois ou composite pour moderniser la façade tout en isolant.',img:'https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop'}],strip:['Toiture & Charpente','Toiture Plate EPDM','Velux & Lucarnes','Interventions Urgentes'],reviews:[],contact:{phone:'07 82 25 33 09',email:'contact.fredrenovation@gmail.com',city:'Belgique',tva:'BE 08332520',slogan:'Votre maison, notre passion.',years:'15+'},lastSaved:null,log:[]};}
+function defaultData(){return{services:[{id:1,tag:'Toiture',title:'Couverture traditionnelle',text:'Tuile, zinc, bac acier. Des matériaux haut de gamme pour allier durabilité et esthétique.',img:'https://images.unsplash.com/photo-1635424710928-0544e8512eae?q=80&w=700&auto=format&fit=crop'},{id:2,tag:'Étanchéité',title:'Toiture plate EPDM',text:'Résistante et hautement durable, notre solution EPDM garantit une protection optimale.',img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop'},{id:3,tag:'Velux',title:'Fenêtres de toit',text:'Plus de lumière, plus de confort. Pose parfaite de Velux pour apporter de la clarté.',img:'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=700&auto=format&fit=crop'},{id:4,tag:'Menuiserie',title:'Châssis PVC & ALU',text:'Remplacement de fenêtres et portes. Optimisation des performances thermiques et phoniques.',img:'https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?q=80&w=700&auto=format&fit=crop'},{id:5,tag:'Domotique',title:'Volets Roulants',text:'Installation de systèmes manuels ou motorisés pour votre confort quotidien.',img:'https://images.unsplash.com/photo-1600585153440-be6161a56a0c?q=80&w=700&auto=format&fit=crop'},{id:6,tag:'Isolation',title:'Isolation Thermique',text:"Isolation performante des combles, murs ou sols pour réduire vos déperditions d'énergie.",img:'https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=700&auto=format&fit=crop'},{id:7,tag:'Aménagement',title:'Placo & Cloisonnement',text:'Doublage des murs, séparations de pièces et faux plafonds avec finitions soignées.',img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=700&auto=format&fit=crop'},{id:8,tag:'Revêtements',title:'Carrelage Sol & Mur',text:"Pose de carrelages, faïences et crédences pour pièces d'eau, cuisines ou séjours.",img:'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=700&auto=format&fit=crop'},{id:9,tag:'Façade',title:'Bardage Extérieur',text:'Revêtement esthétique bois ou composite pour moderniser la façade tout en isolant.',img:'https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=700&auto=format&fit=crop'}],strip:['Toiture & Charpente','Toiture Plate EPDM','Velux & Lucarnes','Interventions Urgentes'],reviews:[],contact:{phone:'07 82 25 33 09',email:'contact.fredrenovation59@gmail.com',city:'Belgique',tva:'BE 08332520',slogan:'Votre maison, notre passion.',years:'15+'},lastSaved:null,log:[]};}
 function logAction(msg){const d=getData();if(!d.log)d.log=[];d.log.unshift(new Date().toLocaleString('fr-FR')+' — '+msg);if(d.log.length>20)d.log=d.log.slice(0,20);saveData(d);}
 function openAdmin(){document.getElementById('admin-overlay').classList.add('show');document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').classList.remove('show');document.getElementById('admin-pwd').value='';document.getElementById('admin-err').style.display='none';setTimeout(()=>document.getElementById('admin-pwd').focus(),200);}
 function closeAdmin(){document.getElementById('admin-overlay').classList.remove('show');}
@@ -588,10 +731,10 @@ function saveStrip(){const d=getData();d.strip=Array.from(document.querySelector
 function renderReviews(){const d=getData();const el=document.getElementById('reviews-list');if(!d.reviews.length){el.innerHTML='<p style="color:var(--texte-doux);font-size:13px;margin-bottom:16px;">Aucun avis.</p>';return;}el.innerHTML=d.reviews.map((r,i)=>`<div class="review-card"><div style="flex:1;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;"><strong style="font-size:14px;">${escA(r.name)}</strong><span class="review-stars">${'⭐'.repeat(parseInt(r.stars))}</span>${r.service?`<span style="font-size:11px;background:#fff4f0;color:var(--orange);padding:2px 8px;border-radius:3px;font-weight:700;">${escA(r.service)}</span>`:''}</div><p style="font-size:13px;color:var(--texte-doux);">${escA(r.text)}</p></div><button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteReview(${i})">&#128465;</button></div>`).join('');}
 function addReview(){const name=document.getElementById('rev-name').value.trim();const text=document.getElementById('rev-text').value.trim();if(!name||!text){alert('Nom et commentaire requis.');return;}const d=getData();if(!d.reviews)d.reviews=[];d.reviews.push({name,stars:document.getElementById('rev-stars').value,text,service:document.getElementById('rev-service').value.trim(),date:new Date().toLocaleDateString('fr-FR')});saveData(d);logAction('Avis ajouté : '+name);document.getElementById('rev-name').value='';document.getElementById('rev-text').value='';document.getElementById('rev-service').value='';renderReviews();alert('✅ Avis ajouté !');}
 function deleteReview(i){if(!confirm('Supprimer ?'))return;const d=getData();d.reviews.splice(i,1);saveData(d);logAction('Avis supprimé');renderReviews();}
-function loadContact(){const d=getData();const c=d.contact||{};document.getElementById('ct-phone').value=c.phone||'';document.getElementById('ct-email').value=c.email||'contact.fredrenovation@gmail.com';document.getElementById('ct-city').value=c.city||'';document.getElementById('ct-tva').value=c.tva||'BE 08332520';document.getElementById('ct-slogan').value=c.slogan||'';document.getElementById('ct-years').value=c.years||'15+';}
+function loadContact(){const d=getData();const c=d.contact||{};document.getElementById('ct-phone').value=c.phone||'';document.getElementById('ct-email').value=c.email||'contact.fredrenovation59@gmail.com';document.getElementById('ct-city').value=c.city||'';document.getElementById('ct-tva').value=c.tva||'BE 08332520';document.getElementById('ct-slogan').value=c.slogan||'';document.getElementById('ct-years').value=c.years||'15+';}
 function saveContact(){const d=getData();d.contact={phone:document.getElementById('ct-phone').value.trim(),email:document.getElementById('ct-email').value.trim(),city:document.getElementById('ct-city').value.trim(),tva:document.getElementById('ct-tva').value.trim(),slogan:document.getElementById('ct-slogan').value.trim(),years:document.getElementById('ct-years').value.trim()};saveData(d);logAction('Contact mis à jour');applyDataToPage();alert('✅ Contact enregistré !');}
 function changePwd(){const cur=document.getElementById('pwd-current').value;const nw=document.getElementById('pwd-new').value;const cf=document.getElementById('pwd-confirm').value;const msg=document.getElementById('pwd-msg');if(cur!==getAdminPwd()){msg.style.color='#c0392b';msg.textContent='Mot de passe actuel incorrect.';return;}if(nw.length<4){msg.style.color='#c0392b';msg.textContent='Minimum 4 caractères.';return;}if(nw!==cf){msg.style.color='#c0392b';msg.textContent='Les mots de passe ne correspondent pas.';return;}localStorage.setItem(ADMIN_PWD_KEY,nw);msg.style.color='#0D1F3C';msg.textContent='✅ Mot de passe changé !';document.getElementById('pwd-current').value='';document.getElementById('pwd-new').value='';document.getElementById('pwd-confirm').value='';}
-function applyDataToPage(){const d=getData();const grid=document.getElementById('prestation-grid-main');if(grid){grid.innerHTML='';d.services.forEach((s,i)=>{const num=String(i+1).padStart(2,'0');grid.innerHTML+=`<div class="prest-card"><div class="prest-img-box"><span class="prest-num">${num}</span><img src="${escA(s.img)}" alt="${escA(s.title)}" loading="lazy"></div><div class="prest-body"><span class="prest-tag">${escA(s.tag)}</span><h3 class="prest-title">${escA(s.title).toUpperCase()}</h3><p class="prest-text">${escA(s.text)}</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Devis%20${encodeURIComponent(s.title)}" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>`;});const cnt=document.getElementById('prest-count-label');if(cnt)cnt.textContent=d.services.length+' SERVICES';}const stripEl=document.getElementById('strip-display');if(stripEl&&d.strip.length)stripEl.innerHTML=d.strip.map(t=>`<span class="strip-item">${escA(t)}</span>`).join('');const footerReg=document.getElementById('footer-reg');if(footerReg&&d.contact&&d.contact.tva)footerReg.textContent=d.contact.tva;const whyNum1=document.getElementById('why-num-1');if(whyNum1&&d.contact&&d.contact.years)whyNum1.textContent=d.contact.years;}
+function applyDataToPage(){const d=getData();const grid=document.getElementById('prestation-grid-main');if(grid){grid.innerHTML='';d.services.forEach((s,i)=>{const num=String(i+1).padStart(2,'0');grid.innerHTML+=`<div class="prest-card"><div class="prest-img-box"><span class="prest-num">${num}</span><img src="${escA(s.img)}" alt="${escA(s.title)}" loading="lazy"></div><div class="prest-body"><span class="prest-tag">${escA(s.tag)}</span><h3 class="prest-title">${escA(s.title).toUpperCase()}</h3><p class="prest-text">${escA(s.text)}</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20${encodeURIComponent(s.title)}" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>`;});const cnt=document.getElementById('prest-count-label');if(cnt)cnt.textContent=d.services.length+' SERVICES';}const stripEl=document.getElementById('strip-display');if(stripEl&&d.strip.length)stripEl.innerHTML=d.strip.map(t=>`<span class="strip-item">${escA(t)}</span>`).join('');const footerReg=document.getElementById('footer-reg');if(footerReg&&d.contact&&d.contact.tva)footerReg.textContent=d.contact.tva;const whyNum1=document.getElementById('why-num-1');if(whyNum1&&d.contact&&d.contact.years)whyNum1.textContent=d.contact.years;}
 function escA(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 applyDataToPage();
 </script>

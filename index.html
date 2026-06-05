@@ -30,10 +30,37 @@
         .top-nav a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 3px; transition: all 0.2s; }
         .top-nav a:hover { color: var(--blanc); background: rgba(255,255,255,0.08); }
         .top-nav a.active { color: var(--orange); }
+        .top-qr { display: flex; align-items: center; gap: 8px; margin-right: 12px; }
+        .top-qr img { width: 38px; height: 38px; border-radius: 4px; border: 2px solid var(--orange); background: #fff; }
+        .top-qr-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.3; }
+        .top-qr-label span { color: var(--orange); display: block; }
 
         /* HERO */
         .hero { background: var(--navy); position: relative; overflow: hidden; min-height: 560px; display: flex; align-items: center; }
         .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px); }
+        .hero-qr-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            text-align: center;
+            border: 3px solid var(--orange);
+        }
+        .hero-qr-badge img { width: 90px; height: 90px; display: block; }
+        .hero-qr-badge-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 5px;
+        }
+        .hero-qr-badge-label span { color: var(--orange); }
         .hero-blob { position: absolute; right: -100px; top: -80px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgba(232,73,15,0.2) 0%, transparent 65%); pointer-events: none; }
         .hero-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, var(--orange) 0%, var(--orange-pale) 50%, var(--orange) 100%); }
         .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; width: 100%; padding: 70px 40px 90px; display: grid; grid-template-columns: 1fr 340px; gap: 60px; align-items: center; }
@@ -55,6 +82,8 @@
         .cta-btn { display: block; background: var(--navy); color: #fff; text-decoration: none; padding: 15px 24px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; border: none; cursor: pointer; width: 100%; margin-bottom: 10px; }
         .cta-btn:hover { background: #000; transform: translateY(-2px); }
         .cta-note { font-size: 11px; color: rgba(255,255,255,0.62); }
+        .cta-tel { display: block; background: rgba(255,255,255,0.15); color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.2s; margin-bottom: 10px; border: 2px solid rgba(255,255,255,0.3); }
+        .cta-tel:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
 
         /* STRIP */
         .strip { background: var(--orange); overflow: hidden; }
@@ -207,6 +236,12 @@
 
 <nav class="top-bar">
     <div class="top-brand">FRED <span>RÉNOVATION</span></div>
+    <div class="top-qr">
+        <a href="https://fredrenovation.vercel.app" target="_blank" title="Scanner pour accéder au site">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://fredrenovation.vercel.app&color=0B1929&bgcolor=ffffff&qzone=1" alt="QR Code Fred Rénovation">
+        </a>
+        <div class="top-qr-label">Scannez<span>notre site</span></div>
+    </div>
     <div class="top-nav">
         <a href="#" class="active">Accueil</a>
         <a href="#">Prestations</a>
@@ -219,6 +254,10 @@
 
 <section class="hero">
     <div class="hero-blob"></div>
+    <a class="hero-qr-badge" href="https://fredrenovation.vercel.app" target="_blank" title="fredrenovation.vercel.app" style="text-decoration:none;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://fredrenovation.vercel.app&color=0B1929&bgcolor=ffffff&qzone=1&format=png" alt="QR Code Fred Rénovation">
+        <div class="hero-qr-badge-label">Scanner<span>notre site</span></div>
+    </a>
     <div class="hero-stripe"></div>
     <div class="hero-content">
         <div class="hero-left">
@@ -236,6 +275,7 @@
             <div class="cta-title">DEVIS GRATUIT</div>
             <div class="cta-sub">Réponse sous 48h — Intervention rapide</div>
             <a class="cta-btn" href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation@gmail.com&su=Demande%20de%20devis" target="_blank">&#9993; Demander un devis</a>
+            <a class="cta-tel" href="tel:0782253309">&#128222; 07 82 25 33 09</a>
             <div class="cta-note">Votre artisan local à votre service</div>
         </div>
     </div>

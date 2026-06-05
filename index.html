@@ -664,6 +664,12 @@ function textToHtml(text){
     .replace(/(contact\.fredrenovation59@gmail\.com)/g,'<a href="mailto:contact.fredrenovation59@gmail.com" style="color:#E8490F;">$1</a>');
 }
 
+function findAnswerLocal(text){
+  const low=text.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  for(const item of KB)if(item.keys.some(k=>low.includes(k)))return item.reply;
+  return null;
+}
+
 async function sendMessage(text){
   if(!text.trim())return;
   suggsEl.style.display='none';
@@ -672,13 +678,24 @@ async function sendMessage(text){
   sendBtn.disabled=true;
   inputEl.disabled=true;
   const t=showTyping();
+
+  // Essai local d'abord (instantané)
+  const localReply=findAnswerLocal(text);
+
   try{
-    const reply=await askClaude(text);
+    const reply=await Promise.race([
+      askClaude(text),
+      new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),8000))
+    ]);
     t.remove();
     addBotMsg(textToHtml(reply));
   }catch(e){
     t.remove();
-    addBotMsg('&#128222; Une erreur est survenue. Contactez-nous directement au <a href="tel:0782253309" style="color:#E8490F">07 82 25 33 09</a>');
+    if(localReply){
+      addBotMsg(localReply);
+    } else {
+      addBotMsg('&#129300; Je n&apos;ai pas trouvé de réponse précise à votre question.<br><br>&#128222; Appelez Fred directement : <a href="tel:0782253309" style="color:#E8490F;font-weight:700;">07 82 25 33 09</a><br>&#128231; <a href="mailto:contact.fredrenovation59@gmail.com" style="color:#E8490F;">contact.fredrenovation59@gmail.com</a>');
+    }
   }
   sendBtn.disabled=false;
   inputEl.disabled=false;

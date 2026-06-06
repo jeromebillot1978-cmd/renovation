@@ -813,6 +813,12 @@ function sendSuggestion(btn){sendMessage(btn.textContent.replace(/^[^\w]+/,''));
 .ap-stat-num{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;color:var(--orange);}
 .ap-stat-label{font-size:11px;color:var(--texte-doux);margin-top:2px;text-transform:uppercase;letter-spacing:0.06em;}
 @media(max-width:640px){#admin-panel{width:98vw;max-height:95vh;}.ap-row{grid-template-columns:1fr;}.ap-stats{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){
+  #chat-window{width:calc(100vw - 24px);right:12px;bottom:96px;max-height:70vh;}
+  #chat-bubble{bottom:20px;right:16px;width:52px;height:52px;}
+  #scroll-top{bottom:86px;right:16px;width:42px;height:42px;}
+  #scroll-top svg{width:18px;height:18px;}
+}
 </style>
 
 <div id="admin-overlay">

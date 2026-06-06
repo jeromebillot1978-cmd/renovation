@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -227,6 +226,21 @@
         @media (max-width: 1024px) { .focus-grid, .prestation-grid { grid-template-columns: repeat(2, 1fr); } .pictos-grid { grid-template-columns: repeat(4, 1fr); } .why-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 900px) { .hero-content { grid-template-columns: 1fr; } .hero-cta-box { max-width: 380px; } .cta-band-inner { grid-template-columns: 1fr; text-align: center; } .footer-inner { grid-template-columns: 1fr; } .footer-links { justify-content: flex-start; } .why-header { flex-direction: column; align-items: flex-start; gap: 20px; } .why-phone-num, .why-phone-note { text-align: left; } }
         @media (max-width: 640px) { .focus-grid, .prestation-grid { grid-template-columns: 1fr; } .pictos-grid { grid-template-columns: repeat(2, 1fr); } .why-grid { grid-template-columns: 1fr; gap: 12px; } .top-brand { display: none; } .section-block, .pictos-section { padding: 50px 20px; } .prestations-inner { padding: 0 20px; } }
+        /* Fix overflow mobile global */
+        html, body { max-width: 100%; overflow-x: hidden; }
+        @media (max-width: 768px) {
+          .top-bar { padding: 0 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+          .top-nav { gap: 6px; flex-shrink: 0; }
+          .top-nav a { font-size: 10px; padding: 4px 8px; white-space: nowrap; }
+          .hero-content { padding: 40px 16px 60px; grid-template-columns: 1fr; gap: 30px; }
+          .hero-cta-box { max-width: 100%; }
+          .hero-blob { width: 300px; height: 300px; right: -60px; top: -40px; }
+          .section-block { padding: 50px 16px; }
+          .prestations-inner { padding: 0 16px; }
+          .why-section { padding: 50px 16px; }
+          footer { padding: 40px 16px 20px; }
+          .cta-band-inner { padding: 0 16px; }
+        }
     </style>
 </head>
 <body>

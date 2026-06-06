@@ -175,7 +175,13 @@
         .footer-links a { color: rgba(255,255,255,0.42); text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; transition: all 0.2s; }
         .footer-links a:hover { color: var(--blanc); background: rgba(255,255,255,0.07); }
         .footer-bottom { max-width: 1200px; margin: 20px auto 0; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; }
-        .footer-copy, .footer-reg { font-size: 11px; color: rgba(255,255,255,0.2); }
+        .review-card { background: var(--fond); border-radius: 8px; padding: 24px; border: 1px solid rgba(0,0,0,0.07); box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 10px; }
+        .review-stars { color: var(--orange); font-size: 16px; letter-spacing: 2px; }
+        .review-text { font-size: 14px; color: var(--texte-doux); line-height: 1.7; font-style: italic; flex: 1; }
+        .review-author { font-size: 13px; font-weight: 700; color: var(--navy); }
+        .review-service { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); }
+        .review-date { font-size: 11px; color: #bbb; }
+
         .footer-reg { font-family: monospace; letter-spacing: 0.05em; }
 
         /* ANIMATIONS */
@@ -490,6 +496,16 @@
 </section>
 
 <!-- À PROPOS -->
+<section id="avis" style="background:#fff;padding:70px 40px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-label">Avis clients</div>
+    <h2 class="section-title">CE QUE DISENT <span class="accent">NOS CLIENTS</span></h2>
+    <p class="section-desc">Des témoignages authentiques de clients satisfaits.</p>
+    <div id="reviews-display" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;margin-top:10px;"></div>
+    <div id="reviews-empty" style="display:none;text-align:center;padding:40px;color:var(--texte-doux);font-size:15px;">Aucun avis pour le moment. Revenez bientôt !</div>
+  </div>
+</section>
+
 <section id="apropos" style="background:var(--navy);padding:70px 40px;">
   <div style="max-width:900px;margin:0 auto;">
     <div class="section-label" style="color:var(--orange);">À propos</div>
@@ -952,7 +968,10 @@ async function deleteReview(i){if(!confirm('Supprimer ?'))return;const d=getData
 function loadContact(){const d=getData();const c=d.contact||{};document.getElementById('ct-phone').value=c.phone||'';document.getElementById('ct-email').value=c.email||'contact.fredrenovation59@gmail.com';document.getElementById('ct-city').value=c.city||'';document.getElementById('ct-tva').value=c.tva||'BE 08332520';document.getElementById('ct-slogan').value=c.slogan||'';document.getElementById('ct-years').value=c.years||'15+';}
 async function saveContact(){const d=getData();d.contact={phone:document.getElementById('ct-phone').value.trim(),email:document.getElementById('ct-email').value.trim(),city:document.getElementById('ct-city').value.trim(),tva:document.getElementById('ct-tva').value.trim(),slogan:document.getElementById('ct-slogan').value.trim(),years:document.getElementById('ct-years').value.trim()};await saveData(d);await logAction('Contact mis à jour');applyDataToPage();alert('✅ Contact enregistré !');}
 function changePwd(){const cur=document.getElementById('pwd-current').value;const nw=document.getElementById('pwd-new').value;const cf=document.getElementById('pwd-confirm').value;const msg=document.getElementById('pwd-msg');if(cur!==getAdminPwd()){msg.style.color='#c0392b';msg.textContent='Mot de passe actuel incorrect.';return;}if(nw.length<4){msg.style.color='#c0392b';msg.textContent='Minimum 4 caractères.';return;}if(nw!==cf){msg.style.color='#c0392b';msg.textContent='Les mots de passe ne correspondent pas.';return;}localStorage.setItem(ADMIN_PWD_KEY,nw);msg.style.color='#0D1F3C';msg.textContent='✅ Mot de passe changé !';document.getElementById('pwd-current').value='';document.getElementById('pwd-new').value='';document.getElementById('pwd-confirm').value='';}
-function applyDataToPage(){const d=getData();const grid=document.getElementById('prestation-grid-main');if(grid){grid.innerHTML='';d.services.forEach((s,i)=>{const num=String(i+1).padStart(2,'0');grid.innerHTML+=`<div class="prest-card"><div class="prest-img-box"><span class="prest-num">${num}</span><img src="${escA(s.img)}" alt="${escA(s.title)}" loading="lazy"></div><div class="prest-body"><span class="prest-tag">${escA(s.tag)}</span><h3 class="prest-title">${escA(s.title).toUpperCase()}</h3><p class="prest-text">${escA(s.text)}</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20${encodeURIComponent(s.title)}" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>`;});const cnt=document.getElementById('prest-count-label');if(cnt)cnt.textContent=d.services.length+' SERVICES';}const stripEl=document.getElementById('strip-display');if(stripEl&&d.strip&&d.strip.length)stripEl.innerHTML=d.strip.map(t=>`<span class="strip-item">${escA(t)}</span>`).join('');const c=d.contact||{};const footerReg=document.getElementById('footer-reg');if(footerReg&&c.tva)footerReg.textContent=c.tva;const whyNum1=document.getElementById('why-num-1');if(whyNum1&&c.years)whyNum1.textContent=c.years;const elA=document.getElementById('page-phone-link');if(elA&&c.phone){elA.textContent=c.phone;elA.href='tel:'+c.phone.replace(/\s/g,'');}const elB=document.getElementById('page-email-link');if(elB&&c.email){elB.textContent=c.email;elB.href='mailto:'+c.email;}const elC=document.getElementById('page-city');if(elC&&c.city)elC.textContent=c.city;const elD=document.getElementById('page-tva');if(elD&&c.tva)elD.textContent=c.tva;const elE=document.getElementById('page-slogan');if(elE&&c.slogan)elE.textContent=c.slogan;}
+function applyDataToPage(){const d=getData();const grid=document.getElementById('prestation-grid-main');if(grid){grid.innerHTML='';d.services.forEach((s,i)=>{const num=String(i+1).padStart(2,'0');grid.innerHTML+=`<div class="prest-card"><div class="prest-img-box"><span class="prest-num">${num}</span><img src="${escA(s.img)}" alt="${escA(s.title)}" loading="lazy"></div><div class="prest-body"><span class="prest-tag">${escA(s.tag)}</span><h3 class="prest-title">${escA(s.title).toUpperCase()}</h3><p class="prest-text">${escA(s.text)}</p></div><div class="prest-footer"><a href="https://mail.google.com/mail/?view=cm&to=contact.fredrenovation59@gmail.com&su=Devis%20${encodeURIComponent(s.title)}" target="_blank" class="prest-link">En savoir plus &#8594;</a></div></div>`;});const cnt=document.getElementById('prest-count-label');if(cnt)cnt.textContent=d.services.length+' SERVICES';}const stripEl=document.getElementById('strip-display');if(stripEl&&d.strip&&d.strip.length)stripEl.innerHTML=d.strip.map(t=>`<span class="strip-item">${escA(t)}</span>`).join('');const c=d.contact||{};const footerReg=document.getElementById('footer-reg');if(footerReg&&c.tva)footerReg.textContent=c.tva;const whyNum1=document.getElementById('why-num-1');if(whyNum1&&c.years)whyNum1.textContent=c.years;const elA=document.getElementById('page-phone-link');if(elA&&c.phone){elA.textContent=c.phone;elA.href='tel:'+c.phone.replace(/\s/g,'');}const elB=document.getElementById('page-email-link');if(elB&&c.email){elB.textContent=c.email;elB.href='mailto:'+c.email;}const elC=document.getElementById('page-city');if(elC&&c.city)elC.textContent=c.city;const elD=document.getElementById('page-tva');if(elD&&c.tva)elD.textContent=c.tva;const elE=document.getElementById('page-slogan');if(elE&&c.slogan)elE.textContent=c.slogan;
+// Avis clients
+const revGrid=document.getElementById('reviews-display');const revEmpty=document.getElementById('reviews-empty');
+if(revGrid){const reviews=d.reviews||[];if(reviews.length===0){revGrid.style.display='none';if(revEmpty)revEmpty.style.display='block';}else{revGrid.style.display='grid';if(revEmpty)revEmpty.style.display='none';revGrid.innerHTML=reviews.map(r=>{const stars='⭐'.repeat(parseInt(r.stars)||5);return`<div class="review-card"><div class="review-stars">${stars}</div><p class="review-text">"${escA(r.text)}"</p><div class="review-author">${escA(r.name)}</div>${r.service?`<div class="review-service">${escA(r.service)}</div>`:''}<div class="review-date">${escA(r.date||'')}</div></div>`;}).join('');}}}
 function escA(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // Chargement initial depuis npoint pour TOUS les visiteurs

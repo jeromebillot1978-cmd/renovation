@@ -805,34 +805,33 @@ function sendSuggestion(btn){sendMessage(btn.textContent.replace(/^[^\w]+/,''));
 
 <script>
 const ADMIN_PWD_KEY='fred_admin_pwd',DEFAULT_PWD='fred2026';
-const NPOINT_ID='0cae2d798b9a6da67cda6';
-const NPOINT_URL='https://api.npoint.io/'+NPOINT_ID;
+const JSONBIN_ID='6a23f41eda38895dfe906803';
+const JSONBIN_KEY='$2a$10$bFHR6ZNE/kq3cZ/E1aT.bO1hCf5UcTk4Cp.xeq3e5VNp1l6XOuR36';
+const JSONBIN_URL='https://api.jsonbin.io/v3/b/'+JSONBIN_ID;
 
-// Cache local pour éviter de refaire des GET inutiles
 let _dataCache=null;
 
 function getAdminPwd(){return localStorage.getItem(ADMIN_PWD_KEY)||DEFAULT_PWD;}
 
-function getData(){
-  // Retourne le cache si disponible, sinon les données par défaut
-  return _dataCache||defaultData();
-}
+function getData(){return _dataCache||defaultData();}
 
 async function loadDataFromServer(){
   try{
-    const r=await fetch(NPOINT_URL+'?t='+Date.now());
+    const r=await fetch(JSONBIN_URL+'/latest',{
+      headers:{'X-Master-Key':JSONBIN_KEY}
+    });
     if(!r.ok)throw new Error('HTTP '+r.status);
-    const d=await r.json();
-    // Si le bin est vide ou ne contient pas nos clés, on initialise
+    const j=await r.json();
+    const d=j.record||j;
     if(!d||!d.services){
       const def=defaultData();
       await saveData(def);
       _dataCache=def;
-    } else {
+    }else{
       _dataCache=d;
     }
   }catch(e){
-    console.warn('npoint load error:',e);
+    console.warn('JSONBin load error:',e);
     if(!_dataCache)_dataCache=defaultData();
   }
   return _dataCache;
@@ -842,14 +841,14 @@ async function saveData(d){
   d.lastSaved=new Date().toLocaleString('fr-FR');
   _dataCache=d;
   try{
-    const r=await fetch(NPOINT_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+    const r=await fetch(JSONBIN_URL,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
       body:JSON.stringify(d)
     });
     if(!r.ok)throw new Error('HTTP '+r.status);
   }catch(e){
-    console.error('npoint save error:',e);
+    console.error('JSONBin save error:',e);
     alert('⚠️ Erreur de sauvegarde en ligne. Vérifiez votre connexion.');
   }
 }

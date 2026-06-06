@@ -542,6 +542,55 @@ function sendDevis(){
     </div>
 </footer>
 
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" aria-label="Remonter en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+</button>
+<style>
+#scroll-top {
+  position: fixed;
+  bottom: 162px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--orange);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9997;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.3s, transform 0.3s, background 0.2s;
+  pointer-events: none;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.28);
+}
+#scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+#scroll-top:hover {
+  background: var(--orange);
+}
+#scroll-top svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+}
+</style>
+<script>
+(function(){
+  var btn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, {passive: true});
+})();
+</script>
+
 <button id="chat-bubble" aria-label="Ouvrir le chat">
     <span><div id="chat-notif">1</div></span>
     <svg class="chat-open-icon" viewBox="0 0 24 24"><path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H6l-2 2V4h16v10z"/></svg>

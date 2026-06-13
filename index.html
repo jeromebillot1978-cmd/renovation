@@ -792,6 +792,47 @@ function sendSuggestion(btn){sendMessage(btn.textContent.replace(/^[^\w]+/,''));
 </script>
 
 <style>
+/* IMAGE DROP ZONE */
+.img-drop-zone {
+  border: 2px dashed #c5cfe0;
+  border-radius: 8px;
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: #f7f9fc;
+  position: relative;
+  overflow: hidden;
+}
+.img-drop-zone:hover, .img-drop-zone.drag-over {
+  border-color: var(--orange);
+  background: #fff4f0;
+}
+.img-drop-placeholder {
+  text-align: center;
+  pointer-events: none;
+  padding: 20px;
+}
+.img-drop-icon { font-size: 32px; margin-bottom: 8px; }
+.img-drop-text { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.5; }
+.img-drop-text span { font-weight: 400; color: var(--orange); text-decoration: underline; }
+.img-drop-hint { font-size: 11px; color: #9aa5be; margin-top: 6px; }
+.img-drop-preview { width: 100%; position: relative; }
+.img-drop-preview img { width: 100%; max-height: 180px; object-fit: cover; display: block; border-radius: 6px; }
+.img-drop-remove {
+  position: absolute; top: 6px; right: 6px;
+  background: rgba(0,0,0,0.6); color: #fff; border: none;
+  border-radius: 50%; width: 26px; height: 26px;
+  font-size: 13px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.img-drop-remove:hover { background: #c0392b; }
+@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+
 #admin-overlay{display:none;position:fixed;inset:0;background:rgba(5,12,28,0.88);z-index:99990;align-items:center;justify-content:center;backdrop-filter:blur(5px);}
 #admin-overlay.show{display:flex;}
 #admin-login{background:#fff;border-radius:10px;padding:40px 36px;width:360px;box-shadow:0 24px 60px rgba(0,0,0,0.4);text-align:center;border-top:4px solid var(--orange);}
@@ -955,9 +996,60 @@ function doLogout(){document.getElementById('admin-panel').classList.remove('sho
 function showTab(name){document.querySelectorAll('.ap-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.ap-tab').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');event.currentTarget.classList.add('active');if(name==='dashboard')refreshDashboard();if(name==='services')renderServices();if(name==='strip')renderStrip();if(name==='reviews')renderReviews();if(name==='contact')loadContact();}
 function refreshAll(){refreshDashboard();renderServices();renderStrip();renderReviews();loadContact();applyDataToPage();}
 function refreshDashboard(){const d=getData();document.getElementById('dash-stats').innerHTML=`<div class="ap-stat"><div class="ap-stat-num">${d.services.length}</div><div class="ap-stat-label">Services</div></div><div class="ap-stat"><div class="ap-stat-num">${d.strip.length}</div><div class="ap-stat-label">Annonces</div></div><div class="ap-stat"><div class="ap-stat-num">${d.reviews.length}</div><div class="ap-stat-label">Avis</div></div><div class="ap-stat"><div class="ap-stat-num">${d.lastSaved?'&#10003;':'—'}</div><div class="ap-stat-label">Sauvegardé</div></div>`;document.getElementById('dash-log').innerHTML=d.log&&d.log.length?d.log.map(l=>`<div>• ${l}</div>`).join(''):'<div style="color:#aaa">Aucune modification.</div>';}
-function renderServices(){const d=getData();const el=document.getElementById('services-list');el.innerHTML='';d.services.forEach(s=>{el.innerHTML+=`<div class="ap-card" id="svc-card-${s.id}"><div class="ap-card-header"><span class="ap-card-title"><span class="ap-tag-preview">${escA(s.tag)}</span> &nbsp;${escA(s.title)}</span><div style="display:flex;gap:6px;"><button class="ap-btn ap-btn-sm ap-btn-primary" onclick="toggleSvcEdit(${s.id})">&#9998; Modifier</button><button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteService(${s.id})">&#128465; Supprimer</button></div></div><div id="svc-edit-${s.id}" style="display:none;"><div class="ap-row"><div class="ap-field"><label class="ap-label">Tag</label><input class="ap-input" id="svc-tag-${s.id}" value="${escA(s.tag)}" /></div><div class="ap-field"><label class="ap-label">Titre</label><input class="ap-input" id="svc-title-${s.id}" value="${escA(s.title)}" /></div></div><div class="ap-field"><label class="ap-label">Description</label><textarea class="ap-textarea" id="svc-text-${s.id}">${escA(s.text)}</textarea></div><div class="ap-field"><label class="ap-label">URL image</label><input class="ap-input" id="svc-img-${s.id}" value="${escA(s.img)}" /></div><button class="ap-btn ap-btn-primary" onclick="saveService(${s.id})">&#128190; Enregistrer</button></div></div>`;});}
+function renderServices(){
+  const d=getData();
+  const el=document.getElementById('services-list');
+  el.innerHTML='';
+  d.services.forEach(s=>{
+    const hasImg=s.img&&s.img.length>0;
+    const previewHtml=hasImg
+      ?`<div class="img-drop-preview"><img src="${s.img.replace(/"/g,'&quot;')}" alt="apercu"><button class="img-drop-remove" onclick="event.stopPropagation();clearImg(${s.id})">&#10005;</button></div>`
+      :`<div class="img-drop-placeholder"><div class="img-drop-icon">&#128247;</div><div class="img-drop-text">Glissez une photo ici<br><span>ou cliquez pour choisir</span></div><div class="img-drop-hint">JPG PNG WEBP &mdash; max 5 Mo</div></div>`;
+    el.innerHTML+=`<div class="ap-card" id="svc-card-${s.id}">
+      <div class="ap-card-header">
+        <span class="ap-card-title"><span class="ap-tag-preview">${escA(s.tag)}</span> &nbsp;${escA(s.title)}</span>
+        <div style="display:flex;gap:6px;">
+          <button class="ap-btn ap-btn-sm ap-btn-primary" onclick="toggleSvcEdit(${s.id})">&#9998; Modifier</button>
+          <button class="ap-btn ap-btn-sm ap-btn-danger" onclick="deleteService(${s.id})">&#128465; Supprimer</button>
+        </div>
+      </div>
+      <div id="svc-edit-${s.id}" style="display:none;">
+        <div class="ap-row">
+          <div class="ap-field"><label class="ap-label">Tag</label><input class="ap-input" id="svc-tag-${s.id}" value="${escA(s.tag)}" /></div>
+          <div class="ap-field"><label class="ap-label">Titre</label><input class="ap-input" id="svc-title-${s.id}" value="${escA(s.title)}" /></div>
+        </div>
+        <div class="ap-field"><label class="ap-label">Description</label><textarea class="ap-textarea" id="svc-text-${s.id}">${escA(s.text)}</textarea></div>
+        <div class="ap-field">
+          <label class="ap-label">Photo du service</label>
+          <div class="img-drop-zone" id="drop-${s.id}"
+            onclick="document.getElementById('file-${s.id}').click()"
+            ondragover="event.preventDefault();this.classList.add('drag-over')"
+            ondragleave="this.classList.remove('drag-over')"
+            ondrop="handleImgDrop(event,${s.id})">${previewHtml}</div>
+          <input type="file" id="file-${s.id}" accept="image/*" style="display:none" onchange="handleImgFile(event,${s.id})"/>
+        </div>
+        <button class="ap-btn ap-btn-primary" onclick="saveService(${s.id})">&#128190; Enregistrer</button>
+      </div>
+    </div>`;
+  });
+}
 function toggleSvcEdit(id){const el=document.getElementById('svc-edit-'+id);el.style.display=el.style.display==='none'?'block':'none';}
-async function saveService(id){const d=getData();const s=d.services.find(x=>x.id===id);if(!s)return;s.tag=document.getElementById('svc-tag-'+id).value.trim();s.title=document.getElementById('svc-title-'+id).value.trim();s.text=document.getElementById('svc-text-'+id).value.trim();s.img=document.getElementById('svc-img-'+id).value.trim();await saveData(d);await logAction('Service modifié : '+s.title);applyDataToPage();alert('✅ "'+s.title+'" enregistré !');toggleSvcEdit(id);}
+async function saveService(id){
+  const d=getData();
+  const s=d.services.find(x=>x.id===id);
+  if(!s)return;
+  s.tag=document.getElementById('svc-tag-'+id).value.trim();
+  s.title=document.getElementById('svc-title-'+id).value.trim();
+  s.text=document.getElementById('svc-text-'+id).value.trim();
+  // Récupérer l'image depuis le drop zone (data-img) ou garder l'ancienne
+  const dropEl=document.getElementById('drop-'+id);
+  if(dropEl&&dropEl.dataset.img) s.img=dropEl.dataset.img;
+  await saveData(d);
+  await logAction('Service modifié : '+s.title);
+  applyDataToPage();
+  alert('✅ "'+s.title+'" enregistré !');
+  toggleSvcEdit(id);
+}
 async function deleteService(id){if(!confirm('Supprimer ?'))return;const d=getData();const s=d.services.find(x=>x.id===id);d.services=d.services.filter(x=>x.id!==id);await saveData(d);await logAction('Service supprimé : '+(s?s.title:id));renderServices();applyDataToPage();}
 async function addService(){const d=getData();const newId=Date.now();d.services.push({id:newId,tag:'Nouveau',title:'Nouveau service',text:'Description.',img:'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=700&auto=format&fit=crop'});await saveData(d);await logAction('Nouveau service ajouté');renderServices();applyDataToPage();setTimeout(()=>{document.getElementById('svc-edit-'+newId).style.display='block';document.getElementById('svc-edit-'+newId).scrollIntoView({behavior:'smooth'});},100);}
 function renderStrip(){const d=getData();const el=document.getElementById('strip-list');el.innerHTML='';d.strip.forEach((item,i)=>{el.innerHTML+=`<div class="strip-item-row"><input class="ap-input" value="${escA(item)}" id="strip-item-${i}" /><button class="ap-btn ap-btn-sm ap-btn-danger" onclick="removeStripItem(${i})">&#10005;</button></div>`;});}
@@ -974,6 +1066,72 @@ function applyDataToPage(){const d=getData();const grid=document.getElementById(
 // Avis clients
 const revGrid=document.getElementById('reviews-display');const revEmpty=document.getElementById('reviews-empty');
 if(revGrid){const reviews=d.reviews||[];if(reviews.length===0){revGrid.style.display='none';if(revEmpty)revEmpty.style.display='block';}else{revGrid.style.display='grid';if(revEmpty)revEmpty.style.display='none';revGrid.innerHTML=reviews.map(r=>{const stars='⭐'.repeat(parseInt(r.stars)||5);return`<div class="review-card"><div class="review-stars">${stars}</div><p class="review-text">"${escA(r.text)}"</p><div class="review-author">${escA(r.name)}</div>${r.service?`<div class="review-service">${escA(r.service)}</div>`:''}<div class="review-date">${escA(r.date||'')}</div></div>`;}).join('');}}}
+
+/* Gestion drop image — upload Cloudinary */
+const CLOUDINARY_CLOUD = 'dtsetw3ap';
+const CLOUDINARY_PRESET = 'fred_renovation';
+
+async function uploadToCloudinary(file){
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', CLOUDINARY_PRESET);
+  const resp = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+    method: 'POST',
+    body: fd
+  });
+  if(!resp.ok) throw new Error('Upload Cloudinary échoué');
+  const data = await resp.json();
+  return data.secure_url;
+}
+
+function showDropLoading(id){
+  const drop = document.getElementById('drop-'+id);
+  drop.innerHTML = `<div class="img-drop-placeholder"><div class="img-drop-icon" style="animation:spin 1s linear infinite;display:inline-block">&#9696;</div><div class="img-drop-text">Upload en cours...</div></div>`;
+}
+
+async function handleImgFile(evt, id){
+  const file = evt.target.files[0];
+  if(!file) return;
+  if(file.size > 10*1024*1024){alert('Image trop lourde (max 10 Mo).');return;}
+  showDropLoading(id);
+  try{
+    const url = await uploadToCloudinary(file);
+    setDropImg(id, url);
+  }catch(e){
+    alert('Erreur upload : '+e.message);
+    clearImg(id);
+  }
+}
+
+async function handleImgDrop(evt, id){
+  evt.preventDefault();
+  document.getElementById('drop-'+id).classList.remove('drag-over');
+  const file = evt.dataTransfer.files[0];
+  if(!file||!file.type.startsWith('image/')){alert('Fichier image requis.');return;}
+  if(file.size > 10*1024*1024){alert('Image trop lourde (max 10 Mo).');return;}
+  showDropLoading(id);
+  try{
+    const url = await uploadToCloudinary(file);
+    setDropImg(id, url);
+  }catch(e){
+    alert('Erreur upload : '+e.message);
+    clearImg(id);
+  }
+}
+
+function setDropImg(id, url){
+  const drop = document.getElementById('drop-'+id);
+  drop.dataset.img = url;
+  drop.innerHTML = `<div class="img-drop-preview"><img src="${url}" alt="apercu"><button class="img-drop-remove" onclick="event.stopPropagation();clearImg(${id})">&#10005;</button></div>`;
+}
+
+function clearImg(id){
+  const drop = document.getElementById('drop-'+id);
+  delete drop.dataset.img;
+  drop.innerHTML = '<div class="img-drop-placeholder"><div class="img-drop-icon">&#128247;</div><div class="img-drop-text">Glissez une photo ici<br><span>ou cliquez pour choisir</span></div><div class="img-drop-hint">JPG PNG WEBP &mdash; max 10 Mo</div></div>';
+  const fi = document.getElementById('file-'+id);
+  if(fi) fi.value = '';
+}
 function escA(str){return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // Chargement initial depuis npoint pour TOUS les visiteurs
